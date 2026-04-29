@@ -5,6 +5,7 @@ using TMPro;
 using DG.Tweening;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
+using SoundManager;
 
 public class Dialogmanager : MonoBehaviour
 {
@@ -79,15 +80,15 @@ public class Dialogmanager : MonoBehaviour
     public void OnClickNext()
     {
 
-        Debug.Log("按钮被点击了！准备播放音效..."); // 看看控制台有没有这句
-        if (AudioManager.Instance != null)
+        Debug.Log("按钮被点击了！准备播放音效...");
+        if (SoundManager.SoundManager.Instance != null)
         {
-            Debug.Log("AudioManager 实例存在，正在发送播放请求");
-            AudioManager.Instance.PlaySFX(AudioManager.SfxType.UI, "sfx_ui_click_button");
+            Debug.Log("SoundManager 实例存在，正在发送播放请求");
+            SoundManager.SoundManager.Instance.Play("sfx_ui_click_button");
         }
         else
         {
-            Debug.LogError("找不到 AudioManager 实例！请检查场景里有没有挂脚本。");
+            Debug.LogError("找不到 SoundManager 实例！请检查场景里有没有挂脚本。");
         }
         if (isFinished)
         {
@@ -216,9 +217,9 @@ public class Dialogmanager : MonoBehaviour
         // 6. 渲染立绘
         ApplyRender(targetSprite, pos, isNarrator);
 
-        if (dialogIndex == 0 && AudioManager.Instance != null)
+        if (dialogIndex == 0 && SoundManager.SoundManager.Instance != null)
         {
-            AudioManager.Instance.PlayNormalBGM("Plot");
+            SoundManager.SoundManager.Instance.Play("Plot");
         }
     }
 
