@@ -148,10 +148,18 @@ public class Dialogmanager : MonoBehaviour
             {
                 if (cells[0].Trim() == "#")
                 {
-                    // 背景切换逻辑
-                    if (cells.Length >= 7)
+                    // 背景切换逻辑
+                    if (cells.Length >= 7)
                     {
-                        if (int.TryParse(cells[6].Trim(), out int bgIndex)) ChangeBackground(bgIndex);
+                        if (int.TryParse(cells[6].Trim(), out int bgIndex))
+                        {
+                            Debug.Log($"[DialogManager] CSV requests background change -> index: {bgIndex} (row: '{row}')");
+                            ChangeBackground(bgIndex);
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"[DialogManager] Failed to parse background index from CSV column 7: '{cells[6]}' (row: '{row}')");
+                        }
                     }
 
                     UpdateUI(cells[2], cells[4], cells[3]);
@@ -258,8 +266,21 @@ public class Dialogmanager : MonoBehaviour
     }
     private void ChangeBackground(int index)
     {
-        if (backgroundDisplay == null || index < 0 || index >= backgroundSprites.Count) return;
-        if (backgroundDisplay.sprite == backgroundSprites[index]) return;
+        if (backgroundDisplay == null)
+        {
+            Debug.LogWarning($"[DialogManager] Cannot change background: backgroundDisplay is not assigned (requested index {index}).");
+            return;
+        }
+        if (index < 0 || index >= backgroundSprites.Count)
+        {
+            Debug.LogWarning($"[DialogManager] Cannot change background: index {index} is out of range (0 - {backgroundSprites.Count - 1}).");
+            return;
+        }
+        if (backgroundDisplay.sprite == backgroundSprites[index])
+        {
+            Debug.Log($"[DialogManager] Background already set to index {index}, no change needed.");
+            return;
+        }
 
         backgroundDisplay.DOKill();
         backgroundDisplay.DOColor(Color.black, 0.3f).OnComplete(() => {
