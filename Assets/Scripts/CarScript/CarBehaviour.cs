@@ -9,6 +9,7 @@ public class CarBehaviour : MonoBehaviour
     //框影响
     private bool isAntiGravity;
     private double speeding;
+    
     private Rigidbody2D thisrb;
     private Collider2D checkcol;
     private Collider2D[] zoneResults = new Collider2D[10];
@@ -39,11 +40,13 @@ public class CarBehaviour : MonoBehaviour
             {
                 isAntiGravity = true;
             }
-
+            
             if (zoneResults[i].TryGetComponent<SpeedingZone>(out SpeedingZone speedingZone))
             {
                 speeding += speedingZone.speeding;
             }
+            
+            
         }
         //处理框效果
         if (isAntiGravity)
@@ -57,7 +60,7 @@ public class CarBehaviour : MonoBehaviour
 
         if (speeding > 0)
         {
-            
+            //
             thisrb.velocity += thisrb.velocity.normalized * (float)(speeding *  Time.deltaTime);
         }
     }

@@ -12,13 +12,49 @@ public class ParticleBase : MonoBehaviour
     public bool CanBeDestroy;
     //是否能被隐藏，默认打开
     public bool CanBeInvisible;
+    private bool Invisible;
 
     // 内部组件引用
     public SpriteRenderer spriteRenderer;
     public Collider2D collider2d;
+    private Collider2D[] zoneResults = new Collider2D[10];
     void Awake()
     {
 
+    }
+
+    public void Update()
+    {
+        //collider2d.enabled = false;
+        int count = collider2d.GetContacts(zoneResults);
+        Invisible = false;
+        Debug.Log(count);
+        //初始化
+        for (int i = 0; i < count; i++)
+        {
+            if (zoneResults[i].TryGetComponent<SwapZone>(out var swapZone))
+            {
+                Invisible = true;
+                Debug.Log(swapZone.gameObject.name);
+            }
+            
+        }
+        
+        //处理
+        if (Invisible && CanBeInvisible)
+        {
+            Color color = spriteRenderer.color;
+            color.a = transparentAlpha;
+            spriteRenderer.color = color;
+            collider2d.isTrigger = true;
+        }
+        else
+        {
+            Color color = spriteRenderer.color;
+            color.a = 1;
+            spriteRenderer.color = color;
+            collider2d.isTrigger = false;
+        }
     }
     //接口：被破坏
     public void BeDestroy()
@@ -40,7 +76,7 @@ public class ParticleBase : MonoBehaviour
             Color color = spriteRenderer.color;
             color.a = transparentAlpha;
             spriteRenderer.color = color;
-            collider2d.enabled = false;
+            collider2d.isTrigger = true;
             //gameObject.SetActive(false);
 
         }
