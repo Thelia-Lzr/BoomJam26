@@ -45,5 +45,12 @@ public class ParticleBase : MonoBehaviour
 
         }
     }
-
+    //接口：恢复成默认状态
+    public void BeReturn()
+    {
+        Color color = spriteRenderer.color;
+        color.a = 1;
+        spriteRenderer.color = color;
+        collider2d.enabled = true;
+    }
 }
