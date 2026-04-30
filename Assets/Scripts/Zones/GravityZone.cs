@@ -11,7 +11,7 @@ public class GravityZone : MonoBehaviour
         {
             if (other.CompareTag(targetTag))
             {
-                Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+                Rigidbody2D rb = other.GetComponentInParent<Rigidbody2D>();
                 if (rb != null)
                 {
                     rb.gravityScale = -1;
@@ -23,7 +23,7 @@ public class GravityZone : MonoBehaviour
         {
             if (other.CompareTag(targetTag))
             {
-                Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+                Rigidbody2D rb = other.GetComponentInParent<Rigidbody2D>();
                 if (rb != null)
                 {
                     rb.gravityScale = 1;
