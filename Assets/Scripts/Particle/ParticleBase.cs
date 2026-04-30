@@ -29,7 +29,7 @@ public class ParticleBase : MonoBehaviour
             spriteRenderer.enabled = false;
             //gameObject.SetActive(false);
             //播放破碎动画
-
+            
         }
     }
     //接口：暂时透明
