@@ -53,7 +53,7 @@ public class Dialogmanager : MonoBehaviour
     {
         if (SceneController.Instance != null)
         {
-            // 改用这个：只拿数字，不准偷偷加 1
+            // 从场景控制器读取当前剧情编号
             dialogIndex = SceneController.Instance.GetCurrentStoryIndex();
             Debug.Log($"<color=green>【加载】准备播放剧本：{dialogIndex}</color>");
         }
@@ -69,6 +69,7 @@ public class Dialogmanager : MonoBehaviour
 
     public void PlayData(int fileIndex)
     {
+        // 根据剧情编号加载对应的文本资源
         if (fileIndex < 0 || fileIndex >= allDialogFiles.Count) return;
 
         isFinished = false;
@@ -94,32 +95,8 @@ public class Dialogmanager : MonoBehaviour
         {
             if (SceneController.Instance != null)
             {
-                // 1. 先自增进度（为下次回来做准备）
-                SceneController.Instance.AdvanceStoryIndex();
-
-                // 2. 获取刚才播完的那个剧本索引（因为上面刚加了1，这里要减回来判断）
-                int finishedStep = SceneController.Instance.GetCurrentStoryIndex() - 1;
-
-                Debug.Log($"<color=yellow>剧情 {finishedStep} 播完了，准备跳转对应战斗</color>");
-
-                // 3. 分岔路口判断
-                if (finishedStep == 0)
-                {
-                    SceneController.Instance.GoToBattle1();
-                }
-                else if (finishedStep == 1)
-                {
-                    SceneController.Instance.GoToBattle2();
-                }
-                else if (finishedStep == 2)
-                {
-                    SceneController.Instance.GoToBattle3();
-                }
-                else
-                {
-                    Debug.Log("没有更多战斗了，返回主菜单");
-                    SceneController.Instance.BackToMainMenu();
-                }
+                // 剧情结束后的跳转由场景控制器统一管理
+                SceneController.Instance.OnStoryFinished();
             }
             return;
         }
@@ -137,6 +114,7 @@ public class Dialogmanager : MonoBehaviour
 
     public void ShowDiaLogRow()
     {
+        // 逐行查找当前对白编号对应的数据
         if (dialogRows == null) return;
         foreach (string row in dialogRows)
         {

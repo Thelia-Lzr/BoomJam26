@@ -5,7 +5,26 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController Instance;
 
-    private int currentStoryStep = 0;
+    [Header("Scene Indices")]
+    [SerializeField] private int mainMenuSceneIndex = 0;
+    [SerializeField] private int levelSelectSceneIndex = 1;
+    [SerializeField] private int storySceneIndex = 2;
+    [SerializeField] private int[] battleSceneIndices;
+
+    [Header("Story Ids (per level)")]
+    [SerializeField] private int[] preBattleStoryIds;
+    [SerializeField] private int[] postBattleStoryIds;
+
+    private int currentLevelIndex = -1;
+    private int currentStoryId = -1;
+    private StoryPhase currentStoryPhase = StoryPhase.None;
+
+    private enum StoryPhase
+    {
+        None,
+        PreBattle,
+        PostBattle
+    }
 
     private void Awake()
     {
@@ -23,59 +42,132 @@ public class SceneController : MonoBehaviour
 
     public int GetCurrentStoryIndex()
     {
-        return currentStoryStep;
+        return currentStoryId;
     }
-    public void AdvanceStoryIndex()
+
+    public void StartLevel(int levelIndex)
     {
-        currentStoryStep++;
+        currentLevelIndex = levelIndex;
+        currentStoryPhase = StoryPhase.PreBattle;
+
+        if (TryGetStoryId(preBattleStoryIds, levelIndex, out int storyId))
+        {
+            currentStoryId = storyId;
+            SceneManager.LoadScene(storySceneIndex);
+            return;
+        }
+
+        Debug.LogWarning($"<color=yellow>未配置战前剧情，直接进入战斗：level={levelIndex}</color>");
+        currentStoryId = -1;
+        GoToBattleForCurrentLevel();
     }
 
-
-    public int GetAndIncrementStoryIndex()
+    public void StartPostBattleStory()
     {
-        int indexToReturn = currentStoryStep;
-        currentStoryStep++; // 这里加 1，确保下次再进 Start 拿的是新的
-        Debug.Log($"<color=orange>控制器：发放剧本 {indexToReturn}，进度指针已移至 {currentStoryStep}</color>");
-        return indexToReturn;
+        if (currentLevelIndex < 0)
+        {
+            Debug.LogWarning("<color=yellow>未选择关卡，无法进入战后剧情。</color>");
+            GoToLevelSelect();
+            return;
+        }
+
+        currentStoryPhase = StoryPhase.PostBattle;
+
+        if (TryGetStoryId(postBattleStoryIds, currentLevelIndex, out int storyId))
+        {
+            currentStoryId = storyId;
+            SceneManager.LoadScene(storySceneIndex);
+            return;
+        }
+
+        Debug.LogWarning($"<color=yellow>未配置战后剧情，返回选关：level={currentLevelIndex}</color>");
+        currentStoryId = -1;
+        GoToLevelSelect();
     }
 
-    // 重置进度
-    public void ResetStoryProgress()
+    public void OnStoryFinished()
     {
-        currentStoryStep = 0;
+        if (currentStoryPhase == StoryPhase.PreBattle)
+        {
+            GoToBattleForCurrentLevel();
+            return;
+        }
+
+        if (currentStoryPhase == StoryPhase.PostBattle)
+        {
+            GoToLevelSelect();
+            return;
+        }
+
+        Debug.LogWarning("<color=yellow>剧情结束但未指定阶段，返回选关。</color>");
+        GoToLevelSelect();
     }
 
-    // SceneController.cs
-    public void GoToBattle1() { UnityEngine.SceneManagement.SceneManager.LoadScene(2); }
-    public void GoToBattle2() { UnityEngine.SceneManagement.SceneManager.LoadScene(3); }
-    public void GoToBattle3() { UnityEngine.SceneManagement.SceneManager.LoadScene(4); }
-
-    public void GoToNextStory()
+    public void GoToBattleForCurrentLevel()
     {
-        SceneManager.LoadScene(1); 
+        if (TryGetBattleSceneIndex(out int sceneIndex))
+        {
+            SceneManager.LoadScene(sceneIndex);
+            return;
+        }
+
+        Debug.LogWarning("<color=yellow>未配置战斗场景，返回选关。</color>");
+        GoToLevelSelect();
     }
-    // 跳转到主菜单并重置进度
-    // 在 SceneController.cs 中
+
+    public void RestartBattle()
+    {
+        GoToBattleForCurrentLevel();
+    }
+
+    public void GoToLevelSelect()
+    {
+        SceneManager.LoadScene(levelSelectSceneIndex);
+    }
+
     public void BackToMainMenu()
     {
-        // 1. 进度归零（确保下次进来是从第一章开始）
-        currentStoryStep = 0;
-
-        // 2. 强制加载索引 0
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-
-        Debug.Log("<color=red>【系统】退出按钮触发：进度已重置，正在返回主菜单（Index 0）</color>");
+        ResetState();
+        SceneManager.LoadScene(mainMenuSceneIndex);
+        Debug.Log("<color=red>【系统】返回主菜单</color>");
     }
 
-    // 供主菜单的“开始游戏”按钮调用
     public void StartNewGame()
     {
-        Debug.Log("<color=green>【主菜单】开始新游戏，正在初始化进度...</color>");
+        ResetState();
+        GoToLevelSelect();
+    }
 
-        // 1. 确保进度归零
-        ResetStoryProgress();
+    private void ResetState()
+    {
+        currentLevelIndex = -1;
+        currentStoryId = -1;
+        currentStoryPhase = StoryPhase.None;
+    }
 
-        // 2. 跳转到剧情场景 (索引 1)
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    private bool TryGetBattleSceneIndex(out int sceneIndex)
+    {
+        sceneIndex = -1;
+
+        if (battleSceneIndices == null || currentLevelIndex < 0 || currentLevelIndex >= battleSceneIndices.Length)
+        {
+            return false;
+        }
+
+        sceneIndex = battleSceneIndices[currentLevelIndex];
+        return sceneIndex >= 0;
+    }
+
+    private static bool TryGetStoryId(int[] storyIds, int levelIndex, out int storyId)
+    {
+        storyId = -1;
+
+        if (storyIds == null || levelIndex < 0 || levelIndex >= storyIds.Length)
+        {
+            return false;
+        }
+
+        storyId = storyIds[levelIndex];
+        return storyId >= 0;
     }
 }
