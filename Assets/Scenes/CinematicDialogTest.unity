@@ -153,8 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allDialogFiles:
   - {fileID: 4900000, guid: 118b0bf2268875945a35886ca225e62a, type: 3}
+  - {fileID: 4900000, guid: 7f970ce9532e3b34ca6a80e8a6ef02c5, type: 3}
   testFileIndex: 0
-  useSceneControllerProgress: 0
+  useSceneControllerProgress: 1
   continueStoryFlowOnFinish: 0
   charNames:
   - "\u3010\u72EC\u5B64\u9633\u5149\xB7\u5F00\u6717\u5927\u7537\u5B69\u3011"
@@ -165,7 +166,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e299564371ef3a04aacea19b9a21799f, type: 3}
   - {fileID: 21300000, guid: 04cf73c1ea2e25348be7d78aebb76431, type: 3}
   charScales: []
-  shadowSprite: {fileID: 0}
+  shadowSprite: {fileID: 21300000, guid: f62ccc99cfc7abe499accd8f43edfe22, type: 3}
   nameText: {fileID: 1565182075}
   dialogText: {fileID: 1242393889}
   nextButton: {fileID: 1409394755}
@@ -2137,10 +2138,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -764302251143324952, guid: d8ed11338e39b504db2e66eefc206f2e, type: 3}
-      propertyPath: sounds.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1076632462070278361, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: m_Name
       value: Soundmanager
@@ -2184,6 +2181,10 @@ PrefabInstance:
     - target: {fileID: 4127124739603573181, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -764302251143324952, guid: d8ed11338e39b504db2e66eefc206f2e, type: 3}
+      propertyPath: sounds.Array.size
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

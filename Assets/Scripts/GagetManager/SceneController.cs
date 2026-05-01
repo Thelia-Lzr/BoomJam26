@@ -5,7 +5,21 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController Instance;
 
-    private int currentStoryStep = 0;
+    [Header("Scene Indices")]
+    [SerializeField] private int mainMenuSceneIndex = 0;
+    [SerializeField] private int levelSelectSceneIndex = 1;
+    [SerializeField] private int storySceneIndex = 2;
+    [SerializeField] private int level1BattleSceneIndex = 3;
+    [SerializeField] private int level2BattleSceneIndex = 4;
+
+    [Header("Story Ids")]
+    [SerializeField] private int level1PreStoryId = 0;
+    [SerializeField] private int level1PostStoryId = 1;
+    [SerializeField] private int level2PreStoryId = 2;
+    [SerializeField] private int level2PostStoryId = 3;
+
+    private int nextSceneIndex = -1;
+    private int currentStoryId = -1;
 
     private void Awake()
     {
@@ -23,59 +37,119 @@ public class SceneController : MonoBehaviour
 
     public int GetCurrentStoryIndex()
     {
-        return currentStoryStep;
-    }
-    public void AdvanceStoryIndex()
-    {
-        currentStoryStep++;
+        return currentStoryId;
     }
 
+    public void AdvanceStoryIndex()
+    {
+        currentStoryId++;
+    }
 
     public int GetAndIncrementStoryIndex()
     {
-        int indexToReturn = currentStoryStep;
-        currentStoryStep++; // 这里加 1，确保下次再进 Start 拿的是新的
-        Debug.Log($"<color=orange>控制器：发放剧本 {indexToReturn}，进度指针已移至 {currentStoryStep}</color>");
+        int indexToReturn = currentStoryId;
+        currentStoryId++;
+        Debug.Log($"<color=orange>控制器：发放剧本 {indexToReturn}，进度指针已移至 {currentStoryId}</color>");
         return indexToReturn;
     }
 
-    // 重置进度
     public void ResetStoryProgress()
     {
-        currentStoryStep = 0;
+        currentStoryId = 0;
+        nextSceneIndex = -1;
     }
 
-    // SceneController.cs
-    public void GoToBattle1() { UnityEngine.SceneManagement.SceneManager.LoadScene(2); }
-    public void GoToBattle2() { UnityEngine.SceneManagement.SceneManager.LoadScene(3); }
-    public void GoToBattle3() { UnityEngine.SceneManagement.SceneManager.LoadScene(4); }
+    public void GoToLevelSelect()
+    {
+        SceneManager.LoadScene(levelSelectSceneIndex);
+    }
+
+    public void GoToLevel1PreStory()
+    {
+        StartStory(level1PreStoryId, level1BattleSceneIndex);
+    }
+
+    public void GoToBattle1()
+    {
+        GoToLevel1Battle();
+    }
+
+    public void GoToLevel1Battle()
+    {
+        SceneManager.LoadScene(level1BattleSceneIndex);
+    }
+
+    public void GoToLevel1PostStory()
+    {
+        StartStory(level1PostStoryId, levelSelectSceneIndex);
+    }
+
+    public void GoToLevel2PreStory()
+    {
+        StartStory(level2PreStoryId, level2BattleSceneIndex);
+    }
+
+    public void GoToBattle2()
+    {
+        GoToLevel2Battle();
+    }
+
+    public void GoToLevel2Battle()
+    {
+        SceneManager.LoadScene(level2BattleSceneIndex);
+    }
+
+    public void GoToLevel2PostStory()
+    {
+        StartStory(level2PostStoryId, levelSelectSceneIndex);
+    }
+
+    public void GoToBattle3()
+    {
+        Debug.LogWarning("<color=yellow>未配置第三关战斗场景，返回选关。</color>");
+        GoToLevelSelect();
+    }
 
     public void GoToNextStory()
     {
-        SceneManager.LoadScene(1); 
+        SceneManager.LoadScene(storySceneIndex);
     }
-    // 跳转到主菜单并重置进度
-    // 在 SceneController.cs 中
+
+    public void OnStoryFinished()
+    {
+        if (nextSceneIndex < 0)
+        {
+            Debug.LogWarning("<color=yellow>未配置剧情结束的跳转场景，返回选关。</color>");
+            GoToLevelSelect();
+            return;
+        }
+
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+
     public void BackToMainMenu()
     {
-        // 1. 进度归零（确保下次进来是从第一章开始）
-        currentStoryStep = 0;
-
-        // 2. 强制加载索引 0
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-
-        Debug.Log("<color=red>【系统】退出按钮触发：进度已重置，正在返回主菜单（Index 0）</color>");
+        ResetState();
+        SceneManager.LoadScene(mainMenuSceneIndex);
+        Debug.Log("<color=red>【系统】返回主菜单</color>");
     }
 
-    // 供主菜单的“开始游戏”按钮调用
     public void StartNewGame()
     {
-        Debug.Log("<color=green>【主菜单】开始新游戏，正在初始化进度...</color>");
+        ResetState();
+        GoToLevelSelect();
+    }
 
-        // 1. 确保进度归零
-        ResetStoryProgress();
+    private void ResetState()
+    {
+        currentStoryId = -1;
+        nextSceneIndex = -1;
+    }
 
-        // 2. 跳转到剧情场景 (索引 1)
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    private void StartStory(int storyId, int sceneIndexAfterStory)
+    {
+        currentStoryId = storyId;
+        nextSceneIndex = sceneIndexAfterStory;
+        SceneManager.LoadScene(storySceneIndex);
     }
 }
