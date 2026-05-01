@@ -10,7 +10,7 @@ public class GameCamera : MonoBehaviour
     [Header("摆放框框的摄像机")]
     public Transform Camera1;
     [Header("摄像机移动速度")]
-    public float moveSpeed = 3f;
+    public float moveSpeed = 5f;
 
     [Header("摄像机地图边界")]
     

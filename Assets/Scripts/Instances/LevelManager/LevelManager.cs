@@ -17,6 +17,12 @@ public class LevelManager : MonoBehaviour
         public Vector2 StartVelocity;
         public double Delay;
     }
+    [System.Serializable]
+    private struct AvailableBorder
+    {
+        private bool Gravity;
+        
+    }
     [Header("UI相关")]
     [SerializeField] private Button StartButton;
     [Header("地图元素")]
@@ -26,7 +32,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject CarPrefab;
     [Header("初始配置")]
     [SerializeField] private List<CarStarts> Starts;
-
+     
     private void Awake()
     {
         if (Instance != null && Instance != this)
