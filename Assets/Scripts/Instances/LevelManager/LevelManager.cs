@@ -17,11 +17,32 @@ public class LevelManager : MonoBehaviour
         public Vector2 StartVelocity;
         public double Delay;
     }
+    /// <summary>
+    /// 由于UIManager要获取这个值，所以我改成public了
+    /// </summary>
     [System.Serializable]
-    private struct AvailableBorder
+    public struct AvailableBorder
     {
-        private bool Gravity;
-        
+        //这个grivaity没用过
+        public bool Gravity;
+        [Header("跳跃区域")]
+        public ZoneData SwapZone;
+        [Header("反重力区域")]
+        public ZoneData AntiGravityZone;
+        [Header("加速区域")]
+        public ZoneData SpeedingZone;
+    }
+    [System.Serializable]
+    public struct ZoneData
+    {
+        [Header("此关是否启用此区域")]
+        public bool enable;
+        [Header("区域宽")]
+        public int length;
+        [Header("区域高")]
+        public int height;
+        [Header("区域消耗")]
+        public int cost;
     }
     [Header("UI相关")]
     [SerializeField] private Button StartButton;
@@ -32,7 +53,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject CarPrefab;
     [Header("初始配置")]
     [SerializeField] private List<CarStarts> Starts;
-     
+    [Header("区域初始配置")]
+    [SerializeField] public List<AvailableBorder> Borders;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
