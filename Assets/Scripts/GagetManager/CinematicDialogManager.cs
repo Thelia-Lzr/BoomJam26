@@ -73,6 +73,7 @@ public class CinematicDialogManager : MonoBehaviour
     private const int ColTargetPos = 9;
     private const int ColTargetAction = 10;
     private const int ColScreenEffect = 11;
+    private const int ColBgmName = 12;
 
     private enum PortraitActionType
     {
@@ -103,6 +104,7 @@ public class CinematicDialogManager : MonoBehaviour
     private struct RowCues
     {
         public string SoundName;
+        public string BgmName;
         public string ActorAction;
         public string ActorPos;
         public string TargetAction;
@@ -288,6 +290,7 @@ public class CinematicDialogManager : MonoBehaviour
         return new RowCues
         {
             SoundName = Cell(cells, ColSoundName).Trim(),
+            BgmName = Cell(cells, ColBgmName).Trim(),
             ActorAction = Cell(cells, ColActorAction).Trim(),
             ActorPos = actorPos,
             TargetAction = Cell(cells, ColTargetAction).Trim(),
@@ -299,6 +302,7 @@ public class CinematicDialogManager : MonoBehaviour
     private void PlayRowCues(RowCues cues)
     {
         PlaySound(cues.SoundName);
+        PlaySound(cues.BgmName);
 
         // 自身动作作用于本句说话人的 pos；目标动作作用于 targetPos。
         // 例如：自身动作=撞击，目标位置=右，目标动作=受击，屏幕效果=白闪震动。
