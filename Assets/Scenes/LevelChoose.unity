@@ -407,8 +407,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1842866265}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+      - m_Target: {fileID: 1453745513}
+        m_TargetAssemblyTypeName: LevelSelectUI, Assembly-CSharp
         m_MethodName: GoToLevel1PostStory
         m_Mode: 1
         m_Arguments:
@@ -597,8 +597,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1842866265}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+      - m_Target: {fileID: 1453745513}
+        m_TargetAssemblyTypeName: LevelSelectUI, Assembly-CSharp
         m_MethodName: GoToLevel1PreStory
         m_Mode: 1
         m_Arguments:
@@ -659,6 +659,7 @@ GameObject:
   - component: {fileID: 1453745511}
   - component: {fileID: 1453745510}
   - component: {fileID: 1453745509}
+  - component: {fileID: 1453745513}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -750,15 +751,16 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1842866265 stripped
+--- !u!114 &1453745513
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2854914442102001990, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
-  m_PrefabInstance: {fileID: 938733458}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1453745508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c581b7a270bb81f489e97af97dc69018, type: 3}
+  m_Script: {fileID: 11500000, guid: 09027279767e9b142b0ada1b3ebbd5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2038670874

@@ -214,17 +214,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &725408120 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2854914442102001990, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
-  m_PrefabInstance: {fileID: 1366844605}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c581b7a270bb81f489e97af97dc69018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &746505567
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,6 +871,7 @@ GameObject:
   - component: {fileID: 1959074666}
   - component: {fileID: 1959074665}
   - component: {fileID: 1959074664}
+  - component: {fileID: 1959074667}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -974,6 +964,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1959074667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959074662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09027279767e9b142b0ada1b3ebbd5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1973901184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,8 +1059,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 725408120}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+      - m_Target: {fileID: 1959074667}
+        m_TargetAssemblyTypeName: LevelSelectUI, Assembly-CSharp
         m_MethodName: GoToLevelSelect
         m_Mode: 1
         m_Arguments:
