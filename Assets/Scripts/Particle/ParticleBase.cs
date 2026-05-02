@@ -28,14 +28,14 @@ public class ParticleBase : MonoBehaviour
         //collider2d.enabled = false;
         int count = collider2d.GetContacts(zoneResults);
         Invisible = false;
-        Debug.Log(count);
+        //可优化
+        
         //初始化
         for (int i = 0; i < count; i++)
         {
             if (zoneResults[i].TryGetComponent<SwapZone>(out var swapZone))
             {
                 Invisible = true;
-                Debug.Log(swapZone.gameObject.name);
             }
             
         }
