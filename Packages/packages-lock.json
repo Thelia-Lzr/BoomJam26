@@ -10,11 +10,11 @@
       "hash": "aa7d34f3f2a177c94429aa99e86909504a235f80"
     },
     "com.unity.2d.animation": {
-      "version": "9.2.0",
+      "version": "9.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "8.1.0",
+        "com.unity.2d.common": "8.1.1",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.collections": "1.1.0",
         "com.unity.modules.animation": "1.0.0",
@@ -35,8 +35,8 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.2d.common": {
-      "version": "8.1.0",
-      "depth": 2,
+      "version": "8.1.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.7.3",
@@ -57,13 +57,13 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.2d.psdimporter": {
-      "version": "8.1.0",
-      "depth": 1,
+      "version": "8.1.2",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "8.1.0",
+        "com.unity.2d.common": "8.1.1",
         "com.unity.2d.sprite": "1.0.0",
-        "com.unity.2d.animation": "9.2.0"
+        "com.unity.2d.animation": "9.2.2"
       },
       "url": "https://packages.unity.cn"
     },
@@ -107,7 +107,7 @@
     },
     "com.unity.burst": {
       "version": "1.8.21",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
