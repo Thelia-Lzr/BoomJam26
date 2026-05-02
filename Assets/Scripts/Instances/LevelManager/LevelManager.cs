@@ -15,7 +15,9 @@ public class LevelManager : MonoBehaviour
     private struct CarStarts
     {
         public Vector2 StartVelocity;
+        public float Mass;
         public double Delay;
+       
     }
     /// <summary>
     /// 由于UIManager要获取这个值，所以我改成public了
@@ -35,6 +37,7 @@ public class LevelManager : MonoBehaviour
     [System.Serializable]
     public struct ZoneData
     {
+        public string ability;
         [Header("此关是否启用此区域")]
         public bool enable;
         [Header("区域宽")]
@@ -55,6 +58,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<CarStarts> Starts;
     [Header("区域初始配置")]
     [SerializeField] public List<AvailableBorder> Borders;
+    
+    
 
     private void Awake()
     {
@@ -82,7 +87,9 @@ public class LevelManager : MonoBehaviour
         {
             yield return  new WaitForSeconds((float)starts.Delay);
             GameObject car = Instantiate(CarPrefab, StartPosi.transform.position, StartPosi.transform.rotation);
-            car.GetComponent<Rigidbody2D>().velocity = starts.StartVelocity;
+            Rigidbody2D rb = car.GetComponent<Rigidbody2D>();
+            rb.velocity = starts.StartVelocity;
+            rb.mass = starts.Mass;
         }
     }
     public Button StartButton1

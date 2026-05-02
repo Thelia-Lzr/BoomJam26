@@ -966,23 +966,47 @@ MonoBehaviour:
   Starts:
   - StartVelocity: {x: 2, y: 0}
     Delay: 0
+  - StartVelocity: {x: 3, y: 0}
+    Delay: 3
   Borders:
-  - Gravity: 1
+  - Gravity: 0
     SwapZone:
-      enable: 1
-      length: 2
-      height: 5
-      cost: 2
+      ability: 
+      enable: 0
+      length: 0
+      height: 0
+      cost: 0
     AntiGravityZone:
-      enable: 1
-      length: 3
-      height: 4
-      cost: 2
+      ability: 
+      enable: 0
+      length: 0
+      height: 0
+      cost: 0
     SpeedingZone:
-      enable: 1
-      length: 3
-      height: 4
-      cost: 2
+      ability: 
+      enable: 0
+      length: 0
+      height: 0
+      cost: 0
+  - Gravity: 0
+    SwapZone:
+      ability: 
+      enable: 0
+      length: 0
+      height: 0
+      cost: 0
+    AntiGravityZone:
+      ability: 
+      enable: 0
+      length: 0
+      height: 0
+      cost: 0
+    SpeedingZone:
+      ability: 
+      enable: 0
+      length: 0
+      height: 0
+      cost: 0
 --- !u!1 &492618381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,9 +1315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670b3c475d4b22444b3885006f7bbda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SwapZone>k__BackingField: {fileID: 800676689}
-  <AntiGravityZone>k__BackingField: {fileID: 1056376769}
-  <SpeedingZone>k__BackingField: {fileID: 1913968364}
+  <SwapZone>k__BackingField: {fileID: 0}
+  <AntiGravityZone>k__BackingField: {fileID: 0}
+  <SpeedingZone>k__BackingField: {fileID: 0}
 --- !u!4 &616574121
 Transform:
   m_ObjectHideFlags: 0
