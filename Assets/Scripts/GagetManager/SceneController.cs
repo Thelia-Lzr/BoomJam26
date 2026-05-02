@@ -26,14 +26,13 @@ public class SceneController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 确保它跨场景存在
+            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
-            Destroy(gameObject); // 重点：如果已经有一个了，就把新出来的删掉
+            Destroy(gameObject);
         }
     }
-
 
     public int GetCurrentStoryIndex()
     {
@@ -49,7 +48,7 @@ public class SceneController : MonoBehaviour
     {
         int indexToReturn = currentStoryId;
         currentStoryId++;
-        Debug.Log($"<color=orange>控制器：发放剧本 {indexToReturn}，进度指针已移至 {currentStoryId}</color>");
+        Debug.Log($"<color=orange>Controller: issued story {indexToReturn}, pointer moved to {currentStoryId}</color>");
         return indexToReturn;
     }
 
@@ -106,7 +105,7 @@ public class SceneController : MonoBehaviour
 
     public void GoToBattle3()
     {
-        Debug.LogWarning("<color=yellow>未配置第三关战斗场景，返回选关。</color>");
+        Debug.LogWarning("<color=yellow>Battle 3 is not configured. Returning to level select.</color>");
         GoToLevelSelect();
     }
 
@@ -119,7 +118,7 @@ public class SceneController : MonoBehaviour
     {
         if (nextSceneIndex < 0)
         {
-            Debug.LogWarning("<color=yellow>未配置剧情结束的跳转场景，返回选关。</color>");
+            Debug.LogWarning("<color=yellow>No next scene configured after story. Returning to level select.</color>");
             GoToLevelSelect();
             return;
         }
@@ -127,11 +126,21 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
 
+    public void FinishCurrentStory()
+    {
+        if (currentStoryId >= 0)
+        {
+            currentStoryId++;
+        }
+
+        OnStoryFinished();
+    }
+
     public void BackToMainMenu()
     {
         ResetState();
         SceneManager.LoadScene(mainMenuSceneIndex);
-        Debug.Log("<color=red>【系统】返回主菜单</color>");
+        Debug.Log("<color=red>[System] Back to main menu</color>");
     }
 
     public void StartNewGame()

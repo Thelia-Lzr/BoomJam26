@@ -6,61 +6,49 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 基于原 Dialogmanager 的“演出版”对话管理器。
-// 原脚本主要负责 CSV 对话、立绘明暗、背景和场景跳转；
-// 这个版本额外支持：CSV 驱动音效、立绘动作、目标受击、白/红/黑闪、镜头震动、角色单独缩放。
 public class CinematicDialogManager : MonoBehaviour
 {
-    [Header("1. 剧情仓库")]
+    [Header("1. Story Library")]
     public List<TextAsset> allDialogFiles = new List<TextAsset>();
-
-    // 测试场景使用：不走 SceneController 时，直接播放 allDialogFiles[testFileIndex]。
     public int testFileIndex = 0;
-
-    // 正式流程使用：开启后按 SceneController.currentStoryStep 选择剧情文件。
     public bool useSceneControllerProgress = false;
-
-    // 正式流程使用：开启后剧情结束会进入原来的战斗/主菜单跳转逻辑。
     public bool continueStoryFlowOnFinish = false;
 
-    [Header("2. 立绘配置")]
+    [Header("2. Portraits")]
     public List<string> charNames = new List<string>();
     public List<Sprite> charSprites = new List<Sprite>();
-
-    // 与 charNames / charSprites 一一对应；填 0 或不填则使用 Player Scale。
-    // 用来解决不同立绘原图大小不统一的问题。
     public List<float> charScales = new List<float>();
     public Sprite shadowSprite;
 
-    [Header("3. UI 引用")]
+    [Header("3. UI References")]
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogText;
     public Button nextButton;
 
-    [Header("4. 场景渲染器")]
+    [Header("4. Scene Renderers")]
     public SpriteRenderer imageLeft;
     public SpriteRenderer imageRight;
 
-    [Header("5. 运行状态")]
+    [Header("5. Runtime")]
     public int lineId = 0;
     public float typeSpeed = 0.03f;
-    public string finishText = "（剧情结束，点击继续）";
+    public string finishText = "\uFF08\u5267\u60C5\u7ED3\u675F\uFF0C\u70B9\u51FB\u7EE7\u7EED\uFF09";
 
-    [Header("6. 背景切换")]
+    [Header("6. Backgrounds")]
     public Image backgroundDisplay;
     public List<Sprite> backgroundSprites = new List<Sprite>();
 
-    [Header("7. 缩放补偿设置")]
+    [Header("7. Scale Settings")]
     [Range(0.1f, 2.0f)] public float playerScale = 0.6f;
     [Range(0.1f, 2.0f)] public float shadowScale = 0.8f;
 
-    [Header("8. 演出特效")]
+    [Header("8. Effects")]
     public Image flashImage;
     public Transform cameraShakeTarget;
 
-    // CSV 基础列：标记,id,角色,位置,台词,下一句,背景
-    // CSV 可选演出列：音效,自身动作,目标位置,目标动作,屏幕效果
-    // 普通台词可以只写前 7 列，后面的演出列为空即可。
+    [Header("9. Finish")]
+    public FinishAction finishAction = FinishAction.Auto;
+
     private const int ColTag = 0;
     private const int ColId = 1;
     private const int ColName = 2;
@@ -101,6 +89,17 @@ public class CinematicDialogManager : MonoBehaviour
         Black
     }
 
+    public enum FinishAction
+    {
+        Auto,
+        Stay,
+        LevelSelect,
+        Level1Battle,
+        Level2Battle,
+        Level3Battle,
+        MainMenu
+    }
+
     private struct RowCues
     {
         public string SoundName;
@@ -116,14 +115,13 @@ public class CinematicDialogManager : MonoBehaviour
     private Coroutine typewriterCoroutine;
     private string currentFullContent = "";
     private bool isFinished;
+    private bool isTransitioning;
 
     private void Awake()
     {
         SetPortraitDim(imageLeft);
         SetPortraitDim(imageRight);
 
-        // 闪光遮罩必须在 Canvas 最上层、透明、不拦截点击。
-        // 播放白闪/红闪/黑闪时脚本会临时改变它的颜色和 alpha。
         if (flashImage != null)
         {
             flashImage.gameObject.SetActive(true);
@@ -138,8 +136,6 @@ public class CinematicDialogManager : MonoBehaviour
     {
         int fileIndex = testFileIndex;
 
-        // 与原 Dialogmanager 不同：这里保留测试入口。
-        // 测试时关闭 useSceneControllerProgress，正式接入时再打开。
         if (useSceneControllerProgress && SceneController.Instance != null)
         {
             int storyIndex = SceneController.Instance.GetCurrentStoryIndex();
@@ -149,7 +145,8 @@ public class CinematicDialogManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"[CinematicDialogManager] SceneController story index {storyIndex} is out of range. Falling back to test file index {testFileIndex}.");
+                Debug.LogWarning(
+                    $"[CinematicDialogManager] SceneController story index {storyIndex} is out of range. Falling back to test file index {testFileIndex}.");
             }
         }
 
@@ -157,7 +154,6 @@ public class CinematicDialogManager : MonoBehaviour
 
         if (nextButton != null)
         {
-            // 运行时绑定按钮，避免 Inspector 里重复绑定导致一次点击触发多次。
             nextButton.onClick.RemoveAllListeners();
             nextButton.onClick.AddListener(OnClickNext);
         }
@@ -172,6 +168,7 @@ public class CinematicDialogManager : MonoBehaviour
         }
 
         isFinished = false;
+        isTransitioning = false;
         lineId = 0;
         dialogRows = allDialogFiles[fileIndex].text.Split('\n');
         ShowDialogRow();
@@ -179,13 +176,13 @@ public class CinematicDialogManager : MonoBehaviour
 
     public void OnClickNext()
     {
+        if (isTransitioning) return;
+
         PlaySound("sfx_ui_click_button");
 
-        // 点击时如果打字机还没结束，本次点击只补全文字，不进入下一句。
         if (typewriterCoroutine != null)
         {
-            StopCoroutine(typewriterCoroutine);
-            typewriterCoroutine = null;
+            StopTypewriter();
             if (dialogText != null) dialogText.text = currentFullContent;
             return;
         }
@@ -197,6 +194,16 @@ public class CinematicDialogManager : MonoBehaviour
         }
 
         ShowDialogRow();
+    }
+
+    public void OnClickSkip()
+    {
+        if (isTransitioning) return;
+
+        PlaySound("sfx_ui_click_button");
+        StopTypewriter();
+        isFinished = true;
+        ContinueAfterFinish();
     }
 
     public void ShowDialogRow()
@@ -219,9 +226,6 @@ public class CinematicDialogManager : MonoBehaviour
 
             TryChangeBackground(Cell(cells, ColBgIndex));
             UpdateUI(name, content, pos);
-
-            // 原 Dialogmanager 到这里基本只更新 UI；
-            // 演出版会继续读取后面的可选演出列，驱动音效、动作和屏幕效果。
             PlayRowCues(ReadRowCues(cells, pos));
             UpdateNextLine(next, rawRow);
             return;
@@ -238,13 +242,12 @@ public class CinematicDialogManager : MonoBehaviour
         int charIndex = FindPortraitIndex(pureName);
         Sprite targetSprite = GetPortraitSprite(charIndex);
 
-        // 旁白不会替换左右立绘，只让当前在场角色变暗。
         bool isNarrator = IsNarrator(pureName, pos, targetSprite);
         if (targetSprite == null && !isNarrator) targetSprite = shadowSprite;
 
         if (nameText != null) nameText.text = rawName.Trim();
 
-        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+        StopTypewriter();
         typewriterCoroutine = StartCoroutine(TypeText(currentFullContent));
 
         ApplyRender(targetSprite, pos, isNarrator, charIndex);
@@ -303,9 +306,6 @@ public class CinematicDialogManager : MonoBehaviour
     {
         PlaySound(cues.SoundName);
         PlaySound(cues.BgmName);
-
-        // 自身动作作用于本句说话人的 pos；目标动作作用于 targetPos。
-        // 例如：自身动作=撞击，目标位置=右，目标动作=受击，屏幕效果=白闪震动。
         PlayPortraitAction(cues.ActorAction, cues.ActorPos);
         PlayPortraitAction(cues.TargetAction, cues.TargetPos);
         PlayScreenEffect(cues.ScreenEffect);
@@ -481,7 +481,6 @@ public class CinematicDialogManager : MonoBehaviour
 
     private void PlayAttackHeavy(SpriteRenderer target, string pos)
     {
-        // 组合预设：重攻击 = 强撞击 + 白闪 + 镜头震动。
         PlayImpact(target, pos);
         PlayWhiteFlash(Color.white, 0.9f);
         PlayCameraShake(0.3f, new Vector3(0.18f, 0.1f, 0f));
@@ -492,7 +491,6 @@ public class CinematicDialogManager : MonoBehaviour
         Transform t = target.transform;
         Vector3 originScale = t.localScale;
 
-        // 组合预设：强敌登场 = 入场 + 轻微放大回弹 + 黑闪震动。
         PlayEnter(target, pos);
         DOTween.Sequence()
             .AppendInterval(0.05f)
@@ -544,7 +542,6 @@ public class CinematicDialogManager : MonoBehaviour
         flashImage.DOKill();
         flashImage.color = new Color(color.r, color.g, color.b, 0f);
 
-        // 只改 alpha，颜色由 white/red/black 参数决定。
         DOTween.Sequence()
             .Append(flashImage.DOFade(alpha, 0.05f))
             .Append(flashImage.DOFade(0f, 0.22f));
@@ -565,20 +562,19 @@ public class CinematicDialogManager : MonoBehaviour
         string key = NormalizeKey(action);
         if (IsNoneKey(key)) return PortraitActionType.None;
 
-        // 关键词规则集中在这里；动画怎么播由 PlayPortraitAction 负责。
-        if (Matches(key, "shake", "抖动")) return PortraitActionType.Shake;
-        if (Matches(key, "hit", "受击")) return PortraitActionType.Hit;
-        if (Matches(key, "punch", "突刺")) return PortraitActionType.Punch;
-        if (Matches(key, "impact", "撞击")) return PortraitActionType.Impact;
-        if (Matches(key, "jump", "跳动")) return PortraitActionType.Jump;
-        if (Matches(key, "enter", "入场")) return PortraitActionType.Enter;
-        if (Matches(key, "exit", "退场")) return PortraitActionType.Exit;
-        if (Matches(key, "fadein", "淡入")) return PortraitActionType.FadeIn;
-        if (Matches(key, "fadeout", "淡出")) return PortraitActionType.FadeOut;
-        if (Matches(key, "attack_light", "轻攻击")) return PortraitActionType.AttackLight;
-        if (Matches(key, "attack_heavy", "重攻击")) return PortraitActionType.AttackHeavy;
-        if (Matches(key, "damage_heavy", "重伤")) return PortraitActionType.DamageHeavy;
-        if (Matches(key, "boss_entry", "强敌登场")) return PortraitActionType.BossEntry;
+        if (Matches(key, "shake", "\u6296\u52A8")) return PortraitActionType.Shake;
+        if (Matches(key, "hit", "\u53D7\u51FB")) return PortraitActionType.Hit;
+        if (Matches(key, "punch", "\u7A81\u523A")) return PortraitActionType.Punch;
+        if (Matches(key, "impact", "\u649E\u51FB")) return PortraitActionType.Impact;
+        if (Matches(key, "jump", "\u8DF3\u52A8")) return PortraitActionType.Jump;
+        if (Matches(key, "enter", "\u5165\u573A")) return PortraitActionType.Enter;
+        if (Matches(key, "exit", "\u9000\u573A")) return PortraitActionType.Exit;
+        if (Matches(key, "fadein", "\u6DE1\u5165")) return PortraitActionType.FadeIn;
+        if (Matches(key, "fadeout", "\u6DE1\u51FA")) return PortraitActionType.FadeOut;
+        if (Matches(key, "attack_light", "\u8F7B\u653B\u51FB")) return PortraitActionType.AttackLight;
+        if (Matches(key, "attack_heavy", "\u91CD\u653B\u51FB")) return PortraitActionType.AttackHeavy;
+        if (Matches(key, "damage_heavy", "\u91CD\u4F24")) return PortraitActionType.DamageHeavy;
+        if (Matches(key, "boss_entry", "\u5F3A\u654C\u767B\u573A")) return PortraitActionType.BossEntry;
 
         Debug.LogWarning($"[CinematicDialogManager] Unknown portrait action: {action}");
         return PortraitActionType.None;
@@ -586,15 +582,15 @@ public class CinematicDialogManager : MonoBehaviour
 
     private FlashKind ParseFlashKind(string key)
     {
-        if (ContainsAny(key, "redflash", "红闪")) return FlashKind.Red;
-        if (ContainsAny(key, "blackflash", "黑闪")) return FlashKind.Black;
-        if (ContainsAny(key, "flash", "白闪")) return FlashKind.White;
+        if (ContainsAny(key, "redflash", "\u7EA2\u95EA")) return FlashKind.Red;
+        if (ContainsAny(key, "blackflash", "\u9ED1\u95EA")) return FlashKind.Black;
+        if (ContainsAny(key, "flash", "\u767D\u95EA")) return FlashKind.White;
         return FlashKind.None;
     }
 
     private bool HasScreenShake(string key)
     {
-        return ContainsAny(key, "shake", "震动");
+        return ContainsAny(key, "shake", "\u9707\u52A8");
     }
 
     private void TryChangeBackground(string value)
@@ -632,26 +628,76 @@ public class CinematicDialogManager : MonoBehaviour
 
     private void ContinueAfterFinish()
     {
-        if (!continueStoryFlowOnFinish || SceneController.Instance == null)
+        if (isTransitioning) return;
+
+        if (!continueStoryFlowOnFinish)
         {
             EndDialog();
             return;
         }
 
-        SceneController.Instance.AdvanceStoryIndex();
-        int finishedStep = SceneController.Instance.GetCurrentStoryIndex() - 1;
+        isTransitioning = true;
 
-        // 保留原 Dialogmanager 的硬编码流程：剧情 0/1/2 分别接战斗 1/2/3。
-        if (finishedStep == 0) SceneController.Instance.GoToBattle1();
-        else if (finishedStep == 1) SceneController.Instance.GoToBattle2();
-        else if (finishedStep == 2) SceneController.Instance.GoToBattle3();
-        else SceneController.Instance.BackToMainMenu();
+        if (finishAction == FinishAction.Auto && useSceneControllerProgress && SceneController.Instance != null)
+        {
+            SceneController.Instance.FinishCurrentStory();
+            return;
+        }
+
+        if (TryRunFinishAction()) return;
+
+        Debug.LogWarning("[CinematicDialogManager] No finish action was run. Use Auto during normal flow, or choose a Finish Action for standalone testing.");
+        EndDialog();
+    }
+
+    private bool TryRunFinishAction()
+    {
+        if (finishAction == FinishAction.Stay) return false;
+
+        if (SceneController.Instance == null)
+        {
+            Debug.LogWarning("[CinematicDialogManager] Finish Action needs a SceneController in the scene.");
+            return false;
+        }
+
+        switch (finishAction)
+        {
+            case FinishAction.LevelSelect:
+                SceneController.Instance.GoToLevelSelect();
+                return true;
+            case FinishAction.Level1Battle:
+                SceneController.Instance.GoToLevel1Battle();
+                return true;
+            case FinishAction.Level2Battle:
+                SceneController.Instance.GoToLevel2Battle();
+                return true;
+            case FinishAction.Level3Battle:
+                SceneController.Instance.GoToBattle3();
+                return true;
+            case FinishAction.MainMenu:
+                SceneController.Instance.BackToMainMenu();
+                return true;
+            case FinishAction.Auto:
+            case FinishAction.Stay:
+            default:
+                return false;
+        }
     }
 
     public void EndDialog()
     {
         isFinished = true;
+        isTransitioning = false;
+        StopTypewriter();
         if (dialogText != null) dialogText.text = finishText;
+    }
+
+    private void StopTypewriter()
+    {
+        if (typewriterCoroutine == null) return;
+
+        StopCoroutine(typewriterCoroutine);
+        typewriterCoroutine = null;
     }
 
     private IEnumerator TypeText(string text)
@@ -692,7 +738,9 @@ public class CinematicDialogManager : MonoBehaviour
 
     private bool IsNarrator(string pureName, string pos, Sprite sprite)
     {
-        return (IsCenter(pos) && sprite == null) || pureName.Contains("旁白") || pureName.Contains("传颂者");
+        return (IsCenter(pos) && sprite == null)
+               || pureName.Contains("\u65C1\u767D")
+               || pureName.Contains("\u4F20\u9882\u8005");
     }
 
     private Vector3 GetScaleForSprite(Sprite sprite, int charIndex)
@@ -700,7 +748,6 @@ public class CinematicDialogManager : MonoBehaviour
         bool isShadow = sprite != null && shadowSprite != null && sprite.name == shadowSprite.name;
         float scale = isShadow ? shadowScale : playerScale;
 
-        // 优先使用角色单独缩放；没配置时才使用 Player Scale。
         if (!isShadow && charIndex >= 0 && charIndex < charScales.Count && charScales[charIndex] > 0f)
         {
             scale = charScales[charIndex];
@@ -723,12 +770,10 @@ public class CinematicDialogManager : MonoBehaviour
 
     private void SetPortraitDim(SpriteRenderer renderer)
     {
-        if (renderer != null)
-        {
-            // 退场会把 alpha 变成 0；变暗时保留 alpha，避免退场角色被旁白重新显示出来。
-            float alpha = renderer.color.a;
-            renderer.DOColor(new Color(0.3f, 0.3f, 0.3f, alpha), 0.16f);
-        }
+        if (renderer == null) return;
+
+        float alpha = renderer.color.a;
+        renderer.DOColor(new Color(0.3f, 0.3f, 0.3f, alpha), 0.16f);
     }
 
     private void PlaySound(string soundName)
@@ -750,7 +795,7 @@ public class CinematicDialogManager : MonoBehaviour
 
     private bool IsNoneKey(string key)
     {
-        return string.IsNullOrEmpty(key) || key == "none" || key == "-" || key == "无";
+        return string.IsNullOrEmpty(key) || key == "none" || key == "-" || key == "\u65E0";
     }
 
     private bool Matches(string key, params string[] aliases)
@@ -775,7 +820,6 @@ public class CinematicDialogManager : MonoBehaviour
 
     private List<string> ParseCsvLine(string line)
     {
-        // 比 string.Split(',') 稍安全：支持引号里的逗号，例如 "你好,世界"。
         List<string> result = new List<string>();
         bool inQuotes = false;
         string current = "";
@@ -820,18 +864,18 @@ public class CinematicDialogManager : MonoBehaviour
     private bool IsLeft(string pos)
     {
         string value = pos.Trim().ToLowerInvariant();
-        return value == "左" || value == "left" || value == "l";
+        return value == "\u5DE6" || value == "left" || value == "l";
     }
 
     private bool IsRight(string pos)
     {
         string value = pos.Trim().ToLowerInvariant();
-        return value == "右" || value == "right" || value == "r";
+        return value == "\u53F3" || value == "right" || value == "r";
     }
 
     private bool IsCenter(string pos)
     {
         string value = pos.Trim().ToLowerInvariant();
-        return value == "中" || value == "center" || value == "c";
+        return value == "\u4E2D" || value == "center" || value == "c";
     }
 }
