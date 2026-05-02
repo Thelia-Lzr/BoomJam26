@@ -5,7 +5,15 @@ using SoundManager;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-
+/// <summary>
+/// 临时枚举类，应该放在其他地方的
+/// </summary>
+public enum ZoneClass
+{
+    Swap = 0,
+    AntiGravity = 1,
+    Speeding = 2,
+}
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
@@ -27,19 +35,21 @@ public class LevelManager : MonoBehaviour
     {
         //这个grivaity没用过
         public bool Gravity;
-        [Header("跳跃区域")]
-        public ZoneData SwapZone;
-        [Header("反重力区域")]
-        public ZoneData AntiGravityZone;
-        [Header("加速区域")]
-        public ZoneData SpeedingZone;
     }
     [System.Serializable]
     public struct ZoneData
     {
         public string ability;
-        [Header("此关是否启用此区域")]
-        public bool enable;
+        //[Header("此关是否启用此区域")]
+        //public bool enable;
+        [Header("此区域的区域细节")]
+        public ZoneClass zoneClass;
+        [Header("此区域的区域细节")]
+        public List<ZoneDetail> Details;
+    }
+    [System.Serializable]
+    public struct ZoneDetail
+    {
         [Header("区域宽")]
         public int length;
         [Header("区域高")]
@@ -57,7 +67,7 @@ public class LevelManager : MonoBehaviour
     [Header("初始配置")]
     [SerializeField] private List<CarStarts> Starts;
     [Header("区域初始配置")]
-    [SerializeField] public List<AvailableBorder> Borders;
+    [SerializeField] public List<ZoneData> Borders;
     
     
 
