@@ -258,6 +258,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13848106}
   m_CullTransparentMesh: 1
+--- !u!1 &80557479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6495345487602009264, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
+  m_PrefabInstance: {fileID: 6850575818635308652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &155952942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,9 +1319,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670b3c475d4b22444b3885006f7bbda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SwapZone>k__BackingField: {fileID: 0}
-  <AntiGravityZone>k__BackingField: {fileID: 0}
-  <SpeedingZone>k__BackingField: {fileID: 0}
+  <SwapZone>k__BackingField: {fileID: 80557479}
+  <AntiGravityZone>k__BackingField: {fileID: 1407473552}
+  <SpeedingZone>k__BackingField: {fileID: 80557479}
 --- !u!4 &616574121
 Transform:
   m_ObjectHideFlags: 0
@@ -2033,6 +2038,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
+--- !u!1 &1407473552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
+  m_PrefabInstance: {fileID: 1384543199}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1418376167
 GameObject:
   m_ObjectHideFlags: 0
