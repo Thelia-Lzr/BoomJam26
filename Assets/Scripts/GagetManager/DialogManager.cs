@@ -5,7 +5,6 @@ using TMPro;
 using DG.Tweening;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
-using SoundManager;
 
 public class Dialogmanager : MonoBehaviour
 {
