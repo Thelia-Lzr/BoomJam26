@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class CarBehaviour : MonoBehaviour
 {
@@ -10,15 +11,41 @@ public class CarBehaviour : MonoBehaviour
     private bool isAntiGravity;
     private double speeding;
     
-    private Rigidbody2D thisrb;
-    private Collider2D checkcol;
+    public Rigidbody2D thisrb;
+    public Collider2D checkcol;
+    public HingeJoint2D motorWheel;
     private Collider2D[] zoneResults = new Collider2D[10];
     
     private void Awake()
     {
         isAntiGravity = false;
-        thisrb = GetComponent<Rigidbody2D>();
-        checkcol =  GetComponentInChildren<Collider2D>();
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("CarItself"))
+            {
+                thisrb = child.GetComponent<Rigidbody2D>();
+                //Debug.Log(thisrb);
+            }
+        }
+
+        foreach (Transform child in thisrb.transform)
+        {
+            if (child.CompareTag("Car"))
+            {
+                checkcol =  child.GetComponent<Collider2D>();
+                //Debug.Log(checkcol);
+            }
+        }
+
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("CarMotorWheel"))
+            {
+                motorWheel = child.GetComponent<HingeJoint2D>();
+            }
+        }
+        //thisrb = GetComponent<Rigidbody2D>();
+        
     }
 
     // Start is called before the first frame update
@@ -33,6 +60,7 @@ public class CarBehaviour : MonoBehaviour
         //初始化
         isAntiGravity = false;
         speeding = 0;
+        Debug.Log(count);
         //收集框效果
         for (int i = 0; i < count; i++)
         {
@@ -52,6 +80,7 @@ public class CarBehaviour : MonoBehaviour
         if (isAntiGravity)
         {
             thisrb.gravityScale = -1;
+            Debug.Log(thisrb.gravityScale);
         }
         else
         {
