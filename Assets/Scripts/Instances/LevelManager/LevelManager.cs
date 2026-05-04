@@ -22,7 +22,8 @@ public class LevelManager : MonoBehaviour
     [System.Serializable]
     private struct CarStarts
     {
-        public Vector2 StartVelocity;
+        public float motorSpeed;
+        //public Vector2 StartVelocity;
         public float Mass;
         public double Delay;
        
@@ -97,9 +98,15 @@ public class LevelManager : MonoBehaviour
         {
             yield return  new WaitForSeconds((float)starts.Delay);
             GameObject car = Instantiate(CarPrefab, StartPosi.transform.position, StartPosi.transform.rotation);
-            Rigidbody2D rb = car.GetComponent<Rigidbody2D>();
-            rb.velocity = starts.StartVelocity;
-            rb.mass = starts.Mass;
+            CarBehaviour thiscar = car.GetComponent<CarBehaviour>();
+            //thiscar.thisrb.velocity = starts.StartVelocity;
+            JointMotor2D motor = thiscar.motorWheel.motor;
+            motor.motorSpeed = starts.motorSpeed;
+            thiscar.motorWheel.motor = motor;
+            thiscar.thisrb.mass = starts.Mass;
+            // Rigidbody2D rb = car.GetComponent<Rigidbody2D>();
+            // rb.velocity = starts.StartVelocity;
+            // rb.mass = starts.Mass;
         }
     }
     public Button StartButton1

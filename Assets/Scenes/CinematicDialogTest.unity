@@ -153,9 +153,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allDialogFiles:
   - {fileID: 4900000, guid: 118b0bf2268875945a35886ca225e62a, type: 3}
+  - {fileID: 4900000, guid: 7f970ce9532e3b34ca6a80e8a6ef02c5, type: 3}
   testFileIndex: 0
-  useSceneControllerProgress: 0
-  continueStoryFlowOnFinish: 0
+  useSceneControllerProgress: 1
+  continueStoryFlowOnFinish: 1
   charNames:
   - "\u3010\u72EC\u5B64\u9633\u5149\xB7\u5F00\u6717\u5927\u7537\u5B69\u3011"
   - "\u3010\u8BF8\u845B\u5EFA\u56FD\xB7\u75C5\u5F31\u50B2\u5A07\u59B9\u59B9\u3011"
@@ -165,7 +166,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e299564371ef3a04aacea19b9a21799f, type: 3}
   - {fileID: 21300000, guid: 04cf73c1ea2e25348be7d78aebb76431, type: 3}
   charScales: []
-  shadowSprite: {fileID: 0}
+  shadowSprite: {fileID: 21300000, guid: f62ccc99cfc7abe499accd8f43edfe22, type: 3}
   nameText: {fileID: 1565182075}
   dialogText: {fileID: 1242393889}
   nextButton: {fileID: 1409394755}
@@ -181,6 +182,7 @@ MonoBehaviour:
   shadowScale: 0.8
   flashImage: {fileID: 990831942}
   cameraShakeTarget: {fileID: 990190963}
+  finishAction: 0
 --- !u!4 &3871391
 Transform:
   m_ObjectHideFlags: 0
@@ -1181,9 +1183,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3871390}
-        m_TargetAssemblyTypeName: CinematicDialogManager, Assembly-CSharp
-        m_MethodName: OnExitButtonClicked
+      - m_Target: {fileID: 1505105938}
+        m_TargetAssemblyTypeName: LevelSelectUI, Assembly-CSharp
+        m_MethodName: GoToLevelSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1498,6 +1500,7 @@ GameObject:
   - component: {fileID: 1505105937}
   - component: {fileID: 1505105936}
   - component: {fileID: 1505105935}
+  - component: {fileID: 1505105938}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1589,6 +1592,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1505105938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505105933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09027279767e9b142b0ada1b3ebbd5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545024699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1896,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1653211085}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3871390}
+        m_TargetAssemblyTypeName: CinematicDialogManager, Assembly-CSharp
+        m_MethodName: OnClickSkip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1653211085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,6 +2156,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1741088666
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 614643466015157209, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_Name
+      value: SceneController
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997273549447589211, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 994de56b3db71cb40ab5e31daa8f325d, type: 3}
 --- !u!1001 &2025891002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2202,3 +2286,4 @@ SceneRoots:
   - {fileID: 3871391}
   - {fileID: 1292547871}
   - {fileID: 2025891002}
+  - {fileID: 1741088666}
