@@ -12,7 +12,9 @@ public class ParticleBase : MonoBehaviour
     public bool CanBeDestroy;
     //是否能被隐藏，默认打开
     public bool CanBeInvisible;
-    private bool Invisible;
+    
+    [SerializeField] public bool notVisibleAtStart = false;
+    private bool swap;
 
     // 内部组件引用
     public SpriteRenderer spriteRenderer;
@@ -27,7 +29,7 @@ public class ParticleBase : MonoBehaviour
     {
         //collider2d.enabled = false;
         int count = collider2d.GetContacts(zoneResults);
-        Invisible = false;
+        swap = false;
         //可优化
         
         //初始化
@@ -35,13 +37,13 @@ public class ParticleBase : MonoBehaviour
         {
             if (zoneResults[i].TryGetComponent<SwapZone>(out var swapZone))
             {
-                Invisible = true;
+                swap = true;
             }
             
         }
         
         //处理
-        if (Invisible && CanBeInvisible)
+        if ((swap ^ notVisibleAtStart) && CanBeInvisible)
         {
             Color color = spriteRenderer.color;
             color.a = transparentAlpha;
