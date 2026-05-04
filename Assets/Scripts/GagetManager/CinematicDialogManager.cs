@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using TMPro;
@@ -8,6 +9,14 @@ using UnityEngine.UI;
 
 public class CinematicDialogManager : MonoBehaviour
 {
+    [System.Serializable]
+    private class CharacterPortraitConfig
+    {
+        public string characterName = "";
+        public Sprite sprite = null;
+        public float scale = 0.6f;
+    }
+
     [Header("1. Story Library")]
     public List<TextAsset> allDialogFiles = new List<TextAsset>();
     public int testFileIndex = 0;
@@ -15,6 +24,9 @@ public class CinematicDialogManager : MonoBehaviour
     public bool continueStoryFlowOnFinish = false;
 
     [Header("2. Portraits")]
+    [SerializeField] private List<CharacterPortraitConfig> characterPortraits = new List<CharacterPortraitConfig>();
+
+    [Header("2. Portraits Legacy")]
     public List<string> charNames = new List<string>();
     public List<Sprite> charSprites = new List<Sprite>();
     public List<float> charScales = new List<float>();
@@ -111,7 +123,27 @@ public class CinematicDialogManager : MonoBehaviour
         public string ScreenEffect;
     }
 
-    private string[] dialogRows;
+    private struct DialogRow
+    {
+        public int RowNumber;
+        public int Id;
+        public string RawRow;
+        public string Name;
+        public string Pos;
+        public string Content;
+        public string Next;
+        public string BgIndex;
+        public RowCues Cues;
+    }
+
+    private struct PortraitLookup
+    {
+        public Sprite Sprite;
+        public float Scale;
+        public bool HasCustomScale;
+    }
+
+    private readonly Dictionary<int, DialogRow> dialogRowsById = new Dictionary<int, DialogRow>();
     private Coroutine typewriterCoroutine;
     private string currentFullContent = "";
     private bool isFinished;
@@ -170,7 +202,7 @@ public class CinematicDialogManager : MonoBehaviour
         isFinished = false;
         isTransitioning = false;
         lineId = 0;
-        dialogRows = allDialogFiles[fileIndex].text.Split('\n');
+        BuildDialogCache(allDialogFiles[fileIndex]);
         ShowDialogRow();
     }
 
@@ -208,30 +240,62 @@ public class CinematicDialogManager : MonoBehaviour
 
     public void ShowDialogRow()
     {
-        if (dialogRows == null) return;
-
-        foreach (string rawRow in dialogRows)
+        if (!dialogRowsById.TryGetValue(lineId, out DialogRow row))
         {
-            if (string.IsNullOrWhiteSpace(rawRow)) continue;
-
-            List<string> cells = ParseCsvLine(rawRow.TrimEnd('\r'));
-            if (cells.Count < 6) continue;
-            if (Cell(cells, ColTag).Trim() != "#") continue;
-            if (Cell(cells, ColId).Trim() != lineId.ToString()) continue;
-
-            string name = Cell(cells, ColName);
-            string pos = Cell(cells, ColPos).Trim();
-            string content = Cell(cells, ColContent);
-            string next = Cell(cells, ColNext).Trim();
-
-            TryChangeBackground(Cell(cells, ColBgIndex));
-            UpdateUI(name, content, pos);
-            PlayRowCues(ReadRowCues(cells, pos));
-            UpdateNextLine(next, rawRow);
+            Debug.LogWarning($"[CinematicDialogManager] Could not find dialog id {lineId}. Ending dialog.");
+            EndDialog();
             return;
         }
 
-        EndDialog();
+        TryChangeBackground(row.BgIndex);
+        UpdateUI(row.Name, row.Content, row.Pos);
+        PlayRowCues(row.Cues);
+        UpdateNextLine(row.Next, row.RawRow, row.RowNumber);
+    }
+
+    private void BuildDialogCache(TextAsset dialogFile)
+    {
+        dialogRowsById.Clear();
+
+        string[] rows = dialogFile.text.Split('\n');
+        for (int i = 0; i < rows.Length; i++)
+        {
+            string rawRow = rows[i].TrimEnd('\r');
+            if (string.IsNullOrWhiteSpace(rawRow)) continue;
+
+            List<string> cells = ParseCsvLine(rawRow);
+            if (cells.Count < 6) continue;
+            if (Cell(cells, ColTag).Trim() != "#") continue;
+
+            string rawId = Cell(cells, ColId).Trim();
+            if (!int.TryParse(rawId, out int rowId))
+            {
+                Debug.LogWarning($"[CinematicDialogManager] Invalid dialog id '{rawId}' in {dialogFile.name}, row {i + 1}.");
+                continue;
+            }
+
+            string pos = Cell(cells, ColPos).Trim();
+            DialogRow row = new DialogRow
+            {
+                RowNumber = i + 1,
+                Id = rowId,
+                RawRow = rawRow,
+                Name = Cell(cells, ColName),
+                Pos = pos,
+                Content = Cell(cells, ColContent),
+                Next = Cell(cells, ColNext).Trim(),
+                BgIndex = Cell(cells, ColBgIndex),
+                Cues = ReadRowCues(cells, pos)
+            };
+
+            if (dialogRowsById.ContainsKey(row.Id))
+            {
+                Debug.LogWarning($"[CinematicDialogManager] Duplicate dialog id {row.Id} in {dialogFile.name}, row {row.RowNumber}. Keeping the first row.");
+                continue;
+            }
+
+            dialogRowsById[row.Id] = row;
+        }
     }
 
     private void UpdateUI(string rawName, string content, string pos)
@@ -239,8 +303,8 @@ public class CinematicDialogManager : MonoBehaviour
         string pureName = PureName(rawName);
         currentFullContent = content.Trim();
 
-        int charIndex = FindPortraitIndex(pureName);
-        Sprite targetSprite = GetPortraitSprite(charIndex);
+        PortraitLookup portrait = FindPortrait(pureName);
+        Sprite targetSprite = portrait.Sprite;
 
         bool isNarrator = IsNarrator(pureName, pos, targetSprite);
         if (targetSprite == null && !isNarrator) targetSprite = shadowSprite;
@@ -250,10 +314,10 @@ public class CinematicDialogManager : MonoBehaviour
         StopTypewriter();
         typewriterCoroutine = StartCoroutine(TypeText(currentFullContent));
 
-        ApplyRender(targetSprite, pos, isNarrator, charIndex);
+        ApplyRender(targetSprite, pos, isNarrator, portrait);
     }
 
-    private void ApplyRender(Sprite sprite, string pos, bool isNarrator, int charIndex)
+    private void ApplyRender(Sprite sprite, string pos, bool isNarrator, PortraitLookup portrait)
     {
         if (imageLeft == null || imageRight == null) return;
 
@@ -272,14 +336,14 @@ public class CinematicDialogManager : MonoBehaviour
             if (sprite != null) imageLeft.sprite = sprite;
             SetPortraitActive(imageLeft);
             SetPortraitDim(imageRight);
-            imageLeft.transform.localScale = GetScaleForSprite(sprite, charIndex);
+            imageLeft.transform.localScale = GetScaleForSprite(sprite, portrait);
         }
         else if (IsRight(pos))
         {
             if (sprite != null) imageRight.sprite = sprite;
             SetPortraitActive(imageRight);
             SetPortraitDim(imageLeft);
-            imageRight.transform.localScale = GetScaleForSprite(sprite, charIndex);
+            imageRight.transform.localScale = GetScaleForSprite(sprite, portrait);
         }
         else
         {
@@ -608,7 +672,7 @@ public class CinematicDialogManager : MonoBehaviour
         });
     }
 
-    private void UpdateNextLine(string next, string row)
+    private void UpdateNextLine(string next, string row, int rowNumber)
     {
         if (next.ToLowerInvariant() == "end")
         {
@@ -622,7 +686,7 @@ public class CinematicDialogManager : MonoBehaviour
             return;
         }
 
-        Debug.LogWarning($"[CinematicDialogManager] Invalid next id '{next}' in row: {row}");
+        Debug.LogWarning($"[CinematicDialogManager] Invalid next id '{next}' in row {rowNumber}: {row}");
         EndDialog();
     }
 
@@ -705,32 +769,64 @@ public class CinematicDialogManager : MonoBehaviour
         if (dialogText == null) yield break;
 
         dialogText.text = "";
+        StringBuilder builder = new StringBuilder(text.Length);
         foreach (char c in text)
         {
-            dialogText.text += c;
+            builder.Append(c);
+            dialogText.text = builder.ToString();
             yield return new WaitForSeconds(typeSpeed);
         }
 
         typewriterCoroutine = null;
     }
 
-    private int FindPortraitIndex(string pureName)
+    private PortraitLookup FindPortrait(string pureName)
+    {
+        for (int i = 0; i < characterPortraits.Count; i++)
+        {
+            CharacterPortraitConfig config = characterPortraits[i];
+            if (config == null) continue;
+
+            string configName = PureName(config.characterName);
+            if (!IsPortraitNameMatch(pureName, configName)) continue;
+
+            return new PortraitLookup
+            {
+                Sprite = config.sprite,
+                Scale = config.scale,
+                HasCustomScale = config.scale > 0f
+            };
+        }
+
+        int legacyIndex = FindLegacyPortraitIndex(pureName);
+        return new PortraitLookup
+        {
+            Sprite = GetLegacyPortraitSprite(legacyIndex),
+            Scale = GetLegacyPortraitScale(legacyIndex),
+            HasCustomScale = legacyIndex >= 0 && legacyIndex < charScales.Count && charScales[legacyIndex] > 0f
+        };
+    }
+
+    private int FindLegacyPortraitIndex(string pureName)
     {
         for (int i = 0; i < charNames.Count; i++)
         {
             string configName = PureName(charNames[i]);
-            if (string.IsNullOrEmpty(pureName) || string.IsNullOrEmpty(configName)) continue;
+            if (!IsPortraitNameMatch(pureName, configName)) continue;
 
-            if (pureName.Contains(configName) || configName.Contains(pureName))
-            {
-                if (i < charSprites.Count) return i;
-            }
+            if (i < charSprites.Count) return i;
         }
 
         return -1;
     }
 
-    private Sprite GetPortraitSprite(int charIndex)
+    private bool IsPortraitNameMatch(string pureName, string configName)
+    {
+        if (string.IsNullOrEmpty(pureName) || string.IsNullOrEmpty(configName)) return false;
+        return pureName.Contains(configName) || configName.Contains(pureName);
+    }
+
+    private Sprite GetLegacyPortraitSprite(int charIndex)
     {
         if (charIndex >= 0 && charIndex < charSprites.Count) return charSprites[charIndex];
         return null;
@@ -743,14 +839,24 @@ public class CinematicDialogManager : MonoBehaviour
                || pureName.Contains("\u4F20\u9882\u8005");
     }
 
-    private Vector3 GetScaleForSprite(Sprite sprite, int charIndex)
+    private float GetLegacyPortraitScale(int charIndex)
+    {
+        if (charIndex >= 0 && charIndex < charScales.Count && charScales[charIndex] > 0f)
+        {
+            return charScales[charIndex];
+        }
+
+        return playerScale;
+    }
+
+    private Vector3 GetScaleForSprite(Sprite sprite, PortraitLookup portrait)
     {
         bool isShadow = sprite != null && shadowSprite != null && sprite.name == shadowSprite.name;
         float scale = isShadow ? shadowScale : playerScale;
 
-        if (!isShadow && charIndex >= 0 && charIndex < charScales.Count && charScales[charIndex] > 0f)
+        if (!isShadow && portrait.HasCustomScale)
         {
-            scale = charScales[charIndex];
+            scale = portrait.Scale;
         }
 
         return new Vector3(scale, scale, 1f);
