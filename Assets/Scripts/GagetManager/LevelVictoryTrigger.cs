@@ -1,24 +1,14 @@
 using UnityEngine;
-using UnityEngine.Events;
-
 [RequireComponent(typeof(Collider2D))]
 public class LevelVictoryTrigger : MonoBehaviour
 {
-    private enum AfterVictoryAction
-    {
-        WaitForPopup,
-        LevelSelect,
-        Level1PostStory,
-        Level2PostStory
-    }
-
-    [Header("Victory Settings")]
+    [Header("Victory Settings，记得在场景内配置每一关的层级")]
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private string carTag = "Car";
-    [SerializeField] private AfterVictoryAction afterVictoryAction = AfterVictoryAction.WaitForPopup;
 
     [Header("Popup Hook")]
-    [SerializeField] private UnityEvent victoryPopupRequested;
+    [SerializeField] private GameObject victoryPopupRoot;
+    // [SerializeField] private MonoBehaviour victoryPopupHandler;
 
     private bool victoryTriggered;
     private Collider2D triggerCollider;
@@ -47,37 +37,28 @@ public class LevelVictoryTrigger : MonoBehaviour
         }
 
         victoryTriggered = true;
-        SaveManager.CompleteLevel(currentLevel);
+        SaveManager.CompleteLevel(currentLevel);//解锁新关卡
         Debug.Log($"[LevelVictoryTrigger] Level {currentLevel} cleared. Unlocked level: {SaveManager.GetUnlockedLevel()}");
 
-        victoryPopupRequested?.Invoke();
-
-        if (afterVictoryAction != AfterVictoryAction.WaitForPopup)
+        if (victoryPopupRoot != null)
         {
-            ContinueAfterVictory();
-        }
-    }
-
-    public void ContinueAfterVictory()
-    {
-        if (SceneController.Instance == null)
-        {
-            Debug.LogWarning("[LevelVictoryTrigger] Continue needs a SceneController in the scene.");
-            return;
+            victoryPopupRoot.SetActive(true);
         }
 
-        switch (afterVictoryAction)
-        {
-            case AfterVictoryAction.LevelSelect:
-            case AfterVictoryAction.WaitForPopup:
-                SceneController.Instance.GoToLevelSelect();
-                break;
-            case AfterVictoryAction.Level1PostStory:
-                SceneController.Instance.GoToLevel1PostStory();
-                break;
-            case AfterVictoryAction.Level2PostStory:
-                SceneController.Instance.GoToLevel2PostStory();
-                break;
-        }
+        // if (victoryPopupHandler is IVictoryPopupHandler popupHandler)
+        // {
+        //     popupHandler.ShowVictoryPopup();
+        // }
+        // else
+        // {
+        //     Debug.Log("[LevelVictoryTrigger] Victory popup triggered.");
+        // }
+
+        Debug.Log("[LevelVictoryTrigger] Failure判定已封锁。");
     }
 }
+
+// public interface IVictoryPopupHandler
+// {
+//     void ShowVictoryPopup();
+// }
