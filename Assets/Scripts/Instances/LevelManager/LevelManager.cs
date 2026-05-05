@@ -43,14 +43,8 @@ public class LevelManager : MonoBehaviour
         public string ability;
         //[Header("此关是否启用此区域")]
         //public bool enable;
-        [Header("此区域的区域细节")]
+        [Header("此区域的区域类别")]
         public ZoneClass zoneClass;
-        [Header("此区域的区域细节")]
-        public List<ZoneDetail> Details;
-    }
-    [System.Serializable]
-    public struct ZoneDetail
-    {
         [Header("区域宽")]
         public int length;
         [Header("区域高")]
