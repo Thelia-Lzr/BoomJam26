@@ -456,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &492618382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -754,6 +754,10 @@ MonoBehaviour:
   <ZonePrefab>k__BackingField: {fileID: 4421736537553427373, guid: 91701d04e240a6f418507c321cefe4c9, type: 3}
   <ZoneDetailContent>k__BackingField: {fileID: 1224256016}
   <ZoneDetailPrefab>k__BackingField: {fileID: 3749461893133512348, guid: 90e1c4af9c35eb24dbd15c96981051ff, type: 3}
+  <ZoneSpritePrefab>k__BackingField: {fileID: 0}
+  longPressTime: 0.5
+  spriteZOffset: 0
+  isDraggingSprite: 0
 --- !u!4 &616574121
 Transform:
   m_ObjectHideFlags: 0
@@ -1120,6 +1124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeedingZone
       objectReference: {fileID: 0}
+    - target: {fileID: 758090864932999853, guid: 59b9f272ee39616408311bbf0637b172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1552879143648029812, guid: 59b9f272ee39616408311bbf0637b172, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.54
@@ -1248,6 +1256,10 @@ PrefabInstance:
     - target: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
       propertyPath: m_Name
       value: AntiGravityZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2029213625779146150, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2047,6 +2059,10 @@ PrefabInstance:
     - target: {fileID: 6495345487602009264, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
       propertyPath: m_Name
       value: SwapZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495345487602009264, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8051094238654429208, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
       propertyPath: m_LocalPosition.x

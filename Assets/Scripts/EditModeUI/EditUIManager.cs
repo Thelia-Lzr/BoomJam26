@@ -13,6 +13,14 @@ using static UnityEditor.Progress;
 /// </summary>
 public class EditUIManager : MonoBehaviour
 {
+    //UI数据
+    private const float ITEM_SPACING = 85f;
+    private const float ITEM_START_X = 125f;
+    private const float ITEM_Y = 40f;
+    private const float CONTENT_PADDING = 42.5f;
+    private const float DETAIL_ITEM_START_X = 100f;
+    private const float DETAIL_ITEM_SPACING = 200f;
+    private const float DETAIL_ITEM_Y = 75f;
     //获取单例
     private LevelManager levelManager;
     List<List<ZoneData>> zoneData;
@@ -29,8 +37,23 @@ public class EditUIManager : MonoBehaviour
     //
     [field: SerializeField]
     public RectTransform ZoneDetailContent { get; private set; }
+    /// <summary>
+    /// 区域预制体
+    /// </summary>
     [field: SerializeField]
     public GameObject ZoneDetailPrefab { get; private set; }
+    //--设置--
+    [field: SerializeField]
+    public GameObject ZoneSpritePrefab { get; private set; }
+    public float longPressTime = 0.5f;    // 长按判定时间（秒）
+    public float spriteZOffset = 0f;      // Sprite在世界坐标中的Z轴位置（2D游戏设为0即可）
+
+    [Header("状态")]
+    public bool isDraggingSprite;          // 是否正在拖动场景Sprite
+
+    private GameObject currentSprite;      // 当前生成的场景Sprite
+    private Coroutine longPressCoroutine;  // 长按协程
+    private Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,73 +95,45 @@ public class EditUIManager : MonoBehaviour
             {
                 GameObject zone = Instantiate(ZonePrefab, ZoneContent);
                 RectTransform rect = zone.GetComponent<RectTransform>();
+                GameObject newDetails = null;
                 switch ((ZoneClass)i)
                 {
                     case ZoneClass.Swap:
                         {
                             rect.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Swap";
-                            GameObject newDetails = new GameObject("SwapZoneDetail", typeof(RectTransform));
-                            newDetails.SetActive(false);
-                            RectTransform detailRect = newDetails.GetComponent<RectTransform>();
-                            detailRect.SetParent(ZoneDetailContent, false);
-                            detailRect.sizeDelta = Vector2.zero;
-                            zoneDetails.Add(detailRect);
-                            for (int j = 0; j < zoneData[i].Count; ++j)
-                            {
-                                GameObject detail = Instantiate(ZoneDetailPrefab, newDetails.GetComponent<RectTransform>());
-                                RectTransform rectDetail = detail.GetComponent<RectTransform>();
-                                rectDetail.anchoredPosition = new Vector2(100 + 200 * j, 75);
-                                rectDetail.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                                    $"{zoneData[i][j].length}X{zoneData[i][j].height}";
-                                rectDetail.GetChild(2).GetComponent<TextMeshProUGUI>().text =
-                                    $"{zoneData[i][j].cost}MB";
-                            }
+                            newDetails = new GameObject("SwapZoneDetail", typeof(RectTransform));
                             break;
                         }
                     case ZoneClass.AntiGravity:
                         {
                             rect.GetChild(1).GetComponent<TextMeshProUGUI>().text = "AntiGravity";
-                            GameObject newDetails = new GameObject("AntiGravityZoneDetail", typeof(RectTransform));
-                            newDetails.SetActive(false);
-                            RectTransform detailRect = newDetails.GetComponent<RectTransform>();
-                            detailRect.SetParent(ZoneDetailContent, false);
-                            detailRect.sizeDelta = Vector2.zero;
-                            zoneDetails.Add(detailRect);
-                            for (int j = 0; j < zoneData[i].Count; ++j)
-                            {
-                                GameObject detail = Instantiate(ZoneDetailPrefab, newDetails.GetComponent<RectTransform>());
-                                RectTransform rectDetail = detail.GetComponent<RectTransform>();
-                                rectDetail.anchoredPosition = new Vector2(100 + 200 * j, 75);
-                                rectDetail.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                                    $"{zoneData[i][j].length}X{zoneData[i][j].height}";
-                                rectDetail.GetChild(2).GetComponent<TextMeshProUGUI>().text =
-                                    $"{zoneData[i][j].cost}MB";
-                            }
+                            newDetails = new GameObject("AntiGravityZoneDetail", typeof(RectTransform));
                             break;
                         }
                     case ZoneClass.Speeding:
                         {
                             rect.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Speeding";
-                            GameObject newDetails = new GameObject("SpeedingZoneDetail", typeof(RectTransform));
-                            newDetails.SetActive(false);
-                            RectTransform detailRect = newDetails.GetComponent<RectTransform>();
-                            detailRect.SetParent(ZoneDetailContent, false);
-                            detailRect.sizeDelta = Vector2.zero;
-                            zoneDetails.Add(detailRect);
-                            for (int j = 0; j < zoneData[i].Count; ++j)
-                            {
-                                GameObject detail = Instantiate(ZoneDetailPrefab, newDetails.GetComponent<RectTransform>());
-                                RectTransform rectDetail = detail.GetComponent<RectTransform>();
-                                rectDetail.anchoredPosition = new Vector2(100 + 200 * j, 75);
-                                rectDetail.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                                    $"{zoneData[i][j].length}X{zoneData[i][j].height}";
-                                rectDetail.GetChild(2).GetComponent<TextMeshProUGUI>().text =
-                                    $"{zoneData[i][j].cost}MB";
-                            }
+                            newDetails = new GameObject("SpeedingZoneDetail", typeof(RectTransform));
                             break;
                         }
                 }
-                rect.anchoredPosition = new Vector2(125 + i * 85, 40);
+                newDetails.SetActive(false);
+                RectTransform detailRect = newDetails.GetComponent<RectTransform>();
+                detailRect.SetParent(ZoneDetailContent, false);
+                detailRect.sizeDelta = Vector2.zero;
+                zoneDetails.Add(detailRect);
+                for (int j = 0; j < zoneData[i].Count; ++j)
+                {
+                    GameObject detail = Instantiate(ZoneDetailPrefab, newDetails.GetComponent<RectTransform>());
+                    RectTransform rectDetail = detail.GetComponent<RectTransform>();
+                    rectDetail.anchoredPosition =
+                        new Vector2(DETAIL_ITEM_START_X + DETAIL_ITEM_SPACING * j, DETAIL_ITEM_Y);
+                    rectDetail.GetChild(0).GetComponent<TextMeshProUGUI>().text =
+                        $"{zoneData[i][j].length}X{zoneData[i][j].height}";
+                    rectDetail.GetChild(1).GetComponent<TextMeshProUGUI>().text =
+                        $"{zoneData[i][j].cost}MB";
+                }
+                rect.anchoredPosition = new Vector2(ITEM_START_X + i * ITEM_SPACING, ITEM_Y);
                 zones.Add(rect);
             }
         }
