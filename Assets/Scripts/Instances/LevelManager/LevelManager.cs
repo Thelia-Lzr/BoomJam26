@@ -32,12 +32,6 @@ public class LevelManager : MonoBehaviour
     /// 由于UIManager要获取这个值，所以我改成public了
     /// </summary>
     [System.Serializable]
-    public struct AvailableBorder
-    {
-        //这个grivaity没用过
-        public bool Gravity;
-    }
-    [System.Serializable]
     public struct ZoneData
     {
         public string ability;
@@ -45,6 +39,10 @@ public class LevelManager : MonoBehaviour
         //public bool enable;
         [Header("此区域的区域类别")]
         public ZoneClass zoneClass;
+
+        [Header("区域设置")] 
+        public float? speedingZoneSpeed;
+        public float? gravityZoneGravity;
         [Header("区域宽")]
         public int length;
         [Header("区域高")]

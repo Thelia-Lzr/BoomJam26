@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class SwapZone : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //public Color color = new Color(179, 117, 255, 159);
+    public Vector2 scale = new Vector2(1, 1);
+    public int memoryUsed = 0;
+    public bool placed = false;
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Renderer rend = GetComponent<Renderer>();
+        //rend.material.color = color;
+        transform.localScale = scale;
     }
 }

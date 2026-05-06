@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelManager;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 /// <summary>
 /// ?可以和playerUImanager合并成一个UIManager(?)
@@ -125,6 +125,10 @@ public class EditUIManager : MonoBehaviour
                 for (int j = 0; j < zoneData[i].Count; ++j)
                 {
                     GameObject detail = Instantiate(ZoneDetailPrefab, newDetails.GetComponent<RectTransform>());
+                    ZoneDetailUI detailUI = detail.GetComponent<ZoneDetailUI>();
+                    detailUI.zoneClass = (ZoneClass)i;
+                    detailUI.zoneScale = new Vector3(zoneData[i][j].length, zoneData[i][j].height, 1f);
+                    detailUI.memoryUsed = zoneData[i][j].cost;
                     RectTransform rectDetail = detail.GetComponent<RectTransform>();
                     rectDetail.anchoredPosition =
                         new Vector2(DETAIL_ITEM_START_X + DETAIL_ITEM_SPACING * j, DETAIL_ITEM_Y);
@@ -140,7 +144,7 @@ public class EditUIManager : MonoBehaviour
         ZoneIndex = 0;
         zones[ZoneIndex].localScale = new Vector3(1.1f, 1.1f, 1.1f);
         zoneDetails[ZoneIndex].gameObject.SetActive(true);
-    }
+    } //生成所有选项
 
     // Update is called once per frame
     void Update()

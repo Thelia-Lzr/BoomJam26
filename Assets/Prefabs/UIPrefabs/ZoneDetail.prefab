@@ -194,9 +194,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cc392ed45e9924ab4ed7fcd7c0bb99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritePrefab: {fileID: 3959891647536898097, guid: 40309069d8f6da245a2561d95568040f, type: 3}
+  spritePrefab: {fileID: 3959891647536898097, guid: b9dcc62947964b14c83f2cfafa7b535d, type: 3}
   longPressTime: 0.5
   spriteZOffset: 0
+  zoneClass: 0
+  zoneScale: {x: 0, y: 0}
+  AntiGravityZonePrefab: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
+  SpeedingZonePrefab: {fileID: 758090864932999853, guid: 59b9f272ee39616408311bbf0637b172, type: 3}
+  SwapZonePrefab: {fileID: 6495345487602009264, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
   isDraggingSprite: 0
 --- !u!114 &3515024326886425595
 MonoBehaviour:

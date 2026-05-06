@@ -9,6 +9,13 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public GameObject spritePrefab;
     public float longPressTime = 0.5f;
     public float spriteZOffset = 0f;
+    public ZoneClass zoneClass;
+    public Vector2 zoneScale;
+    public float memoryUsed;
+    [Header("区域预制体")]
+    public GameObject AntiGravityZonePrefab;
+    public GameObject SpeedingZonePrefab;
+    public GameObject SwapZonePrefab;
     [Header("状态")]
     public bool isDraggingSprite;
     private GameObject currentSprite;
@@ -22,7 +29,9 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if (spritePrefab == null) return;
         currentSprite = Instantiate(spritePrefab);
+        currentSprite.transform.localScale = zoneScale;
         currentSprite.transform.position = ScreenToWorldPos(eventData.position);
+        MemoryUsedUI.Instance.memoryUsed += memoryUsed;
         isDraggingSprite = true;
     }
     public void OnPointerUp(PointerEventData eventData)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
 
-    
+    public static GameCamera Instance;
     [Header("摆放框框的摄像机")]
     public Transform Camera1;
     [Header("摄像机移动速度")]
