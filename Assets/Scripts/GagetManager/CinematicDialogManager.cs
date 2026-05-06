@@ -148,9 +148,14 @@ public class CinematicDialogManager : MonoBehaviour
     private string currentFullContent = "";
     private bool isFinished;
     private bool isTransitioning;
+    private Vector3 leftPortraitAnchor;
+    private Vector3 rightPortraitAnchor;
 
     private void Awake()
     {
+        if (imageLeft != null) leftPortraitAnchor = imageLeft.transform.localPosition;
+        if (imageRight != null) rightPortraitAnchor = imageRight.transform.localPosition;
+
         SetPortraitDim(imageLeft);
         SetPortraitDim(imageRight);
 
@@ -432,8 +437,9 @@ public class CinematicDialogManager : MonoBehaviour
         Transform t = target.transform;
         t.DOKill();
 
-        Vector3 origin = t.localPosition;
+        Vector3 origin = GetPortraitAnchor(pos);
         float dir = IsLeft(pos) ? 1f : -1f;
+        t.localPosition = origin;
 
         DOTween.Sequence()
             .Append(t.DOLocalMoveX(origin.x + dir * 1.0f, 0.16f).SetEase(Ease.OutQuad))
@@ -445,9 +451,10 @@ public class CinematicDialogManager : MonoBehaviour
         Transform t = target.transform;
         t.DOKill();
 
-        Vector3 originPos = t.localPosition;
+        Vector3 originPos = GetPortraitAnchor(pos);
         Vector3 originScale = t.localScale;
         float dir = IsLeft(pos) ? 1f : -1f;
+        t.localPosition = originPos;
 
         DOTween.Sequence()
             .Append(t.DOLocalMoveX(originPos.x + dir * 1.4f, 0.18f).SetEase(Ease.OutCubic))
@@ -490,7 +497,8 @@ public class CinematicDialogManager : MonoBehaviour
         Transform t = target.transform;
         t.DOKill();
 
-        Vector3 origin = t.localPosition;
+        Vector3 origin = GetPortraitAnchorForRenderer(target);
+        t.localPosition = origin;
         DOTween.Sequence()
             .Append(t.DOLocalMoveY(origin.y + 0.25f, 0.08f).SetEase(Ease.OutQuad))
             .Append(t.DOLocalMoveY(origin.y, 0.12f).SetEase(Ease.InQuad));
@@ -501,7 +509,7 @@ public class CinematicDialogManager : MonoBehaviour
         Transform t = target.transform;
         t.DOKill();
 
-        Vector3 origin = t.localPosition;
+        Vector3 origin = GetPortraitAnchor(pos);
         float dir = IsLeft(pos) ? -1f : 1f;
 
         target.color = new Color(target.color.r, target.color.g, target.color.b, 0f);
@@ -517,8 +525,9 @@ public class CinematicDialogManager : MonoBehaviour
         Transform t = target.transform;
         t.DOKill();
 
-        Vector3 origin = t.localPosition;
+        Vector3 origin = GetPortraitAnchor(pos);
         float dir = IsLeft(pos) ? -1f : 1f;
+        t.localPosition = origin;
 
         DOTween.Sequence()
             .Append(t.DOLocalMove(origin + new Vector3(dir * 1.2f, 0f, 0f), 0.25f).SetEase(Ease.InCubic))
@@ -701,6 +710,8 @@ public class CinematicDialogManager : MonoBehaviour
         }
 
         isTransitioning = true;
+        if (SoundManager.SoundManager.Instance != null)
+            SoundManager.SoundManager.Instance.StopAll();
 
         if (finishAction == FinishAction.Auto && useSceneControllerProgress && SceneController.Instance != null)
         {
@@ -788,6 +799,22 @@ public class CinematicDialogManager : MonoBehaviour
             if (config == null) continue;
 
             string configName = PureName(config.characterName);
+            if (!IsPortraitNameExactMatch(pureName, configName)) continue;
+
+            return new PortraitLookup
+            {
+                Sprite = config.sprite,
+                Scale = config.scale,
+                HasCustomScale = config.scale > 0f
+            };
+        }
+
+        for (int i = 0; i < characterPortraits.Count; i++)
+        {
+            CharacterPortraitConfig config = characterPortraits[i];
+            if (config == null) continue;
+
+            string configName = PureName(config.characterName);
             if (!IsPortraitNameMatch(pureName, configName)) continue;
 
             return new PortraitLookup
@@ -812,6 +839,14 @@ public class CinematicDialogManager : MonoBehaviour
         for (int i = 0; i < charNames.Count; i++)
         {
             string configName = PureName(charNames[i]);
+            if (!IsPortraitNameExactMatch(pureName, configName)) continue;
+
+            if (i < charSprites.Count) return i;
+        }
+
+        for (int i = 0; i < charNames.Count; i++)
+        {
+            string configName = PureName(charNames[i]);
             if (!IsPortraitNameMatch(pureName, configName)) continue;
 
             if (i < charSprites.Count) return i;
@@ -824,6 +859,12 @@ public class CinematicDialogManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(pureName) || string.IsNullOrEmpty(configName)) return false;
         return pureName.Contains(configName) || configName.Contains(pureName);
+    }
+
+    private bool IsPortraitNameExactMatch(string pureName, string configName)
+    {
+        if (string.IsNullOrEmpty(pureName) || string.IsNullOrEmpty(configName)) return false;
+        return pureName == configName;
     }
 
     private Sprite GetLegacyPortraitSprite(int charIndex)
@@ -867,6 +908,20 @@ public class CinematicDialogManager : MonoBehaviour
         if (IsLeft(pos)) return imageLeft;
         if (IsRight(pos)) return imageRight;
         return null;
+    }
+
+    private Vector3 GetPortraitAnchor(string pos)
+    {
+        if (IsLeft(pos)) return leftPortraitAnchor;
+        if (IsRight(pos)) return rightPortraitAnchor;
+        return Vector3.zero;
+    }
+
+    private Vector3 GetPortraitAnchorForRenderer(SpriteRenderer target)
+    {
+        if (target == imageLeft) return leftPortraitAnchor;
+        if (target == imageRight) return rightPortraitAnchor;
+        return target != null ? target.transform.localPosition : Vector3.zero;
     }
 
     private void SetPortraitActive(SpriteRenderer renderer)

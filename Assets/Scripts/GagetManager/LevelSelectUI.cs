@@ -52,6 +52,11 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevelSelect()
     {
+        if (SoundManager.SoundManager.Instance != null)
+        {
+            SoundManager.SoundManager.Instance.StopAll();
+        }
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevelSelect();
