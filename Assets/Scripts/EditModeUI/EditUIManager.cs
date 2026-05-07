@@ -17,7 +17,6 @@ public class EditUIManager : MonoBehaviour
     private const float ITEM_SPACING = 85f;
     private const float ITEM_START_X = 125f;
     private const float ITEM_Y = 40f;
-    private const float CONTENT_PADDING = 42.5f;
     private const float DETAIL_ITEM_START_X = 100f;
     private const float DETAIL_ITEM_SPACING = 200f;
     private const float DETAIL_ITEM_Y = 75f;
@@ -43,17 +42,9 @@ public class EditUIManager : MonoBehaviour
     [field: SerializeField]
     public GameObject ZoneDetailPrefab { get; private set; }
     //--设置--
-    [field: SerializeField]
-    public GameObject ZoneSpritePrefab { get; private set; }
     public float longPressTime = 0.5f;    // 长按判定时间（秒）
     public float spriteZOffset = 0f;      // Sprite在世界坐标中的Z轴位置（2D游戏设为0即可）
 
-    [Header("状态")]
-    public bool isDraggingSprite;          // 是否正在拖动场景Sprite
-
-    private GameObject currentSprite;      // 当前生成的场景Sprite
-    private Coroutine longPressCoroutine;  // 长按协程
-    private Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {

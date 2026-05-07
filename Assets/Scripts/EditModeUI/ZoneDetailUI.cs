@@ -6,58 +6,69 @@ using UnityEngine.EventSystems;
 public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     [Header("设置")]
-    public GameObject spritePrefab;
-    public float longPressTime = 0.5f;
-    public float spriteZOffset = 0f;
+    public GameObject spritePreviewPrefab;
+
     public ZoneClass zoneClass;
     public Vector2 zoneScale;
     public float memoryUsed;
     [Header("区域预制体")]
+    public GameObject spritePrefab;
     public GameObject AntiGravityZonePrefab;
     public GameObject SpeedingZonePrefab;
     public GameObject SwapZonePrefab;
     [Header("状态")]
-    public bool isDraggingSprite;
+    private GameObject currentGuideSprite;
     private GameObject currentSprite;
-    private Coroutine longPressCoroutine;
+    private DefaultZone spriteScript;
     private Camera mainCamera;
+    //屏幕有效范围
+    private const float BottomBanHeight = 150f;
     void Start()
     {
         mainCamera = Camera.main;
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (spritePrefab == null) return;
+        if (spritePreviewPrefab == null) return;
+        currentGuideSprite = Instantiate(spritePreviewPrefab);
+        currentGuideSprite.transform.localScale = zoneScale;
+        currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
+        //标记，之后要分类
         currentSprite = Instantiate(spritePrefab);
         currentSprite.transform.localScale = zoneScale;
         currentSprite.transform.position = ScreenToWorldPos(eventData.position);
+        spriteScript = currentSprite.GetComponent<DefaultZone>();
+
         MemoryUsedUI.Instance.memoryUsed += memoryUsed;
-        isDraggingSprite = true;
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (longPressCoroutine != null)
+        if (currentGuideSprite != null)
         {
-            StopCoroutine(longPressCoroutine);
-        }
-        if (currentSprite != null)
-        {
+            Destroy(currentGuideSprite);
+            currentGuideSprite = null;
+            if (eventData.position.y <= BottomBanHeight)
+            {
+                Destroy(currentSprite);
+                MemoryUsedUI.Instance.memoryUsed -= memoryUsed;
+            }
             currentSprite = null;
+            spriteScript = null;
         }
-        isDraggingSprite = false;
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isDraggingSprite || currentSprite == null) return;
+        if (currentGuideSprite == null) return;
         Vector3 worldPos = ScreenToWorldPos(eventData.position);
-        currentSprite.transform.position = worldPos;
+        currentGuideSprite.transform.position = worldPos;
+        spriteScript.ZonePosition(worldPos);
     }
     //通用方法
     private Vector3 ScreenToWorldPos(Vector2 screenPos)
     {
         Vector3 screenPosWithZ = new Vector3(screenPos.x, screenPos.y, mainCamera.nearClipPlane + 1f);
         Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPosWithZ);
-        worldPos.z = spriteZOffset;
+        worldPos.z = 0;
         return worldPos;
     }
 }

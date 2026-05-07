@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -616,6 +617,22 @@ MonoBehaviour:
   minY: -9999
   maxY: 9999
   Camera2: {fileID: 0}
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &592057971
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +703,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -754,7 +771,6 @@ MonoBehaviour:
   <ZonePrefab>k__BackingField: {fileID: 4421736537553427373, guid: 91701d04e240a6f418507c321cefe4c9, type: 3}
   <ZoneDetailContent>k__BackingField: {fileID: 1224256016}
   <ZoneDetailPrefab>k__BackingField: {fileID: 3749461893133512348, guid: 90e1c4af9c35eb24dbd15c96981051ff, type: 3}
-  <ZoneSpritePrefab>k__BackingField: {fileID: 0}
   longPressTime: 0.5
   spriteZOffset: 0
   isDraggingSprite: 0
@@ -913,7 +929,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
       propertyPath: m_Name
-      value: AntiGravityZone (1)
+      value: AntiGravityZone
       objectReference: {fileID: 0}
     - target: {fileID: 2029213625779146150, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2023,7 +2039,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 233.21002, y: 199.57}
+  m_AnchoredPosition: {x: 233.20999, y: 199.57}
   m_SizeDelta: {x: 414.07, y: 44.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1951523320
