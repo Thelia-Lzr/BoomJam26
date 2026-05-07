@@ -6,7 +6,7 @@ using UnityEngine;
 public class MemoryUsedUI : MonoBehaviour
 {
     public static MemoryUsedUI Instance;
-    public float memoryUsed;
+    public int memoryUsed;
 
     private TextMeshProUGUI tmp;
     // Start is called before the first frame update
@@ -20,7 +20,12 @@ public class MemoryUsedUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tmp.text 
-            = "Current Memory Used: " + memoryUsed.ToString();
+
+    }
+    public void ChangeMemoryUsed(int i)
+    {
+        memoryUsed += i;
+        tmp.text = "Current Memory Used: " + memoryUsed.ToString();
+
     }
 }

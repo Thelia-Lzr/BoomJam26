@@ -24,8 +24,22 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     public void ZonePosition(Vector3 position)
     {
         Vector3 curpos = Vector3.zero;
-        curpos.x = Mathf.Round(position.x);
-        curpos.y = Mathf.Round(position.y);
+        if(scale.x % 2 == 0)
+        {
+            curpos.x = Mathf.Round(position.x);
+        }
+        else
+        {
+            curpos.x = Mathf.Round(position.x) + 0.5f;
+        }
+        if (scale.y % 2 == 0)
+        {
+            curpos.y = Mathf.Round(position.y);
+        }
+        else
+        {
+            curpos.y = Mathf.Round(position.y) + 0.5f;
+        }
         transform.position = curpos;
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -44,6 +58,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
             if (eventData.position.y <= BottomBanHeight)
             {
                 Destroy(gameObject);
+                MemoryUsedUI.Instance.ChangeMemoryUsed(-1 * memoryUsed);
             }
         }
     }

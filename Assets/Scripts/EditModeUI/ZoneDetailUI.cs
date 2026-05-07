@@ -10,7 +10,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public ZoneClass zoneClass;
     public Vector2 zoneScale;
-    public float memoryUsed;
+    public int memoryUsed;
     [Header("区域预制体")]
     public GameObject spritePrefab;
     public GameObject AntiGravityZonePrefab;
@@ -38,8 +38,9 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         currentSprite.transform.localScale = zoneScale;
         currentSprite.transform.position = ScreenToWorldPos(eventData.position);
         spriteScript = currentSprite.GetComponent<DefaultZone>();
-
-        MemoryUsedUI.Instance.memoryUsed += memoryUsed;
+        spriteScript.memoryUsed = memoryUsed;
+        spriteScript.scale = zoneScale;
+        MemoryUsedUI.Instance.ChangeMemoryUsed(memoryUsed);
     }
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -50,7 +51,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             if (eventData.position.y <= BottomBanHeight)
             {
                 Destroy(currentSprite);
-                MemoryUsedUI.Instance.memoryUsed -= memoryUsed;
+                MemoryUsedUI.Instance.ChangeMemoryUsed(-1 * memoryUsed);
             }
             currentSprite = null;
             spriteScript = null;

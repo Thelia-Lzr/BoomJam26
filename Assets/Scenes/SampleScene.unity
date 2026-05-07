@@ -441,6 +441,11 @@ MonoBehaviour:
     length: 4
     height: 5
     cost: 6
+  - ability: 
+    zoneClass: 2
+    length: 3
+    height: 5
+    cost: 6
 --- !u!1 &492618381
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +778,6 @@ MonoBehaviour:
   <ZoneDetailPrefab>k__BackingField: {fileID: 3749461893133512348, guid: 90e1c4af9c35eb24dbd15c96981051ff, type: 3}
   longPressTime: 0.5
   spriteZOffset: 0
-  isDraggingSprite: 0
 --- !u!4 &616574121
 Transform:
   m_ObjectHideFlags: 0
@@ -2039,7 +2043,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 233.20999, y: 199.57}
+  m_AnchoredPosition: {x: 233.20999, y: 199.57004}
   m_SizeDelta: {x: 414.07, y: 44.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1951523320
