@@ -59,6 +59,8 @@ public class LevelManager : MonoBehaviour
     [Header("UI相关")]
     [SerializeField] private Button StartButton;
     [SerializeField] private Button ResetButton;
+    [SerializeField] private GameObject EditModeUI;
+    [SerializeField] private GameObject PlayModeUI;
     [Header("地图元素")]
     [SerializeField] private GameObject StartPosi;
     [SerializeField] private GameObject EndPosi;
@@ -69,6 +71,7 @@ public class LevelManager : MonoBehaviour
     [Header("区域初始配置")]
     [SerializeField] public List<ZoneData> Borders;
     
+    private List<GameObject> Cars = new List<GameObject>(); 
     
 
     private void Awake()
@@ -84,12 +87,14 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         StartButton.onClick.AddListener(startStimulate);
+        ResetButton.onClick.AddListener(Reset);
     }
 
     void startStimulate()
     {
         if (currentMode == CurrentMode.EditMode)
         {
+            Cars =  new List<GameObject>();
             currentMode =  CurrentMode.PlayMode;
             StartCoroutine(Stimulate());
         }
@@ -101,6 +106,7 @@ public class LevelManager : MonoBehaviour
         {
             yield return  new WaitForSeconds((float)starts.Delay);
             GameObject car = Instantiate(CarPrefab, StartPosi.transform.position, StartPosi.transform.rotation);
+            Cars.Add(car);
             CarBehaviour thiscar = car.GetComponent<CarBehaviour>();
             //thiscar.thisrb.velocity = starts.StartVelocity;
             JointMotor2D motor = thiscar.motorWheel.motor;
@@ -129,6 +135,16 @@ public class LevelManager : MonoBehaviour
         }
         rPressedLastFrame = rPressedNow;
         ePressedLastFrame = ePressedNow;
+        if (currentMode == CurrentMode.EditMode)
+        {
+            EditModeUI.SetActive(true);
+            PlayModeUI.SetActive(false);
+        }
+        else if (currentMode == CurrentMode.PlayMode)
+        {
+            EditModeUI.SetActive(false);
+            PlayModeUI.SetActive(true);
+        }
     }
 
     private void Reset()
@@ -136,6 +152,10 @@ public class LevelManager : MonoBehaviour
         if (currentMode == CurrentMode.PlayMode)
         {
             currentMode = CurrentMode.EditMode;
+            foreach (GameObject car in Cars)
+            {
+                Destroy(car);
+            }
         }
     }
 }

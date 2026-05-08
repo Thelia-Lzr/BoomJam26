@@ -29,6 +29,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (spritePreviewPrefab == null) return;
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = zoneScale;
@@ -59,6 +60,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     }
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite != null)
         {
             Destroy(currentGuideSprite);
@@ -74,6 +76,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite == null) return;
         Vector3 worldPos = ScreenToWorldPos(eventData.position);
         currentGuideSprite.transform.position = worldPos;
