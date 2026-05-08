@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9883803a4dc1229419cbb0b8eadb7709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMode: 1
   StartButton: {fileID: 248717513}
   StartPosi: {fileID: 1896934984}
   EndPosi: {fileID: 0}

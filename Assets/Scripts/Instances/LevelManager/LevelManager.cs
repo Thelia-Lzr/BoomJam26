@@ -17,7 +17,13 @@ public enum ZoneClass
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
-
+    public enum CurrentMode
+    {
+        TestMode = 0,
+        EditMode = 1,
+        PlayMode = 2
+    }
+    public CurrentMode currentMode = CurrentMode.EditMode;
     //特殊结构体定义！
     [System.Serializable]
     private struct CarStarts
@@ -86,6 +92,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator Stimulate()
     {
+        currentMode =  CurrentMode.PlayMode;
         foreach (CarStarts starts in Starts)
         {
             yield return  new WaitForSeconds((float)starts.Delay);
@@ -100,11 +107,6 @@ public class LevelManager : MonoBehaviour
             // rb.velocity = starts.StartVelocity;
             // rb.mass = starts.Mass;
         }
-    }
-    public Button StartButton1
-    {
-        get => StartButton;
-        set => StartButton = value;
     }
     // Update is called once per frame
     void Update()

@@ -11,8 +11,11 @@ using static LevelManager;
 /// <summary>
 /// ?可以和playerUImanager合并成一个UIManager(?)
 /// </summary>
-public class EditUIManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
+
+    //输出单例
+    public static UIManager Instance;
     //UI数据
     private const float ITEM_SPACING = 85f;
     private const float ITEM_START_X = 125f;
