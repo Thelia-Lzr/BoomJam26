@@ -44,6 +44,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = transform.localScale;
         currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
@@ -51,6 +52,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     // �ɿ�ʱ��������ק
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite != null)
         {
             Destroy(currentGuideSprite);
@@ -65,6 +67,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     // ��ק�У�����λ��
     public void OnDrag(PointerEventData eventData)
     {
+        if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite == null) return;
         Vector3 worldPos = ScreenToWorldPos(eventData.position);
         currentGuideSprite.transform.position = worldPos;

@@ -12,6 +12,8 @@ public class GameCamera : MonoBehaviour
     [Header("摄像机移动速度")]
     public float moveSpeed = 5f;
 
+    public float shiftSpeeding = 3f;
+
     [Header("摄像机地图边界")]
     
     public float minX, maxX;
@@ -28,10 +30,20 @@ public class GameCamera : MonoBehaviour
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
             Vector3 pos = Camera1.position;
-            pos.x += h * moveSpeed * Time.deltaTime;
-            pos.y += v * moveSpeed * Time.deltaTime;
-            pos.x = Mathf.Clamp(pos.x, minX, maxX);
-            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                pos.x += h * moveSpeed * Time.deltaTime * shiftSpeeding;
+                pos.y += v * moveSpeed * Time.deltaTime * shiftSpeeding;
+                pos.x = Mathf.Clamp(pos.x, minX, maxX);
+                pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            }
+            else
+            {
+                pos.x += h * moveSpeed * Time.deltaTime;
+                pos.y += v * moveSpeed * Time.deltaTime;
+                pos.x = Mathf.Clamp(pos.x, minX, maxX);
+                pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            }
 
             Camera1.position = pos;
         }
