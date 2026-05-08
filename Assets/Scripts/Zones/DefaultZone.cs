@@ -30,7 +30,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         }
         else
         {
-            curpos.x = Mathf.Round(position.x) + 0.5f;
+            curpos.x = Mathf.Round(position.x - 0.5f) + 0.5f;
         }
         if (scale.y % 2 == 0)
         {
@@ -38,7 +38,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         }
         else
         {
-            curpos.y = Mathf.Round(position.y) + 0.5f;
+            curpos.y = Mathf.Round(position.y - 0.5f) + 0.5f;
         }
         transform.position = curpos;
     }
