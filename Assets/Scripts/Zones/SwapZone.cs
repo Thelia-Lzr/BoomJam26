@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwapZone : MonoBehaviour
+public class SwapZone : DefaultZone
 {
-    // Start is called before the first frame update
+    //public Color color = new Color(179, 117, 255, 159);
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Renderer rend = GetComponent<Renderer>();
+        //rend.material.color = color;
+        transform.localScale = scale;
+        base.Start();
     }
 }
