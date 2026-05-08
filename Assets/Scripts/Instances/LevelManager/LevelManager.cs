@@ -58,6 +58,7 @@ public class LevelManager : MonoBehaviour
     }
     [Header("UI相关")]
     [SerializeField] private Button StartButton;
+    [SerializeField] private Button ResetButton;
     [Header("地图元素")]
     [SerializeField] private GameObject StartPosi;
     [SerializeField] private GameObject EndPosi;
@@ -87,12 +88,15 @@ public class LevelManager : MonoBehaviour
 
     void startStimulate()
     {
-        StartCoroutine(Stimulate());
+        if (currentMode == CurrentMode.EditMode)
+        {
+            currentMode =  CurrentMode.PlayMode;
+            StartCoroutine(Stimulate());
+        }
     }
 
     IEnumerator Stimulate()
     {
-        currentMode =  CurrentMode.PlayMode;
         foreach (CarStarts starts in Starts)
         {
             yield return  new WaitForSeconds((float)starts.Delay);
@@ -108,9 +112,30 @@ public class LevelManager : MonoBehaviour
             // rb.mass = starts.Mass;
         }
     }
+    private bool rPressedLastFrame = false;
+    private bool ePressedLastFrame = false;
     // Update is called once per frame
     void Update()
     {
-        
+        bool rPressedNow = Input.GetKey(KeyCode.R);
+        bool ePressedNow = Input.GetKey(KeyCode.E);
+        if (rPressedNow && !rPressedLastFrame)
+        {
+            Reset();
+        }
+        if (ePressedNow && !ePressedLastFrame)
+        {
+            startStimulate();
+        }
+        rPressedLastFrame = rPressedNow;
+        ePressedLastFrame = ePressedNow;
+    }
+
+    private void Reset()
+    {
+        if (currentMode == CurrentMode.PlayMode)
+        {
+            currentMode = CurrentMode.EditMode;
+        }
     }
 }
