@@ -9,15 +9,15 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     public int memoryUsed = 0;
     public bool placed = false;
 
-    //--ÍÏ×§ÉèÖÃ
+    //--ï¿½ï¿½×§ï¿½ï¿½ï¿½ï¿½
     public GameObject spritePreviewPrefab;
-    private GameObject currentGuideSprite;
+    protected GameObject currentGuideSprite;
 
     [Header("×´Ì¬")]
-    private Camera mainCamera;
-    //ÆÁÄ»ÓÐÐ§·¶Î§
+    protected Camera mainCamera;
+    //ï¿½ï¿½Ä»ï¿½ï¿½Ð§ï¿½ï¿½Î§
     private const float BottomBanHeight = 150f;
-    void Start()
+    protected void Start()
     {
         mainCamera = Camera.main;
     }
@@ -48,7 +48,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         currentGuideSprite.transform.localScale = transform.localScale;
         currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
     }
-    // ËÉ¿ªÊ±£º½áÊøÍÏ×§
+    // ï¿½É¿ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×§
     public void OnPointerUp(PointerEventData eventData)
     {
         if (currentGuideSprite != null)
@@ -62,7 +62,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
             }
         }
     }
-    // ÍÏ×§ÖÐ£º¸üÐÂÎ»ÖÃ
+    // ï¿½ï¿½×§ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
     public void OnDrag(PointerEventData eventData)
     {
         if (currentGuideSprite == null) return;
@@ -70,7 +70,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         currentGuideSprite.transform.position = worldPos;
         ZonePosition(worldPos);
     }
-    //Í¨ÓÃ·½·¨
+    //Í¨ï¿½Ã·ï¿½ï¿½ï¿½
     private Vector3 ScreenToWorldPos(Vector2 screenPos)
     {
         Vector3 screenPosWithZ = new Vector3(screenPos.x, screenPos.y, mainCamera.nearClipPlane + 1f);

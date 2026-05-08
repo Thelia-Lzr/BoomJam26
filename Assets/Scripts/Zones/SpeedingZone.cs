@@ -10,5 +10,6 @@ public class SpeedingZone : DefaultZone
         Renderer rend = GetComponent<Renderer>();
         //rend.material.color = color;
         transform.localScale = scale;
+        base.Start();
     }
 }

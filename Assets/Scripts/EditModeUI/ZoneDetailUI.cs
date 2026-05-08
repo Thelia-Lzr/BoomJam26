@@ -33,7 +33,22 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = zoneScale;
         currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
-        //标记，之后要分类
+        //分类脚本
+        switch (zoneClass)
+        {
+            case ZoneClass.AntiGravity:
+                spritePrefab = AntiGravityZonePrefab;
+                //spriteScript = AntiGravityZonePrefab.GetComponent<GravityZone>();
+                break;
+            case ZoneClass.Speeding:
+                spritePrefab = SpeedingZonePrefab;
+                //spriteScript = SpeedingZonePrefab.GetComponent<SpeedingZone>();
+                break;
+            case ZoneClass.Swap:
+                spritePrefab = SwapZonePrefab;
+                //spriteScript = SwapZonePrefab.GetComponent<SwapZone>();
+                break;
+        }
         currentSprite = Instantiate(spritePrefab);
         currentSprite.transform.localScale = zoneScale;
         currentSprite.transform.position = ScreenToWorldPos(eventData.position);

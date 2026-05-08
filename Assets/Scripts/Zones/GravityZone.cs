@@ -9,6 +9,7 @@ public class GravityZone : DefaultZone
         Renderer rend = GetComponent<Renderer>();
         //rend.material.color = color;
         transform.localScale = scale;
+        base.Start();
     }
     
 }

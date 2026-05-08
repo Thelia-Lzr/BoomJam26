@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1645177342435139587}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 2.5, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,8 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9b79dc0c72d804798f4dd2a22c69be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 179, g: 117, b: 255, a: 159}
-  scale: {x: 1, y: 1}
+  scale: {x: 4, y: 5}
+  memoryUsed: 6
+  placed: 0
+  spritePreviewPrefab: {fileID: 3959891647536898097, guid: b9dcc62947964b14c83f2cfafa7b535d, type: 3}
 --- !u!61 &1089914033869469837
 BoxCollider2D:
   m_ObjectHideFlags: 0
