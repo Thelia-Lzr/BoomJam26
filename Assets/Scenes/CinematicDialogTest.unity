@@ -153,9 +153,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allDialogFiles:
   - {fileID: 4900000, guid: 34609ba7cc5b1884eac887b7ecdfb58f, type: 3}
-  - {fileID: 4900000, guid: 7f970ce9532e3b34ca6a80e8a6ef02c5, type: 3}
-  - {fileID: 4900000, guid: e8c651ecd2e3ee94baa8ce33334c4535, type: 3}
-  - {fileID: 4900000, guid: ec357a5db68301f4e8cf70dea92e95f8, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000002, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000003, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000004, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000005, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000006, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000007, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000008, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000009, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000010, type: 3}
   testFileIndex: 0
   useSceneControllerProgress: 1
   continueStoryFlowOnFinish: 1
