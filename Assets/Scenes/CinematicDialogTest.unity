@@ -152,23 +152,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allDialogFiles:
-  - {fileID: 4900000, guid: 118b0bf2268875945a35886ca225e62a, type: 3}
+  - {fileID: 4900000, guid: 34609ba7cc5b1884eac887b7ecdfb58f, type: 3}
   - {fileID: 4900000, guid: 7f970ce9532e3b34ca6a80e8a6ef02c5, type: 3}
   - {fileID: 4900000, guid: e8c651ecd2e3ee94baa8ce33334c4535, type: 3}
   - {fileID: 4900000, guid: ec357a5db68301f4e8cf70dea92e95f8, type: 3}
   testFileIndex: 0
   useSceneControllerProgress: 1
   continueStoryFlowOnFinish: 1
+  characterPortraits: []
   charNames:
   - "\u3010\u72EC\u5B64\u9633\u5149\xB7\u5F00\u6717\u5927\u7537\u5B69\u3011"
   - "\u3010\u8BF8\u845B\u5EFA\u56FD\xB7\u75C5\u5F31\u50B2\u5A07\u59B9\u59B9\u3011"
   - "\u3010\u770B\u8D77\u6765\u5F88\u6742\u9C7C\u7684\u654C\u4EBA\u3011"
+  - "\u3010\u6D3E\u6D3E\uFF08Q\u7248\uFF09\u3011"
+  - "\u3010\u6D3E\u6D3E\u3011"
+  - "\u3010ADN-1\u3011"
   charSprites:
   - {fileID: 21300000, guid: f8357c566b52d654db45f909645559df, type: 3}
   - {fileID: 21300000, guid: e299564371ef3a04aacea19b9a21799f, type: 3}
   - {fileID: 21300000, guid: 04cf73c1ea2e25348be7d78aebb76431, type: 3}
+  - {fileID: 21300000, guid: 71fe6efc449bfa64a8cb0911354b2c1c, type: 3}
+  - {fileID: 21300000, guid: 71613ec9ca67abd4b9b7856a748d8c2e, type: 3}
+  - {fileID: 21300000, guid: c302cc298c953714e9d915fca49e2c61, type: 3}
   charScales: []
-  shadowSprite: {fileID: 21300000, guid: f62ccc99cfc7abe499accd8f43edfe22, type: 3}
+  shadowSprite: {fileID: 524613596, guid: 485d53b21e93cb84ab2d2d531509c055, type: 3}
   nameText: {fileID: 1565182075}
   dialogText: {fileID: 1242393889}
   nextButton: {fileID: 1409394755}
@@ -180,7 +187,7 @@ MonoBehaviour:
   backgroundDisplay: {fileID: 1723280819}
   backgroundSprites:
   - {fileID: 21300000, guid: 51c98cad793c22a48bf9393ae6cfaba9, type: 3}
-  playerScale: 0.6
+  playerScale: 0.4
   shadowScale: 0.8
   flashImage: {fileID: 990831942}
   cameraShakeTarget: {fileID: 990190963}
@@ -711,10 +718,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 111
+  m_text: "\u600E\u4E48"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
-  m_sharedMaterial: {fileID: -6668730501014338485, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
+  m_sharedMaterial: {fileID: -4740590449508410103, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -738,8 +745,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -754,7 +761,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1027,8 +1034,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u7EE7\u7EED"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
-  m_sharedMaterial: {fileID: -6668730501014338485, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
+  m_sharedMaterial: {fileID: -4740590449508410103, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1115,7 +1122,7 @@ GameObject:
   - component: {fileID: 1392436008}
   - component: {fileID: 1392436007}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1415,8 +1422,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SKip
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
-  m_sharedMaterial: {fileID: -6668730501014338485, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
+  m_sharedMaterial: {fileID: -4740590449508410103, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1749,8 +1756,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u540D\u5B57"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
-  m_sharedMaterial: {fileID: -6668730501014338485, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
+  m_sharedMaterial: {fileID: -4740590449508410103, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2008,8 +2015,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u9000\u51FA"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
-  m_sharedMaterial: {fileID: -6668730501014338485, guid: a7fd236336b8bf54dbcfd4f1768d4870, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
+  m_sharedMaterial: {fileID: -4740590449508410103, guid: bf77a1cf2995bc0428931d0960685d95, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2245,15 +2252,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127124739603573181, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4127124739603573181, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4127124739603573181, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4127124739603573181, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2287,5 +2294,5 @@ SceneRoots:
   - {fileID: 1505105934}
   - {fileID: 3871391}
   - {fileID: 1292547871}
-  - {fileID: 2025891002}
   - {fileID: 1741088666}
+  - {fileID: 2025891002}
