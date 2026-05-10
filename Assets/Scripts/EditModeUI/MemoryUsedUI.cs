@@ -15,12 +15,14 @@ public class MemoryUsedUI : MonoBehaviour
         Instance = this;
         memoryUsed = 0;
         tmp = GetComponent<TextMeshProUGUI>();
+        tmp.text = "Current Memory Used: " + memoryUsed.ToString();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     public void ChangeMemoryUsed(int i)
     {

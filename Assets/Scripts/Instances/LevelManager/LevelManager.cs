@@ -71,6 +71,11 @@ public class LevelManager : MonoBehaviour
     [Header("区域初始配置")]
     [SerializeField] public List<ZoneData> Borders;
     
+    [Header("内存限制星星")]
+    [SerializeField] public List<int> memoryLimits;
+    
+    
+    
     private List<GameObject> Cars = new List<GameObject>(); 
     
 
@@ -92,6 +97,13 @@ public class LevelManager : MonoBehaviour
 
     void startStimulate()
     {
+        for (int i = 0; i < memoryLimits.Count; i++)
+        {
+            if (MemoryUsedUI.Instance.memoryUsed <= memoryLimits[i])
+            {
+                StarUI.Instance.currentStar += 1;
+            }
+        }
         if (currentMode == CurrentMode.EditMode)
         {
             Cars =  new List<GameObject>();
@@ -144,6 +156,7 @@ public class LevelManager : MonoBehaviour
         {
             EditModeUI.SetActive(false);
             PlayModeUI.SetActive(true);
+            
         }
     }
 
@@ -152,6 +165,7 @@ public class LevelManager : MonoBehaviour
         if (currentMode == CurrentMode.PlayMode)
         {
             currentMode = CurrentMode.EditMode;
+            StarUI.Instance.currentStar = 0;
             foreach (GameObject car in Cars)
             {
                 Destroy(car);
