@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2943105224616768663}
   - component: {fileID: 4315614813134277770}
   - component: {fileID: 6695810592653336324}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpeedingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1152191665
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 844efc9f5c5db774aa75472a3c115bd0, type: 3}
   m_Color: {r: 0.4764151, g: 1, b: 0.69244164, a: 0.59607846}
@@ -102,7 +102,7 @@ MonoBehaviour:
   memoryUsed: 6
   placed: 0
   spritePreviewPrefab: {fileID: 3959891647536898097, guid: b9dcc62947964b14c83f2cfafa7b535d, type: 3}
-  speeding: 20
+  speeding: 7
 --- !u!61 &6695810592653336324
 BoxCollider2D:
   m_ObjectHideFlags: 0
