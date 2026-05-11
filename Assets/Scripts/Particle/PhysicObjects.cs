@@ -8,11 +8,14 @@ public class PhysicObjects : MonoBehaviour
     // Start is called before the first frame update
     private Rigidbody2D rigidBody2D;
     private Vector3 startPosition;
+    private Quaternion startRotation;
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         rigidBody2D.bodyType = RigidbodyType2D.Kinematic;
+        rigidBody2D.velocity = Vector3.zero;
+        transform.rotation = startRotation;
     }
 
     // Update is called once per frame
@@ -28,7 +31,10 @@ public class PhysicObjects : MonoBehaviour
             LevelManager.Instance.currentMode == LevelManager.CurrentMode.EditMode)
         {
             rigidBody2D.bodyType = RigidbodyType2D.Kinematic;
+            rigidBody2D.velocity = Vector3.zero;
+            rigidBody2D.angularVelocity = 0;
             transform.position = startPosition;
+            transform.rotation = startRotation;
         }
 
     }
