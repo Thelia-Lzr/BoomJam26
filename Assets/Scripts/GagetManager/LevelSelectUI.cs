@@ -2,8 +2,20 @@ using UnityEngine;
 
 public class LevelSelectUI : MonoBehaviour
 {
+    [SerializeField] private string levelSelectBgmName = "LevelSelect";
+
+    private void Start()
+    {
+        if (SoundManager.SoundManager.Instance != null)
+        {
+            SoundManager.SoundManager.Instance.Play(levelSelectBgmName);
+        }
+    }
+
     public void GoToLevel1PreStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel1PreStory();
@@ -12,6 +24,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel1PostStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel1PostStory();
@@ -20,6 +34,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel1Battle()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel1Battle();
@@ -28,6 +44,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel2PreStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel2PreStory();
@@ -36,6 +54,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel2PostStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel2PostStory();
@@ -44,6 +64,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel2Battle()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel2Battle();
@@ -52,6 +74,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel3PreStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel3PreStory();
@@ -60,6 +84,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel3PostStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel3PostStory();
@@ -68,6 +94,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel3Battle()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel3Battle();
@@ -76,6 +104,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel4PreStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel4PreStory();
@@ -84,6 +114,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel4PostStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel4PostStory();
@@ -92,6 +124,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel4Battle()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel4Battle();
@@ -100,6 +134,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel5PreStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel5PreStory();
@@ -108,6 +144,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel5PostStory()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel5PostStory();
@@ -116,6 +154,8 @@ public class LevelSelectUI : MonoBehaviour
 
     public void GoToLevel5Battle()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.GoToLevel5Battle();
@@ -137,9 +177,19 @@ public class LevelSelectUI : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        StopBgm();
+
         if (SceneController.Instance != null)
         {
             SceneController.Instance.BackToMainMenu();
+        }
+    }
+
+    private void StopBgm()
+    {
+        if (SoundManager.SoundManager.Instance != null)
+        {
+            SoundManager.SoundManager.Instance.StopAll();
         }
     }
 }
