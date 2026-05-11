@@ -11,12 +11,21 @@ public class SceneController : MonoBehaviour
     [SerializeField] private int storySceneIndex = 2;
     [SerializeField] private int level1BattleSceneIndex = 3;
     [SerializeField] private int level2BattleSceneIndex = 4;
+    [SerializeField] private int level3BattleSceneIndex = 5;
+    [SerializeField] private int level4BattleSceneIndex = 6;
+    [SerializeField] private int level5BattleSceneIndex = 7;
 
     [Header("Story Ids")]
     [SerializeField] private int level1PreStoryId = 0;
     [SerializeField] private int level1PostStoryId = 1;
     [SerializeField] private int level2PreStoryId = 2;
     [SerializeField] private int level2PostStoryId = 3;
+    [SerializeField] private int level3PreStoryId = 4;
+    [SerializeField] private int level3PostStoryId = 5;
+    [SerializeField] private int level4PreStoryId = 6;
+    [SerializeField] private int level4PostStoryId = 7;
+    [SerializeField] private int level5PreStoryId = 8;
+    [SerializeField] private int level5PostStoryId = 9;
 
     private int nextSceneIndex = -1;
     private int currentStoryId = -1;
@@ -103,10 +112,64 @@ public class SceneController : MonoBehaviour
         StartStory(level2PostStoryId, levelSelectSceneIndex);
     }
 
+    public void GoToLevel3PreStory()
+    {
+        StartStory(level3PreStoryId, level3BattleSceneIndex);
+    }
+
     public void GoToBattle3()
     {
-        Debug.LogWarning("<color=yellow>Battle 3 is not configured. Returning to level select.</color>");
-        GoToLevelSelect();
+        GoToLevel3Battle();
+    }
+
+    public void GoToLevel3Battle()
+    {
+        SceneManager.LoadScene(level3BattleSceneIndex);
+    }
+
+    public void GoToLevel3PostStory()
+    {
+        StartStory(level3PostStoryId, levelSelectSceneIndex);
+    }
+
+    public void GoToLevel4PreStory()
+    {
+        StartStory(level4PreStoryId, level4BattleSceneIndex);
+    }
+
+    public void GoToBattle4()
+    {
+        GoToLevel4Battle();
+    }
+
+    public void GoToLevel4Battle()
+    {
+        SceneManager.LoadScene(level4BattleSceneIndex);
+    }
+
+    public void GoToLevel4PostStory()
+    {
+        StartStory(level4PostStoryId, levelSelectSceneIndex);
+    }
+
+    public void GoToLevel5PreStory()
+    {
+        StartStory(level5PreStoryId, level5BattleSceneIndex);
+    }
+
+    public void GoToBattle5()
+    {
+        GoToLevel5Battle();
+    }
+
+    public void GoToLevel5Battle()
+    {
+        SceneManager.LoadScene(level5BattleSceneIndex);
+    }
+
+    public void GoToLevel5PostStory()
+    {
+        StartStory(level5PostStoryId, levelSelectSceneIndex);
     }
 
     public void GoToNextStory()
