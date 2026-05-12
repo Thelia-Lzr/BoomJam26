@@ -75,3 +75,15 @@ MonoBehaviour:
     volume: 0.6
     pitch: 1
     loop: 0
+  - name: MainMenu
+    type: 0
+    clip: {fileID: 8300000, guid: 5af8e766b87bc68429d0b54529706948, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: LevelSelect
+    type: 0
+    clip: {fileID: 8300000, guid: 5af8e766b87bc68429d0b54529706948, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
