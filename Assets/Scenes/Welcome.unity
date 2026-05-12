@@ -718,10 +718,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1959074662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09027279767e9b142b0ada1b3ebbd5d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 86c7fc86b4b5df849ae9e22a753bc462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelectBgmName: LevelSelect
+  mainMenuBgmName: MainMenu
 --- !u!1 &1973901184
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,8 +806,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1959074667}
-        m_TargetAssemblyTypeName: LevelSelectUI, Assembly-CSharp
-        m_MethodName: GoToLevelSelect
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: OnClickStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
