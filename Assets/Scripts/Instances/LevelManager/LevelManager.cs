@@ -68,7 +68,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject CarPrefab;
     [Header("初始配置")]
     [SerializeField] private List<CarStarts> Starts;
-    [Header("区域初始配置")]
+    [SerializeField] public int maxMemory = 64;
+    [Header("区域限制")] 
+    [SerializeField] public Vector2 min;
+    [SerializeField] public Vector2 max;
+    [Header("Zone初始配置")]
     [SerializeField] public List<ZoneData> Borders;
     
     private List<GameObject> Cars = new List<GameObject>(); 
