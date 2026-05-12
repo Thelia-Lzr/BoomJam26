@@ -821,6 +821,9 @@ MonoBehaviour:
   - motorSpeed: 2000
     Mass: 3
     Delay: 0
+  maxMemory: 64
+  min: {x: -400, y: -300}
+  max: {x: 400, y: 300}
   Borders:
   - ability: 
     zoneClass: 0
@@ -4296,6 +4299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   memoryUsed: 0
+  memoryTile: {fileID: 0}
 --- !u!114 &1951523321
 MonoBehaviour:
   m_ObjectHideFlags: 0

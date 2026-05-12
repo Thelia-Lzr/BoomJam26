@@ -76,6 +76,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public List<ZoneData> Borders;
     
     private List<GameObject> Cars = new List<GameObject>(); 
+    public bool victoryTriggered = false;
     
 
     private void Awake()
@@ -92,6 +93,7 @@ public class LevelManager : MonoBehaviour
     {
         StartButton.onClick.AddListener(startStimulate);
         ResetButton.onClick.AddListener(Reset);
+        victoryTriggered =  false;
     }
 
     void startStimulate()
@@ -151,7 +153,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void Reset()
+    public void Reset()
     {
         if (currentMode == CurrentMode.PlayMode)
         {
@@ -160,6 +162,14 @@ public class LevelManager : MonoBehaviour
             {
                 Destroy(car);
             }
+        }
+    }
+
+    public void Pause()
+    {
+        foreach (GameObject car in Cars)
+        {
+            Destroy(car);
         }
     }
 }

@@ -37,6 +37,7 @@ public class LevelVictoryTrigger : MonoBehaviour
         }
 
         victoryTriggered = true;
+        LevelManager.victoryTriggered = true;
         SaveManager.CompleteLevel(currentLevel);//解锁新关卡
         Debug.Log($"[LevelVictoryTrigger] Level {currentLevel} cleared. Unlocked level: {SaveManager.GetUnlockedLevel()}");
 
