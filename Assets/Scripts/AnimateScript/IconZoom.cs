@@ -4,41 +4,50 @@ using UnityEngine.UI;
 
 public class IconZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Color hoverColor = Color.white;
     [SerializeField] private Vector3 hoverScale = Vector3.one;
+    [SerializeField] private Color hoverGlowColor = Color.white;
+    [SerializeField] private Vector2 hoverGlowDistance = new Vector2(4f, -4f);
 
-    private Image targetImage;
-    private Color originalColor;
     private Vector3 originalScale;
+    private Outline glowOutline;
+    private bool originalGlowEnabled;
+    private Color originalGlowColor;
+    private Vector2 originalGlowDistance;
 
     private void Awake()
     {
-        targetImage = GetComponent<Image>();
-        if (targetImage != null)
+        originalScale = transform.localScale;
+        glowOutline = GetComponent<Outline>();
+        if (glowOutline == null)
         {
-            originalColor = targetImage.color;
+            glowOutline = gameObject.AddComponent<Outline>();
         }
 
-        originalScale = transform.localScale;
+        originalGlowEnabled = glowOutline.enabled;
+        originalGlowColor = glowOutline.effectColor;
+        originalGlowDistance = glowOutline.effectDistance;
+        glowOutline.enabled = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (targetImage != null)
-        {
-            targetImage.color = hoverColor;
-        }
-
         transform.localScale = hoverScale;
+        if (glowOutline != null)
+        {
+            glowOutline.effectColor = hoverGlowColor;
+            glowOutline.effectDistance = hoverGlowDistance;
+            glowOutline.enabled = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (targetImage != null)
-        {
-            targetImage.color = originalColor;
-        }
-
         transform.localScale = originalScale;
+        if (glowOutline != null)
+        {
+            glowOutline.effectColor = originalGlowColor;
+            glowOutline.effectDistance = originalGlowDistance;
+            glowOutline.enabled = originalGlowEnabled;
+        }
     }
 }
