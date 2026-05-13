@@ -74,8 +74,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public Vector2 max;
     [Header("Zone初始配置")]
     [SerializeField] public List<ZoneData> Borders;
-    
-    [Header("内存限制星星")]
+
+    [Header("内存限制星星")] 
+    [SerializeField] public bool starEnabled = false;
     [SerializeField] public List<int> memoryLimits;
     
     

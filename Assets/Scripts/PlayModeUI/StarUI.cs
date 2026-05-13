@@ -12,8 +12,13 @@ public class StarUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         Instance = this;
         tmp = GetComponent<TextMeshProUGUI>();
+        if (!LevelManager.Instance.starEnabled)
+        {
+            this.tmp.enabled = false;
+        }
         tmp.text = "Current Star:" + currentStar.ToString();
         currentStar = 0;
     }
