@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class GameCamera : MonoBehaviour
@@ -22,6 +23,13 @@ public class GameCamera : MonoBehaviour
     [Header("绑定在小车的摄像机")]
     public Transform Camera2;
 
+    void Start()
+    {
+        minX = LevelManager.Instance.min.x;
+        maxX = LevelManager.Instance.max.x;
+        minY = LevelManager.Instance.min.y;
+        maxY = LevelManager.Instance.max.y;
+    }
     void Update()
     {
         //获取游戏进程，在摆放框框的阶段结束后自动转为绑定在小车上的摄像机

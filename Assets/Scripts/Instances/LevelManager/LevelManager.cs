@@ -68,10 +68,21 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject CarPrefab;
     [Header("初始配置")]
     [SerializeField] private List<CarStarts> Starts;
-    [Header("区域初始配置")]
+    [SerializeField] public int maxMemory = 64;
+    [Header("区域限制")] 
+    [SerializeField] public Vector2 min;
+    [SerializeField] public Vector2 max;
+    [Header("Zone初始配置")]
     [SerializeField] public List<ZoneData> Borders;
+
+    [Header("内存限制星星")] 
+    [SerializeField] public bool starEnabled = false;
+    [SerializeField] public List<int> memoryLimits;
+    
+    
     
     private List<GameObject> Cars = new List<GameObject>(); 
+    public bool victoryTriggered = false;
     
 
     private void Awake()
@@ -88,10 +99,18 @@ public class LevelManager : MonoBehaviour
     {
         StartButton.onClick.AddListener(startStimulate);
         ResetButton.onClick.AddListener(Reset);
+        victoryTriggered =  false;
     }
 
     void startStimulate()
     {
+        for (int i = 0; i < memoryLimits.Count; i++)
+        {
+            if (MemoryUsedUI.Instance.memoryUsed <= memoryLimits[i])
+            {
+                StarUI.Instance.currentStar += 1;
+            }
+        }
         if (currentMode == CurrentMode.EditMode)
         {
             Cars =  new List<GameObject>();
@@ -144,18 +163,28 @@ public class LevelManager : MonoBehaviour
         {
             EditModeUI.SetActive(false);
             PlayModeUI.SetActive(true);
+            
         }
     }
 
-    private void Reset()
+    public void Reset()
     {
         if (currentMode == CurrentMode.PlayMode)
         {
             currentMode = CurrentMode.EditMode;
+            StarUI.Instance.currentStar = 0;
             foreach (GameObject car in Cars)
             {
                 Destroy(car);
             }
+        }
+    }
+
+    public void Pause()
+    {
+        foreach (GameObject car in Cars)
+        {
+            Destroy(car);
         }
     }
 }
