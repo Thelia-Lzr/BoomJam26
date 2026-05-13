@@ -32,7 +32,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (spritePreviewPrefab == null) return;
         currentGuideSprite = Instantiate(spritePreviewPrefab);
-        currentGuideSprite.transform.localScale = zoneScale;
+        ApplyZoneSize(currentGuideSprite, zoneScale);
         currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
         //分类脚本
         switch (zoneClass)
@@ -51,7 +51,7 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 break;
         }
         currentSprite = Instantiate(spritePrefab);
-        currentSprite.transform.localScale = zoneScale;
+        ApplyZoneSize(currentSprite, zoneScale);
         currentSprite.transform.position = ScreenToWorldPos(eventData.position);
         spriteScript = currentSprite.GetComponent<DefaultZone>();
         spriteScript.memoryUsed = memoryUsed;
@@ -89,5 +89,59 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPosWithZ);
         worldPos.z = 0;
         return worldPos;
+    }
+
+    private void ApplyZoneSize(GameObject target, Vector2 size)
+    {
+        if (target == null)
+        {
+            return;
+        }
+
+        var spriteRenderer = target.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            target.transform.localScale = size;
+            return;
+        }
+
+        if (spriteRenderer.sprite != null && spriteRenderer.sprite.packingMode == SpritePackingMode.Tight)
+        {
+            spriteRenderer.sprite = CreateFullRectSprite(spriteRenderer.sprite);
+        }
+
+        var boxCollider2D = target.GetComponent<BoxCollider2D>();
+        var boxCollider = target.GetComponent<BoxCollider>();
+        var targetSize = size;
+
+        if (boxCollider2D != null)
+        {
+            targetSize = boxCollider2D.size;
+        }
+        else if (boxCollider != null)
+        {
+            targetSize = new Vector2(boxCollider.size.x, boxCollider.size.y);
+        }
+
+        spriteRenderer.drawMode = SpriteDrawMode.Sliced;
+        spriteRenderer.size = targetSize;
+        target.transform.localScale = Vector3.one;
+    }
+
+    private static Sprite CreateFullRectSprite(Sprite source)
+    {
+        if (source == null)
+        {
+            return null;
+        }
+
+        var rect = source.rect;
+        if (rect.width <= 0f || rect.height <= 0f)
+        {
+            return source;
+        }
+
+        var pivot = new Vector2(source.pivot.x / rect.width, source.pivot.y / rect.height);
+        return Sprite.Create(source.texture, rect, pivot, source.pixelsPerUnit, 0, SpriteMeshType.FullRect, source.border);
     }
 }
