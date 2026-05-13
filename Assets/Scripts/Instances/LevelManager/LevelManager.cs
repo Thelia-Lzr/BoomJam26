@@ -68,10 +68,15 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject CarPrefab;
     [Header("初始配置")]
     [SerializeField] private List<CarStarts> Starts;
-    [Header("区域初始配置")]
+    [SerializeField] public int maxMemory = 64;
+    [Header("区域限制")] 
+    [SerializeField] public Vector2 min;
+    [SerializeField] public Vector2 max;
+    [Header("Zone初始配置")]
     [SerializeField] public List<ZoneData> Borders;
     
     private List<GameObject> Cars = new List<GameObject>(); 
+    public bool victoryTriggered = false;
     
 
     private void Awake()
@@ -88,6 +93,7 @@ public class LevelManager : MonoBehaviour
     {
         StartButton.onClick.AddListener(startStimulate);
         ResetButton.onClick.AddListener(Reset);
+        victoryTriggered =  false;
     }
 
     void startStimulate()
@@ -147,7 +153,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void Reset()
+    public void Reset()
     {
         if (currentMode == CurrentMode.PlayMode)
         {
@@ -156,6 +162,14 @@ public class LevelManager : MonoBehaviour
             {
                 Destroy(car);
             }
+        }
+    }
+
+    public void Pause()
+    {
+        foreach (GameObject car in Cars)
+        {
+            Destroy(car);
         }
     }
 }

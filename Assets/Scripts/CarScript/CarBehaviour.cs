@@ -56,6 +56,14 @@ public class CarBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (LevelManager.Instance == null) return;
+        Vector2 pos = checkcol.transform.position;
+        Vector2 min = LevelManager.Instance.min;
+        Vector2 max = LevelManager.Instance.max;
+        if (!LevelManager.Instance.victoryTriggered &&  (pos.x < min.x || pos.x > max.x || pos.y < min.y || pos.y > max.y))
+        {
+            LevelManager.Instance.Reset();
+        }
         int count = checkcol.GetContacts(zoneResults);
         //初始化
         isAntiGravity = false;
@@ -73,6 +81,7 @@ public class CarBehaviour : MonoBehaviour
             {
                 speeding += speedingZone.speeding;
             }
+            
             
             
         }
@@ -97,6 +106,6 @@ public class CarBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
