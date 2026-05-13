@@ -13,7 +13,9 @@ public class CelebrationController : MonoBehaviour
         [InspectorName("Shake")]
         Shake,
         [InspectorName("QQ Bounce Scale")]
-        BounceScale
+        BounceScale,
+        [InspectorName("Pause")]
+        Pause
     }
 
     private enum FlipAxis
@@ -27,7 +29,7 @@ public class CelebrationController : MonoBehaviour
     [Header("Play")]
     [SerializeField] private bool playOnStart = true;
     [SerializeField] private bool loop = true;
-    [SerializeField] private float loopInterval = 0.18f;
+    [SerializeField] private float loopInterval = 0.5f;
     [Tooltip("Leave empty to animate this GameObject.")]
     [SerializeField] private Transform target;
     [Tooltip("Overall feel for jump and shake.")]
@@ -45,7 +47,7 @@ public class CelebrationController : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private bool useJump = true;
-    [SerializeField, Min(0f)] private float jumpDuration = 0.42f;
+    [SerializeField, Min(0f)] private float jumpDuration = 0.5f;
     [SerializeField] private float jumpHeight = 0.75f;
     [SerializeField, Min(1)] private int jumpCount = 1;
 
@@ -68,6 +70,10 @@ public class CelebrationController : MonoBehaviour
     [SerializeField] private Vector3 squashScale = new Vector3(1.16f, 0.84f, 1f);
     [SerializeField, Min(0f)] private float stretchDuration = 0.14f;
     [SerializeField] private Vector3 stretchScale = new Vector3(0.92f, 1.08f, 1f);
+
+    [Header("Pause")]
+    [SerializeField] private bool usePause = true;
+    [SerializeField, Min(0f)] private float pauseDuration = 0.7f;
 
     private Sequence celebrationSequence;
     private Vector3 startLocalPosition;
@@ -245,6 +251,9 @@ public class CelebrationController : MonoBehaviour
             case CelebrationAction.BounceScale:
                 AppendBounceScale(sequence);
                 break;
+            case CelebrationAction.Pause:
+                AppendPause(sequence);
+                break;
         }
     }
 
@@ -299,5 +308,12 @@ public class CelebrationController : MonoBehaviour
         sequence.Append(target
             .DOShakePosition(Mathf.Max(0.01f, shakeDuration), shakeStrength, Mathf.Max(1, shakeVibrato), shakeRandomness)
             .SetEase(motionEase));
+    }
+
+    private void AppendPause(Sequence sequence)
+    {
+        if (!usePause) return;
+
+        sequence.AppendInterval(Mathf.Max(0f, pauseDuration));
     }
 }

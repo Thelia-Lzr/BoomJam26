@@ -19610,87 +19610,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOnStart: 1
   loop: 1
-  loopInterval: 0.18
+  loopInterval: 0.5
   target: {fileID: 0}
-  actions:
-  - type: 7
-    duration: 0.14
-    ease: 6
-    jumpHeight: 1
-    jumpCount: 1
-    flipAxis: 0
-    rotateBy: {x: 0, y: 0, z: 360}
-    targetScale: {x: 1, y: 1, z: 1}
-    moveOffset: {x: 0, y: 0, z: 0}
-    shakeStrength: {x: 0.15, y: 0.15, z: 0}
-    vibrato: 10
-    randomness: 45
-    squashScale: {x: 1.16, y: 0.84, z: 1}
-  - type: 1
-    duration: 0.42
-    ease: 6
-    jumpHeight: 0.75
-    jumpCount: 1
-    flipAxis: 0
-    rotateBy: {x: 0, y: 0, z: 360}
-    targetScale: {x: 1, y: 1, z: 1}
-    moveOffset: {x: 0, y: 0, z: 0}
-    shakeStrength: {x: 0.15, y: 0.15, z: 0}
-    vibrato: 10
-    randomness: 45
-    squashScale: {x: 1.2, y: 0.8, z: 1}
-  - type: 3
-    duration: 0.18
-    ease: 6
-    jumpHeight: 1
-    jumpCount: 1
-    flipAxis: 0
-    rotateBy: {x: 0, y: 0, z: -8}
-    targetScale: {x: 1, y: 1, z: 1}
-    moveOffset: {x: 0, y: 0, z: 0}
-    shakeStrength: {x: 0.15, y: 0.15, z: 0}
-    vibrato: 10
-    randomness: 45
-    squashScale: {x: 1.2, y: 0.8, z: 1}
-  - type: 3
-    duration: 0.18
-    ease: 6
-    jumpHeight: 1
-    jumpCount: 1
-    flipAxis: 0
-    rotateBy: {x: 0, y: 0, z: 16}
-    targetScale: {x: 1, y: 1, z: 1}
-    moveOffset: {x: 0, y: 0, z: 0}
-    shakeStrength: {x: 0.15, y: 0.15, z: 0}
-    vibrato: 10
-    randomness: 45
-    squashScale: {x: 1.2, y: 0.8, z: 1}
-  - type: 3
-    duration: 0.18
-    ease: 6
-    jumpHeight: 1
-    jumpCount: 1
-    flipAxis: 0
-    rotateBy: {x: 0, y: 0, z: -8}
-    targetScale: {x: 1, y: 1, z: 1}
-    moveOffset: {x: 0, y: 0, z: 0}
-    shakeStrength: {x: 0.15, y: 0.15, z: 0}
-    vibrato: 10
-    randomness: 45
-    squashScale: {x: 1.2, y: 0.8, z: 1}
-  - type: 6
-    duration: 0.18
-    ease: 6
-    jumpHeight: 1
-    jumpCount: 1
-    flipAxis: 0
-    rotateBy: {x: 0, y: 0, z: 360}
-    targetScale: {x: 1, y: 1, z: 1}
-    moveOffset: {x: 0, y: 0, z: 0}
-    shakeStrength: {x: 0.05, y: 0.05, z: 0}
-    vibrato: 8
-    randomness: 30
-    squashScale: {x: 1.2, y: 0.8, z: 1}
+  motionEase: 6
+  actionOrder: 00000000020000000400000000000000020000000400000001000000
+  useJump: 1
+  jumpDuration: 0.5
+  jumpHeight: 0.75
+  jumpCount: 1
+  useFlip: 1
+  flipDuration: 0.16
+  flipAxis: 0
+  useShake: 1
+  shakeDuration: 0.18
+  shakeStrength: {x: 0.05, y: 0.05, z: 0}
+  shakeVibrato: 8
+  shakeRandomness: 30
+  useBounceScale: 0
+  squashDuration: 0.12
+  squashScale: {x: 1.16, y: 0.84, z: 1}
+  stretchDuration: 0.14
+  stretchScale: {x: 0.92, y: 1.08, z: 1}
+  usePause: 1
+  pauseDuration: 0.7
 --- !u!212 &1880616011
 SpriteRenderer:
   m_ObjectHideFlags: 0

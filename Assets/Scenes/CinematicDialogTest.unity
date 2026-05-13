@@ -192,7 +192,7 @@ MonoBehaviour:
   finishText: "\uFF08\u5267\u60C5\u7ED3\u675F\uFF0C\u70B9\u51FB\u7EE7\u7EED\uFF09"
   backgroundDisplay: {fileID: 1723280819}
   backgroundSprites:
-  - {fileID: 21300000, guid: 51c98cad793c22a48bf9393ae6cfaba9, type: 3}
+  - {fileID: 21300000, guid: 8d8e56ed4b2ed7043a00bd310814b876, type: 3}
   playerScale: 0.4
   shadowScale: 0.8
   flashImage: {fileID: 990831942}
