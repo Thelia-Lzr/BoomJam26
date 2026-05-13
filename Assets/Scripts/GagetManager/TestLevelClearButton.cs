@@ -9,7 +9,10 @@ public class TestLevelClearButton : MonoBehaviour
         Stay,
         LevelSelect,
         Level1PostStory,
-        Level2PostStory
+        Level2PostStory,
+        Level3PostStory,
+        Level4PostStory,
+        Level5PostStory
     }
 
     [Header("Test Clear Settings")]
@@ -65,6 +68,15 @@ public class TestLevelClearButton : MonoBehaviour
                 break;
             case AfterClearAction.Level2PostStory:
                 SceneController.Instance.GoToLevel2PostStory();
+                break;
+            case AfterClearAction.Level3PostStory:
+                SceneController.Instance.GoToLevel3PostStory();
+                break;
+            case AfterClearAction.Level4PostStory:
+                SceneController.Instance.GoToLevel4PostStory();
+                break;
+            case AfterClearAction.Level5PostStory:
+                SceneController.Instance.GoToLevel5PostStory();
                 break;
         }
     }

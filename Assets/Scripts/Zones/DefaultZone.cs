@@ -44,6 +44,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("OnPointerDown");
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = transform.localScale;

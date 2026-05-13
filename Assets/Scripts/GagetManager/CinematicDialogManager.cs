@@ -109,6 +109,8 @@ public class CinematicDialogManager : MonoBehaviour
         Level1Battle,
         Level2Battle,
         Level3Battle,
+        Level4Battle,
+        Level5Battle,
         MainMenu
     }
 
@@ -747,7 +749,13 @@ public class CinematicDialogManager : MonoBehaviour
                 SceneController.Instance.GoToLevel2Battle();
                 return true;
             case FinishAction.Level3Battle:
-                SceneController.Instance.GoToBattle3();
+                SceneController.Instance.GoToLevel3Battle();
+                return true;
+            case FinishAction.Level4Battle:
+                SceneController.Instance.GoToLevel4Battle();
+                return true;
+            case FinishAction.Level5Battle:
+                SceneController.Instance.GoToLevel5Battle();
                 return true;
             case FinishAction.MainMenu:
                 SceneController.Instance.BackToMainMenu();
