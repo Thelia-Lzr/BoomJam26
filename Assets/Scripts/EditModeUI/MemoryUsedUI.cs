@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MemoryUsedUI : MonoBehaviour
 {
     public static MemoryUsedUI Instance;
     public int memoryUsed;
+    public Image memoryTile;
 
     private TextMeshProUGUI tmp;
     // Start is called before the first frame update
@@ -15,19 +17,18 @@ public class MemoryUsedUI : MonoBehaviour
         Instance = this;
         memoryUsed = 0;
         tmp = GetComponent<TextMeshProUGUI>();
-        tmp.text = "Current Memory Used: " + memoryUsed.ToString();
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        memoryTile.fillAmount = (float)memoryUsed / (float)LevelManager.Instance.maxMemory;
     }
     public void ChangeMemoryUsed(int i)
     {
         memoryUsed += i;
-        tmp.text = "Current Memory Used: " + memoryUsed.ToString();
+        tmp.text = "Current Memory Used: " + memoryUsed.ToString() + "/" + LevelManager.Instance.maxMemory.ToString();
 
     }
 }
