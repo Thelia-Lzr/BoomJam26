@@ -5225,6 +5225,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5353,6 +5354,51 @@ MonoBehaviour:
   minY: -9999
   maxY: 9999
   Camera2: {fileID: 0}
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44baa8aae67e99a41b0c7a3f0d2bc61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectMode: 0
+  targetCamera: {fileID: 0}
+  playOnStart: 1
+  duration: 0.4
+  revealCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maskColor: {r: 0, g: 0, b: 0, a: 0.7058824}
+  startWindowScale: 0.18
+  edgeSoftness: 0.015
+  sortingOrder: 999
+  startViewScale: 0.25
 --- !u!1 &539585851
 GameObject:
   m_ObjectHideFlags: 0
@@ -19532,6 +19578,186 @@ Transform:
   - {fileID: 1756456641}
   m_Father: {fileID: 1173697615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1880616009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1880616012}
+  - component: {fileID: 1880616011}
+  - component: {fileID: 1880616010}
+  m_Layer: 0
+  m_Name: Square (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1880616010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880616009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab6b23bb8f50e2c458c0b09ae4405ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playOnStart: 1
+  loop: 1
+  loopInterval: 0.18
+  target: {fileID: 0}
+  actions:
+  - type: 7
+    duration: 0.14
+    ease: 6
+    jumpHeight: 1
+    jumpCount: 1
+    flipAxis: 0
+    rotateBy: {x: 0, y: 0, z: 360}
+    targetScale: {x: 1, y: 1, z: 1}
+    moveOffset: {x: 0, y: 0, z: 0}
+    shakeStrength: {x: 0.15, y: 0.15, z: 0}
+    vibrato: 10
+    randomness: 45
+    squashScale: {x: 1.16, y: 0.84, z: 1}
+  - type: 1
+    duration: 0.42
+    ease: 6
+    jumpHeight: 0.75
+    jumpCount: 1
+    flipAxis: 0
+    rotateBy: {x: 0, y: 0, z: 360}
+    targetScale: {x: 1, y: 1, z: 1}
+    moveOffset: {x: 0, y: 0, z: 0}
+    shakeStrength: {x: 0.15, y: 0.15, z: 0}
+    vibrato: 10
+    randomness: 45
+    squashScale: {x: 1.2, y: 0.8, z: 1}
+  - type: 3
+    duration: 0.18
+    ease: 6
+    jumpHeight: 1
+    jumpCount: 1
+    flipAxis: 0
+    rotateBy: {x: 0, y: 0, z: -8}
+    targetScale: {x: 1, y: 1, z: 1}
+    moveOffset: {x: 0, y: 0, z: 0}
+    shakeStrength: {x: 0.15, y: 0.15, z: 0}
+    vibrato: 10
+    randomness: 45
+    squashScale: {x: 1.2, y: 0.8, z: 1}
+  - type: 3
+    duration: 0.18
+    ease: 6
+    jumpHeight: 1
+    jumpCount: 1
+    flipAxis: 0
+    rotateBy: {x: 0, y: 0, z: 16}
+    targetScale: {x: 1, y: 1, z: 1}
+    moveOffset: {x: 0, y: 0, z: 0}
+    shakeStrength: {x: 0.15, y: 0.15, z: 0}
+    vibrato: 10
+    randomness: 45
+    squashScale: {x: 1.2, y: 0.8, z: 1}
+  - type: 3
+    duration: 0.18
+    ease: 6
+    jumpHeight: 1
+    jumpCount: 1
+    flipAxis: 0
+    rotateBy: {x: 0, y: 0, z: -8}
+    targetScale: {x: 1, y: 1, z: 1}
+    moveOffset: {x: 0, y: 0, z: 0}
+    shakeStrength: {x: 0.15, y: 0.15, z: 0}
+    vibrato: 10
+    randomness: 45
+    squashScale: {x: 1.2, y: 0.8, z: 1}
+  - type: 6
+    duration: 0.18
+    ease: 6
+    jumpHeight: 1
+    jumpCount: 1
+    flipAxis: 0
+    rotateBy: {x: 0, y: 0, z: 360}
+    targetScale: {x: 1, y: 1, z: 1}
+    moveOffset: {x: 0, y: 0, z: 0}
+    shakeStrength: {x: 0.05, y: 0.05, z: 0}
+    vibrato: 8
+    randomness: 30
+    squashScale: {x: 1.2, y: 0.8, z: 1}
+--- !u!212 &1880616011
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880616009}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 9e44740ee5526774abac095e2bb14bc7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1880616012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880616009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.03, y: 3.52, z: 0}
+  m_LocalScale: {x: 0.571463, y: 0.53588027, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889406887
 GameObject:
   m_ObjectHideFlags: 0
@@ -22149,3 +22375,4 @@ SceneRoots:
   - {fileID: 729295632}
   - {fileID: 1062895297}
   - {fileID: 1208674841}
+  - {fileID: 1880616012}
