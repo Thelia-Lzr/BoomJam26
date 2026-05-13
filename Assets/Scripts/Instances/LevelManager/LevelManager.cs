@@ -96,6 +96,7 @@ public class LevelManager : MonoBehaviour
         {
             Cars =  new List<GameObject>();
             currentMode =  CurrentMode.PlayMode;
+            Timer.Instance.StartTimer();
             StartCoroutine(Stimulate());
         }
     }

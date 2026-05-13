@@ -13,7 +13,6 @@ using static LevelManager;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-
     //输出单例
     public static UIManager Instance;
     //UI数据
@@ -23,6 +22,8 @@ public class UIManager : MonoBehaviour
     private const float DETAIL_ITEM_START_X = 100f;
     private const float DETAIL_ITEM_SPACING = 200f;
     private const float DETAIL_ITEM_Y = 75f;
+    //canvas
+    public Canvas canvas;
     //获取单例
     private LevelManager levelManager;
     List<List<ZoneData>> zoneData;
@@ -47,7 +48,10 @@ public class UIManager : MonoBehaviour
     //--设置--
     public float longPressTime = 0.5f;    // 长按判定时间（秒）
     public float spriteZOffset = 0f;      // Sprite在世界坐标中的Z轴位置（2D游戏设为0即可）
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {

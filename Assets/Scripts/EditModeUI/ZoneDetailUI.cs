@@ -22,10 +22,11 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private DefaultZone spriteScript;
     private Camera mainCamera;
     //屏幕有效范围
-    private const float BottomBanHeight = 150f;
+    private float BottomBanHeight;
     void Start()
     {
         mainCamera = Camera.main;
+        BottomBanHeight = 150f * Screen.width / UIManager.Instance.canvas.GetComponent<RectTransform>().sizeDelta.x;
     }
     public void OnPointerDown(PointerEventData eventData)
     {

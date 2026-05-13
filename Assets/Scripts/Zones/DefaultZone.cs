@@ -16,10 +16,11 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     [Header("״̬")]
     protected Camera mainCamera;
     //��Ļ��Ч��Χ
-    private const float BottomBanHeight = 150f;
+    private float BottomBanHeight;
     protected void Start()
     {
         mainCamera = Camera.main;
+        BottomBanHeight = 150f * Screen.width / UIManager.Instance.canvas.GetComponent<RectTransform>().sizeDelta.x;
     }
     public void ZonePosition(Vector3 position)
     {
@@ -58,6 +59,8 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         {
             Destroy(currentGuideSprite);
             currentGuideSprite = null;
+
+
             if (eventData.position.y <= BottomBanHeight)
             {
                 Destroy(gameObject);

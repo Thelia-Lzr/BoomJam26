@@ -35,7 +35,8 @@ public class LevelVictoryTrigger : MonoBehaviour
         {
             return;
         }
-
+        Timer.Instance.EndTimer();
+        float passtime = Timer.Instance.curTime;
         victoryTriggered = true;
         SaveManager.CompleteLevel(currentLevel);//解锁新关卡
         Debug.Log($"[LevelVictoryTrigger] Level {currentLevel} cleared. Unlocked level: {SaveManager.GetUnlockedLevel()}");
