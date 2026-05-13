@@ -14,13 +14,13 @@ public class StarUI : MonoBehaviour
     {
         Instance = this;
         tmp = GetComponent<TextMeshProUGUI>();
-        tmp.text = "CurrentStar:" + currentStar.ToString();
+        tmp.text = "Current Star:" + currentStar.ToString();
         currentStar = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        tmp.text = "CurrentStar:" + currentStar.ToString();
+        tmp.text = "Current Star:" + currentStar.ToString();
     }
 }
