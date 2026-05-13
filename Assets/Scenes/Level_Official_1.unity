@@ -855,6 +855,7 @@ MonoBehaviour:
     length: 3
     height: 2
     cost: 6
+  victoryTriggered: 0
 --- !u!1 &446182142
 GameObject:
   m_ObjectHideFlags: 0
