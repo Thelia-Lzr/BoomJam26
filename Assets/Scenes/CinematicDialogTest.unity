@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allDialogFiles:
-  - {fileID: 4900000, guid: 34609ba7cc5b1884eac887b7ecdfb58f, type: 3}
+  - {fileID: 4900000, guid: a9c30111000000000000000000000001, type: 3}
   - {fileID: 4900000, guid: a9c30111000000000000000000000002, type: 3}
   - {fileID: 4900000, guid: a9c30111000000000000000000000003, type: 3}
   - {fileID: 4900000, guid: a9c30111000000000000000000000004, type: 3}
@@ -165,22 +165,19 @@ MonoBehaviour:
   testFileIndex: 0
   useSceneControllerProgress: 1
   continueStoryFlowOnFinish: 1
-  characterPortraits: []
-  charNames:
-  - "\u3010\u72EC\u5B64\u9633\u5149\xB7\u5F00\u6717\u5927\u7537\u5B69\u3011"
-  - "\u3010\u8BF8\u845B\u5EFA\u56FD\xB7\u75C5\u5F31\u50B2\u5A07\u59B9\u59B9\u3011"
-  - "\u3010\u770B\u8D77\u6765\u5F88\u6742\u9C7C\u7684\u654C\u4EBA\u3011"
-  - "\u3010\u6D3E\u6D3E\uFF08Q\u7248\uFF09\u3011"
-  - "\u3010\u6D3E\u6D3E\u3011"
-  - "\u3010ADN-1\u3011"
-  charSprites:
-  - {fileID: 21300000, guid: f8357c566b52d654db45f909645559df, type: 3}
-  - {fileID: 21300000, guid: e299564371ef3a04aacea19b9a21799f, type: 3}
-  - {fileID: 21300000, guid: 04cf73c1ea2e25348be7d78aebb76431, type: 3}
-  - {fileID: 21300000, guid: 71fe6efc449bfa64a8cb0911354b2c1c, type: 3}
-  - {fileID: 21300000, guid: 71613ec9ca67abd4b9b7856a748d8c2e, type: 3}
-  - {fileID: 21300000, guid: eb79d602dd7006342b894d644fd9c438, type: 3}
-  charScales: []
+  characterPortraits:
+  - characterId: 0
+    sprite: {fileID: 21300000, guid: 71613ec9ca67abd4b9b7856a748d8c2e, type: 3}
+    scale: 0.35
+  - characterId: 1
+    sprite: {fileID: 21300000, guid: 7b31ea4d525e5c0489f47df2b5176164, type: 3}
+    scale: 0.28
+  - characterId: 2
+    sprite: {fileID: 21300000, guid: c302cc298c953714e9d915fca49e2c61, type: 3}
+    scale: 0.6
+  - characterId: 3
+    sprite: {fileID: 1965819970618450423, guid: 3a150741c5528724492eced63a784107, type: 3}
+    scale: 0.4
   shadowSprite: {fileID: 524613596, guid: 485d53b21e93cb84ab2d2d531509c055, type: 3}
   nameText: {fileID: 1565182075}
   dialogText: {fileID: 1242393889}
