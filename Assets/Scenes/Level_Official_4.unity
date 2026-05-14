@@ -1495,6 +1495,9 @@ MonoBehaviour:
   - motorSpeed: 1500
     Mass: 2
     Delay: 0
+  maxMemory: 64
+  min: {x: 0, y: 0}
+  max: {x: 0, y: 0}
   Borders:
   - ability: 
     zoneClass: 0
@@ -1526,6 +1529,9 @@ MonoBehaviour:
     length: 3
     height: 2
     cost: 6
+  starEnabled: 0
+  memoryLimits: 
+  victoryTriggered: 0
 --- !u!1 &452594670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,9 +3054,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 969861165764807414, guid: e26990cda4861994a93715828673bcbf, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5785955062452064686, guid: e26990cda4861994a93715828673bcbf, type: 3}
       propertyPath: m_Name
       value: AccountCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785955062452064686, guid: e26990cda4861994a93715828673bcbf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
       propertyPath: m_Pivot.x
@@ -3082,6 +3096,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
@@ -6016,6 +6042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   memoryUsed: 0
+  memoryTile: {fileID: 0}
 --- !u!114 &1951523321
 MonoBehaviour:
   m_ObjectHideFlags: 0
