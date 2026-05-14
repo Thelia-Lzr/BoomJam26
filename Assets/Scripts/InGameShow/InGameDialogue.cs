@@ -1,18 +1,244 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameDialogue : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Serializable]
+    private struct DialogRow
     {
-        
+        public int Id;
+        public string Name;
+        public string Content;
+        public string Next;
     }
 
-    // Update is called once per frame
-    void Update()
+    [Header("1. 数据")]
+    [SerializeField] private TextAsset dialogCsv;
+    [SerializeField] private int startLineId = 0;
+
+    [Header("2. UI 引用")]
+    [SerializeField] private GameObject dialogRoot;
+    [SerializeField] private GameObject inputBlocker;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI dialogText;
+    [SerializeField] private Button nextButton;
+
+    [Header("3. 打字机")]
+    [SerializeField] private float typeSpeed = 0.03f;
+
+    private readonly Dictionary<string, Dictionary<int, DialogRow>> dialogRowsBySegment =
+        new Dictionary<string, Dictionary<int, DialogRow>>();
+
+    private Coroutine typewriterCoroutine;
+    private string currentFullContent = "";
+    private string currentSegmentId = "";
+    private int currentLineId;
+    private int pendingNextId;
+    private bool isFinished;
+    private Action finishCallback;
+
+    private const int ColSegment = 0;
+    private const int ColId = 1;
+    private const int ColName = 2;
+    private const int ColContent = 3;
+    private const int ColNext = 4;
+
+    private void Awake()
     {
-        
+        ParseCsv();
+        HideDialog();
+
+        if (nextButton != null)
+        {
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.onClick.AddListener(OnClickNext);
+        }
+    }
+
+    public void PlaySegment(string segmentId, Action onFinished = null)
+    {
+        if (string.IsNullOrWhiteSpace(segmentId))
+        {
+            Debug.LogWarning("[InGameDialogue] segmentId 不能为空。");
+            return;
+        }
+
+        if (!dialogRowsBySegment.ContainsKey(segmentId))
+        {
+            Debug.LogWarning($"[InGameDialogue] 未找到段落: {segmentId}");
+            return;
+        }
+
+        finishCallback = onFinished;
+        currentSegmentId = segmentId.Trim();
+        currentLineId = startLineId;
+        isFinished = false;
+        ShowDialogRoot(true);
+        ShowDialogRow();
+    }
+
+    private void ShowDialogRow()
+    {
+        if (!dialogRowsBySegment.TryGetValue(currentSegmentId, out var rows))
+        {
+            EndDialog();
+            return;
+        }
+
+        if (!rows.TryGetValue(currentLineId, out var row))
+        {
+            EndDialog();
+            return;
+        }
+
+        if (nameText != null)
+        {
+            nameText.text = row.Name;
+        }
+
+        currentFullContent = row.Content;
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+            typewriterCoroutine = null;
+        }
+
+        typewriterCoroutine = StartCoroutine(TypeText(currentFullContent));
+
+        string nextToken = row.Next.Trim();
+        if (nextToken.Equals("end", StringComparison.OrdinalIgnoreCase))
+        {
+            isFinished = true;
+            pendingNextId = -1;
+        }
+        else if (!int.TryParse(nextToken, out pendingNextId))
+        {
+            isFinished = true;
+            pendingNextId = -1;
+        }
+        else
+        {
+            isFinished = false;
+        }
+    }
+
+    private void OnClickNext()
+    {
+        if (dialogRoot != null && !dialogRoot.activeSelf) return;
+
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+            typewriterCoroutine = null;
+            if (dialogText != null)
+            {
+                dialogText.text = currentFullContent;
+            }
+            return;
+        }
+
+        if (isFinished)
+        {
+            EndDialog();
+            return;
+        }
+
+        currentLineId = pendingNextId;
+        ShowDialogRow();
+    }
+
+    private IEnumerator TypeText(string text)
+    {
+        if (dialogText != null)
+        {
+            dialogText.text = "";
+        }
+
+        if (dialogText == null)
+        {
+            yield break;
+        }
+
+        foreach (char c in text)
+        {
+            dialogText.text += c;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+
+        typewriterCoroutine = null;
+    }
+
+    private void EndDialog()
+    {
+        HideDialog();
+        var callback = finishCallback;
+        finishCallback = null;
+        callback?.Invoke();
+    }
+
+    private void HideDialog()
+    {
+        ShowDialogRoot(false);
+        if (dialogText != null)
+        {
+            dialogText.text = "";
+        }
+    }
+
+    private void ShowDialogRoot(bool visible)
+    {
+        if (dialogRoot != null)
+        {
+            dialogRoot.SetActive(visible);
+        }
+
+        if (inputBlocker != null)
+        {
+            inputBlocker.SetActive(visible);
+        }
+    }
+
+    private void ParseCsv()
+    {
+        dialogRowsBySegment.Clear();
+
+        if (dialogCsv == null)
+        {
+            return;
+        }
+
+        string[] rows = dialogCsv.text.Split('\n');
+        foreach (string rawRow in rows)
+        {
+            if (string.IsNullOrWhiteSpace(rawRow)) continue;
+
+            string[] cells = rawRow.Split(',');
+            if (cells.Length <= ColNext) continue;
+
+            string segmentId = cells[ColSegment].Trim();
+            if (string.IsNullOrWhiteSpace(segmentId)) continue;
+
+            if (!int.TryParse(cells[ColId].Trim(), out int lineId)) continue;
+
+            var row = new DialogRow
+            {
+                Id = lineId,
+                Name = cells[ColName].Trim(),
+                Content = cells[ColContent].Trim(),
+                Next = cells[ColNext].Trim()
+            };
+
+            if (!dialogRowsBySegment.TryGetValue(segmentId, out var segmentRows))
+            {
+                segmentRows = new Dictionary<int, DialogRow>();
+                dialogRowsBySegment.Add(segmentId, segmentRows);
+            }
+
+            segmentRows[lineId] = row;
+        }
     }
 }

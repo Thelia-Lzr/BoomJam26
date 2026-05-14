@@ -12968,6 +12968,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1310491280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1310491282}
+  - component: {fileID: 1310491281}
+  m_Layer: 0
+  m_Name: InGameDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1310491281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310491280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56bf873a9097f7488fb9bfb8009899f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogCsv: {fileID: 0}
+  startLineId: 0
+  dialogRoot: {fileID: 0}
+  inputBlocker: {fileID: 0}
+  nameText: {fileID: 0}
+  dialogText: {fileID: 0}
+  nextButton: {fileID: 0}
+  typeSpeed: 0.03
+--- !u!4 &1310491282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310491280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3483257, y: -0.26638782, z: -7.26466}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1326092813
 GameObject:
   m_ObjectHideFlags: 0
@@ -19691,51 +19743,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1880616012}
   - component: {fileID: 1880616011}
-  - component: {fileID: 1880616010}
+  - component: {fileID: 1880616013}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1880616010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880616009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6b23bb8f50e2c458c0b09ae4405ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playOnStart: 1
-  loop: 1
-  loopInterval: 0.18
-  target: {fileID: 0}
-  motionEase: 6
-  actionOrder: 0300000000000000010000000200000003000000000000000100000002000000
-  useJump: 1
-  jumpDuration: 0.42
-  jumpHeight: 0.75
-  jumpCount: 1
-  useFlip: 1
-  flipDuration: 0.8
-  flipAxis: 0
-  useShake: 1
-  shakeDuration: 0.18
-  shakeStrength: {x: 0.05, y: 0.05, z: 0}
-  shakeVibrato: 8
-  shakeRandomness: 30
-  useBounceScale: 0
-  squashDuration: 0.12
-  squashScale: {x: 1.16, y: 0.84, z: 1}
-  stretchDuration: 0.14
-  stretchScale: {x: 0.92, y: 1.08, z: 1}
-  usePause: 1
-  pauseDuration: 0.7
+  m_IsActive: 1
 --- !u!212 &1880616011
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19803,6 +19818,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1880616013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880616009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b094b723de7074ba0057afb6eb5823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inGameDialogue: {fileID: 1310491281}
+  dialogSegmentId: P1
+  hideAfterDialog: 1
 --- !u!1 &1889406887
 GameObject:
   m_ObjectHideFlags: 0
@@ -22421,3 +22451,4 @@ SceneRoots:
   - {fileID: 1062895297}
   - {fileID: 1208674841}
   - {fileID: 1880616012}
+  - {fileID: 1310491282}
