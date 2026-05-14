@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0934b5a9fe887ee41a8af7b30026248c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71b2e6daf422a754c85e8332a7dbe987, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1178,7 +1178,7 @@ MonoBehaviour:
   loopInterval: 0.5
   target: {fileID: 0}
   motionEase: 6
-  actionOrder: 00000000020000000400000000000000020000000400000001000000
+  actionOrder: 00000000020000000400000002000000040000000200000001000000
   useJump: 1
   jumpDuration: 0.3
   jumpHeight: 75

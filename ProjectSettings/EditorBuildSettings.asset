@@ -15,18 +15,18 @@ EditorBuildSettings:
     path: Assets/Scenes/CinematicDialogTest.unity
     guid: 90eb0fa865d51e844b26654847431789
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: 9488287290fd5df4b86be647b5ef17f5
+    path: Assets/Scenes/Level_Official_1.unity
+    guid: 99fe0b6d7d46adf40a13be5234680375
   - enabled: 1
-    path: Assets/Scenes/Level2.unity
-    guid: 3854e9c771be7cc4b8d9fd529a146cb8
+    path: Assets/Scenes/Level_Official_2.unity
+    guid: f950537794517ee4596b43f536319a98
   - enabled: 1
-    path: Assets/Scenes/Level3.unity
-    guid: 431c4530739ba164b93eb56b5fcd55f5
+    path: Assets/Scenes/Level_Official_3.unity
+    guid: 84af81edae7cc7e40a1263e911cf7714
   - enabled: 1
-    path: Assets/Scenes/Level4.unity
-    guid: dd07e9ad52d62694a892b38b7b4681d0
+    path: Assets/Scenes/Level_Official_4.unity
+    guid: 206701b2f4376a444a68c383b8bbe6a8
   - enabled: 1
-    path: Assets/Scenes/Level5.unity
-    guid: 98268e14b729cf2479cee4a0c3039a13
+    path: Assets/Scenes/Level_Official_5.unity
+    guid: d5edc67fecd2a88468e83f2905832f51
   m_configObjects: {}

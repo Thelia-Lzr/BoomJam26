@@ -25,8 +25,18 @@ namespace SoundManager
         private AudioSource musicSource;
         private AudioSource sfxSource;
 
+        [Header("Volume")]
+        [Range(0f, 1f)]
+        public float masterVolume = 1f;
+        [Range(0f, 1f)]
+        public float musicVolume = 1f;
+        [Range(0f, 1f)]
+        public float sfxVolume = 1f;
+
         [Header("Sound Library")]
         public List<SoundItem> sounds = new List<SoundItem>();
+
+        private SoundItem currentMusic;
 
         private void Awake()
         {
@@ -40,6 +50,8 @@ namespace SoundManager
 
             musicSource = gameObject.AddComponent<AudioSource>();
             sfxSource = gameObject.AddComponent<AudioSource>();
+
+            ApplyMusicVolume();
         }
 
         public void Play(string name)
@@ -51,17 +63,19 @@ namespace SoundManager
             AudioSource source = sound.type == SoundType.Music ? musicSource : sfxSource;
 
             source.clip = sound.clip;
-            source.volume = sound.volume;
             source.pitch = sound.pitch;
             source.loop = sound.type == SoundType.Music ? true : sound.loop;
 
             if (sound.type == SoundType.Music)
             {
+                currentMusic = sound;
+                source.volume = GetEffectiveVolume(sound);
                 source.Play();
             }
             else
             {
-                source.PlayOneShot(sound.clip);
+                source.volume = 1f;
+                source.PlayOneShot(sound.clip, GetEffectiveVolume(sound));
             }
         }
 
@@ -69,6 +83,28 @@ namespace SoundManager
         {
             musicSource.Stop();
             sfxSource.Stop();
+        }
+
+        private float GetEffectiveVolume(SoundItem sound)
+        {
+            if (sound == null)
+                return 0f;
+
+            float typeVolume = sound.type == SoundType.Music ? musicVolume : sfxVolume;
+            return sound.volume * masterVolume * typeVolume;
+        }
+
+        private void ApplyMusicVolume()
+        {
+            if (musicSource == null || currentMusic == null)
+                return;
+
+            musicSource.volume = GetEffectiveVolume(currentMusic);
+        }
+
+        private void OnValidate()
+        {
+            ApplyMusicVolume();
         }
     }
 }
