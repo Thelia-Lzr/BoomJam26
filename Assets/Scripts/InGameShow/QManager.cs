@@ -68,7 +68,7 @@ public class QManager : MonoBehaviour
         if (inGameDialogue == null) return;
 
         hasTriggered = true;
-        inGameDialogue.PlaySegment(dialogSegmentId, transform, HandleDialogFinished);
+        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), HandleDialogFinished);
     }
 
     public void TriggerSequence(float delaySeconds = 0f)
@@ -93,7 +93,7 @@ public class QManager : MonoBehaviour
         if (inGameDialogue == null) yield break;
 
         hasTriggered = true;
-        inGameDialogue.PlaySegment(dialogSegmentId, transform, HandleDialogFinished);
+        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), HandleDialogFinished);
     }
 
     private bool IsTouchingSwapZone()
@@ -130,5 +130,11 @@ public class QManager : MonoBehaviour
         {
             nextInSequence.TriggerSequence();
         }
+    }
+
+    private bool ShouldRestoreCamera()
+    {
+        if (!useSequence) return true;
+        return nextInSequence == null;
     }
 }

@@ -32,7 +32,11 @@ public class InGameDialogue : MonoBehaviour
 
     [Header("4. 镜头聚焦")]
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Camera focusCamera;
     [SerializeField] private float cameraMoveDuration = 0.2f;
+    [SerializeField] private bool enableCameraZoom = false;
+    [SerializeField] private float zoomScale = 0.8f;
+    [SerializeField] private float cameraZoomDuration = 0.2f;
 
     private readonly Dictionary<string, Dictionary<int, DialogRow>> dialogRowsBySegment =
         new Dictionary<string, Dictionary<int, DialogRow>>();
@@ -44,8 +48,11 @@ public class InGameDialogue : MonoBehaviour
     private int pendingNextId;
     private bool isFinished;
     private Action finishCallback;
+    private bool restoreCameraOnFinish = true;
     private Vector3? cameraOriginalPosition;
+    private float? cameraOriginalSize;
     private Coroutine cameraMoveCoroutine;
+    private Coroutine cameraZoomCoroutine;
 
     private const int ColSegment = 0;
     private const int ColId = 1;
@@ -63,6 +70,11 @@ public class InGameDialogue : MonoBehaviour
             cameraTransform = Camera.main.transform;
         }
 
+        if (focusCamera == null)
+        {
+            focusCamera = Camera.main;
+        }
+
         if (nextButton != null)
         {
             nextButton.onClick.RemoveAllListeners();
@@ -72,10 +84,15 @@ public class InGameDialogue : MonoBehaviour
 
     public void PlaySegment(string segmentId, Action onFinished = null)
     {
-        PlaySegment(segmentId, null, onFinished);
+        PlaySegment(segmentId, null, true, onFinished);
     }
 
     public void PlaySegment(string segmentId, Transform focusTarget, Action onFinished = null)
+    {
+        PlaySegment(segmentId, focusTarget, true, onFinished);
+    }
+
+    public void PlaySegment(string segmentId, Transform focusTarget, bool restoreCameraWhenDone, Action onFinished = null)
     {
         if (string.IsNullOrWhiteSpace(segmentId))
         {
@@ -90,6 +107,7 @@ public class InGameDialogue : MonoBehaviour
         }
 
         finishCallback = onFinished;
+        restoreCameraOnFinish = restoreCameraWhenDone;
         currentSegmentId = segmentId.Trim();
         currentLineId = startLineId;
         isFinished = false;
@@ -192,7 +210,11 @@ public class InGameDialogue : MonoBehaviour
     private void EndDialog()
     {
         HideDialog();
-        RestoreCamera();
+        if (restoreCameraOnFinish)
+        {
+            RestoreCamera();
+            RestoreCameraZoom();
+        }
         var callback = finishCallback;
         finishCallback = null;
         callback?.Invoke();
@@ -269,6 +291,7 @@ public class InGameDialogue : MonoBehaviour
         targetPosition.z = cameraTransform.position.z;
 
         StartCameraMove(targetPosition);
+        TryZoomCamera();
     }
 
     private void RestoreCamera()
@@ -277,6 +300,40 @@ public class InGameDialogue : MonoBehaviour
 
         StartCameraMove(cameraOriginalPosition.Value);
         cameraOriginalPosition = null;
+    }
+
+    private void TryZoomCamera()
+    {
+        if (!enableCameraZoom || focusCamera == null) return;
+
+        cameraOriginalSize ??= GetCameraSize();
+        float targetSize = cameraOriginalSize.Value * Mathf.Clamp(zoomScale, 0.1f, 1f);
+        StartCameraZoom(targetSize);
+    }
+
+    private void RestoreCameraZoom()
+    {
+        if (!enableCameraZoom || focusCamera == null || cameraOriginalSize == null) return;
+
+        StartCameraZoom(cameraOriginalSize.Value);
+        cameraOriginalSize = null;
+    }
+
+    private float GetCameraSize()
+    {
+        return focusCamera.orthographic ? focusCamera.orthographicSize : focusCamera.fieldOfView;
+    }
+
+    private void SetCameraSize(float size)
+    {
+        if (focusCamera.orthographic)
+        {
+            focusCamera.orthographicSize = size;
+        }
+        else
+        {
+            focusCamera.fieldOfView = size;
+        }
     }
 
     private void StartCameraMove(Vector3 targetPosition)
@@ -310,5 +367,38 @@ public class InGameDialogue : MonoBehaviour
 
         cameraTransform.position = targetPosition;
         cameraMoveCoroutine = null;
+    }
+
+    private void StartCameraZoom(float targetSize)
+    {
+        if (cameraZoomCoroutine != null)
+        {
+            StopCoroutine(cameraZoomCoroutine);
+        }
+
+        cameraZoomCoroutine = StartCoroutine(ZoomCamera(targetSize));
+    }
+
+    private IEnumerator ZoomCamera(float targetSize)
+    {
+        if (focusCamera == null)
+        {
+            yield break;
+        }
+
+        float duration = Mathf.Max(0.01f, cameraZoomDuration);
+        float startSize = GetCameraSize();
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            SetCameraSize(Mathf.Lerp(startSize, targetSize, t));
+            yield return null;
+        }
+
+        SetCameraSize(targetSize);
+        cameraZoomCoroutine = null;
     }
 }

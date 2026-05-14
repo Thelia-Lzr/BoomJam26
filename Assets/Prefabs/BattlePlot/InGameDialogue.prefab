@@ -53,4 +53,8 @@ MonoBehaviour:
   nextButton: {fileID: 0}
   typeSpeed: 0.03
   cameraTransform: {fileID: 0}
+  focusCamera: {fileID: 0}
   cameraMoveDuration: 1
+  enableCameraZoom: 1
+  zoomScale: 0.4
+  cameraZoomDuration: 1
