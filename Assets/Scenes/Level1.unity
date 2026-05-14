@@ -19610,16 +19610,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOnStart: 1
   loop: 1
-  loopInterval: 0.5
+  loopInterval: 0.18
   target: {fileID: 0}
   motionEase: 6
-  actionOrder: 00000000020000000400000000000000020000000400000001000000
+  actionOrder: 0300000000000000010000000200000003000000000000000100000002000000
   useJump: 1
-  jumpDuration: 0.5
+  jumpDuration: 0.42
   jumpHeight: 0.75
   jumpCount: 1
   useFlip: 1
-  flipDuration: 0.16
+  flipDuration: 0.8
   flipAxis: 0
   useShake: 1
   shakeDuration: 0.18
@@ -19631,8 +19631,6 @@ MonoBehaviour:
   squashScale: {x: 1.16, y: 0.84, z: 1}
   stretchDuration: 0.14
   stretchScale: {x: 0.92, y: 1.08, z: 1}
-  usePause: 1
-  pauseDuration: 0.7
 --- !u!212 &1880616011
 SpriteRenderer:
   m_ObjectHideFlags: 0

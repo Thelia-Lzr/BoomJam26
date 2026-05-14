@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -12,7 +11,7 @@ public class CinematicDialogManager : MonoBehaviour
     [System.Serializable]
     private class CharacterPortraitConfig
     {
-        public string characterName = "";
+        public string characterId = "";
         public Sprite sprite = null;
         public float scale = 0.6f;
     }
@@ -25,11 +24,6 @@ public class CinematicDialogManager : MonoBehaviour
 
     [Header("2. Portraits")]
     [SerializeField] private List<CharacterPortraitConfig> characterPortraits = new List<CharacterPortraitConfig>();
-
-    [Header("2. Portraits Legacy")]
-    public List<string> charNames = new List<string>();
-    public List<Sprite> charSprites = new List<Sprite>();
-    public List<float> charScales = new List<float>();
     public Sprite shadowSprite;
 
     [Header("3. UI References")]
@@ -63,17 +57,18 @@ public class CinematicDialogManager : MonoBehaviour
 
     private const int ColTag = 0;
     private const int ColId = 1;
-    private const int ColName = 2;
-    private const int ColPos = 3;
-    private const int ColContent = 4;
-    private const int ColNext = 5;
-    private const int ColBgIndex = 6;
-    private const int ColSoundName = 7;
-    private const int ColActorAction = 8;
-    private const int ColTargetPos = 9;
-    private const int ColTargetAction = 10;
-    private const int ColScreenEffect = 11;
-    private const int ColBgmName = 12;
+    private const int ColCharId = 2;
+    private const int ColName = 3;
+    private const int ColPos = 4;
+    private const int ColContent = 5;
+    private const int ColNext = 6;
+    private const int ColBgIndex = 7;
+    private const int ColSoundName = 8;
+    private const int ColActorAction = 9;
+    private const int ColTargetPos = 10;
+    private const int ColTargetAction = 11;
+    private const int ColScreenEffect = 12;
+    private const int ColBgmName = 13;
 
     private enum PortraitActionType
     {
@@ -131,6 +126,7 @@ public class CinematicDialogManager : MonoBehaviour
         public int Id;
         public string RawRow;
         public string Name;
+        public string CharId;
         public string Pos;
         public string Content;
         public string Next;
@@ -255,7 +251,7 @@ public class CinematicDialogManager : MonoBehaviour
         }
 
         TryChangeBackground(row.BgIndex);
-        UpdateUI(row.Name, row.Content, row.Pos);
+        UpdateUI(row.Name, row.Content, row.Pos, row.CharId);
         PlayRowCues(row.Cues);
         UpdateNextLine(row.Next, row.RawRow, row.RowNumber);
     }
@@ -271,7 +267,13 @@ public class CinematicDialogManager : MonoBehaviour
             if (string.IsNullOrWhiteSpace(rawRow)) continue;
 
             List<string> cells = ParseCsvLine(rawRow);
-            if (cells.Count < 6) continue;
+            if (cells.Count <= ColBgmName)
+            {
+                Debug.LogWarning(
+                    $"[CinematicDialogManager] Row {i + 1} in {dialogFile.name} is missing columns. Expected at least {ColBgmName + 1}, got {cells.Count}.");
+                continue;
+            }
+
             if (Cell(cells, ColTag).Trim() != "#") continue;
 
             string rawId = Cell(cells, ColId).Trim();
@@ -288,6 +290,7 @@ public class CinematicDialogManager : MonoBehaviour
                 Id = rowId,
                 RawRow = rawRow,
                 Name = Cell(cells, ColName),
+                CharId = Cell(cells, ColCharId).Trim(),
                 Pos = pos,
                 Content = Cell(cells, ColContent),
                 Next = Cell(cells, ColNext).Trim(),
@@ -305,18 +308,18 @@ public class CinematicDialogManager : MonoBehaviour
         }
     }
 
-    private void UpdateUI(string rawName, string content, string pos)
+    private void UpdateUI(string rawName, string content, string pos, string charId)
     {
-        string pureName = PureName(rawName);
+        string displayName = string.IsNullOrEmpty(rawName) ? "" : rawName.Trim();
         currentFullContent = content.Trim();
 
-        PortraitLookup portrait = FindPortrait(pureName);
+        PortraitLookup portrait = FindPortrait(charId);
         Sprite targetSprite = portrait.Sprite;
 
-        bool isNarrator = IsNarrator(pureName, pos, targetSprite);
+        bool isNarrator = IsNarrator(displayName, pos, targetSprite);
         if (targetSprite == null && !isNarrator) targetSprite = shadowSprite;
 
-        if (nameText != null) nameText.text = rawName.Trim();
+        if (nameText != null) nameText.text = displayName;
 
         StopTypewriter();
         typewriterCoroutine = StartCoroutine(TypeText(currentFullContent));
@@ -799,8 +802,32 @@ public class CinematicDialogManager : MonoBehaviour
         typewriterCoroutine = null;
     }
 
-    private PortraitLookup FindPortrait(string pureName)
+    private PortraitLookup FindPortrait(string charId)
     {
+        // 优先按角色 ID 精确匹配
+        if (string.IsNullOrWhiteSpace(charId)) return default;
+
+        string trimmedId = charId.Trim();
+        for (int i = 0; i < characterPortraits.Count; i++)
+        {
+            CharacterPortraitConfig config = characterPortraits[i];
+            if (config == null || string.IsNullOrWhiteSpace(config.characterId)) continue;
+            if (config.characterId.Trim() != trimmedId) continue;
+
+            return new PortraitLookup
+            {
+                Sprite = config.sprite,
+                Scale = config.scale,
+                HasCustomScale = config.scale > 0f
+            };
+        }
+
+        return default;
+    }
+
+#if false
+
+        // 按名字精确匹配
         for (int i = 0; i < characterPortraits.Count; i++)
         {
             CharacterPortraitConfig config = characterPortraits[i];
@@ -817,6 +844,7 @@ public class CinematicDialogManager : MonoBehaviour
             };
         }
 
+        // 按名字模糊匹配
         for (int i = 0; i < characterPortraits.Count; i++)
         {
             CharacterPortraitConfig config = characterPortraits[i];
@@ -881,11 +909,11 @@ public class CinematicDialogManager : MonoBehaviour
         return null;
     }
 
-    private bool IsNarrator(string pureName, string pos, Sprite sprite)
+    private bool IsNarrator(string displayName, string pos, Sprite sprite)
     {
         return (IsCenter(pos) && sprite == null)
-               || pureName.Contains("\u65C1\u767D")
-               || pureName.Contains("\u4F20\u9882\u8005");
+               || displayName.Contains("\u65C1\u767D")
+               || displayName.Contains("\u4F20\u9882\u8005");
     }
 
     private float GetLegacyPortraitScale(int charIndex)
@@ -896,6 +924,15 @@ public class CinematicDialogManager : MonoBehaviour
         }
 
         return playerScale;
+    }
+
+#endif
+
+    private bool IsNarrator(string displayName, string pos, Sprite sprite)
+    {
+        return (IsCenter(pos) && sprite == null)
+               || displayName.Contains("\u65C1\u767D")
+               || displayName.Contains("\u4F20\u9882\u8005");
     }
 
     private Vector3 GetScaleForSprite(Sprite sprite, PortraitLookup portrait)
@@ -1022,12 +1059,6 @@ public class CinematicDialogManager : MonoBehaviour
 
         result.Add(current);
         return result;
-    }
-
-    private string PureName(string raw)
-    {
-        if (string.IsNullOrEmpty(raw)) return "";
-        return Regex.Replace(raw, @"[^\u4e00-\u9fa5a-zA-Z0-9]", "").Trim();
     }
 
     private bool IsLeft(string pos)
