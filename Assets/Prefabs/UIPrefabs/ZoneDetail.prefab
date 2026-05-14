@@ -172,7 +172,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 100}
+  m_SizeDelta: {x: 120, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2746849267346951922
 CanvasRenderer:
@@ -202,7 +202,6 @@ MonoBehaviour:
   AntiGravityZonePrefab: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
   SpeedingZonePrefab: {fileID: 758090864932999853, guid: 59b9f272ee39616408311bbf0637b172, type: 3}
   SwapZonePrefab: {fileID: 6495345487602009264, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
-  isDraggingSprite: 0
 --- !u!114 &3515024326886425595
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,8 +20,8 @@ public class UIManager : MonoBehaviour
     private const float ITEM_SPACING = 85f;
     private const float ITEM_START_X = 125f;
     private const float ITEM_Y = 40f;
-    private const float DETAIL_ITEM_START_X = 100f;
-    private const float DETAIL_ITEM_SPACING = 200f;
+    private const float DETAIL_ITEM_START_X = 80f;
+    private const float DETAIL_ITEM_SPACING = 150f;
     private const float DETAIL_ITEM_Y = 75f;
     //获取单例
     private LevelManager levelManager;
