@@ -22,7 +22,7 @@ public class ParticleBase : MonoBehaviour
     private Collider2D[] zoneResults = new Collider2D[10];
     void Awake()
     {
-
+        collider2d = GetComponent<Collider2D>();
     }
 
     public void Update()
