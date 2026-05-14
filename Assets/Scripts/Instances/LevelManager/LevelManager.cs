@@ -169,6 +169,7 @@ public class LevelManager : MonoBehaviour
 
     public void Reset()
     {
+        Timer.Instance.Reset();
         if (currentMode == CurrentMode.PlayMode)
         {
             currentMode = CurrentMode.EditMode;
