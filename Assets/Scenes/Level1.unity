@@ -15507,10 +15507,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b6074a405ca7b4f9d3ef9f2fc2bff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementMode: 1
   guidePrefab: {fileID: 2375726481893457155, guid: 5bd368a15aac9934a9352c45fc65fd81, type: 3}
   riseHeight: 60
-  riseDuration: 1.2
+  riseDuration: 1.4
   riseEase: 6
+  horizontalRange: 60
+  horizontalDuration: 2
+  horizontalEase: 4
 --- !u!114 &1476850662
 MonoBehaviour:
   m_ObjectHideFlags: 0
