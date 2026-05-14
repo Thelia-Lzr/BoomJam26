@@ -45,18 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: test_BGM
-    type: 0
-    clip: {fileID: 8300000, guid: adbf39e7eb409dd4bad1fc64b39d1230, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-  - name: Boss_main
-    type: 0
-    clip: {fileID: 8300000, guid: c09f98ef051969e42806c1aa1f57ed0d, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
   - name: L_Attack
     type: 1
     clip: {fileID: 8300000, guid: 40b42f5bddd03e04292c7d9b9d735cfa, type: 3}
@@ -69,12 +57,6 @@ MonoBehaviour:
     volume: 0.6
     pitch: 1
     loop: 0
-  - name: BGM
-    type: 1
-    clip: {fileID: 8300000, guid: ad233568a4750b24f8e63053945816db, type: 3}
-    volume: 0.6
-    pitch: 1
-    loop: 0
   - name: MainMenu
     type: 0
     clip: {fileID: 8300000, guid: 5af8e766b87bc68429d0b54529706948, type: 3}
@@ -83,7 +65,19 @@ MonoBehaviour:
     loop: 1
   - name: LevelSelect
     type: 0
+    clip: {fileID: 8300000, guid: 18151d68700434a4abdebad0ffbea576, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: BGM
+    type: 0
     clip: {fileID: 8300000, guid: 5af8e766b87bc68429d0b54529706948, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: Victory
+    type: 1
+    clip: {fileID: 8300000, guid: 36fa9f5dc1f78fb4db1a58d33a39af87, type: 3}
     volume: 0.6
     pitch: 1
     loop: 1
