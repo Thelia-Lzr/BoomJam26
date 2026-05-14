@@ -12,6 +12,13 @@ public class QManager : MonoBehaviour
     [SerializeField] private bool hideAfterDialog = true;
     [SerializeField] private bool hideAtStart = true;
 
+    [Header("3. 顺序播放")]
+    [SerializeField] private bool playOnStart = false;
+    [SerializeField] private float playDelay = 0f;
+    [SerializeField] private bool revealBeforePlay = true;
+    [SerializeField] private bool useSequence = false;
+    [SerializeField] private QManager nextInSequence;
+
     private SpriteRenderer spriteRenderer;
     private Collider2D cachedCollider;
     private readonly Collider2D[] zoneResults = new Collider2D[8];
@@ -27,6 +34,14 @@ public class QManager : MonoBehaviour
         {
             spriteRenderer.enabled = false;
             isVisible = false;
+        }
+    }
+
+    private void Start()
+    {
+        if (playOnStart)
+        {
+            TriggerSequence(playDelay);
         }
     }
 
@@ -53,7 +68,32 @@ public class QManager : MonoBehaviour
         if (inGameDialogue == null) return;
 
         hasTriggered = true;
-        inGameDialogue.PlaySegment(dialogSegmentId, HandleDialogFinished);
+        inGameDialogue.PlaySegment(dialogSegmentId, transform, HandleDialogFinished);
+    }
+
+    public void TriggerSequence(float delaySeconds = 0f)
+    {
+        if (hasTriggered) return;
+        StartCoroutine(PlaySequenceAfterDelay(delaySeconds));
+    }
+
+    private IEnumerator PlaySequenceAfterDelay(float delaySeconds)
+    {
+        if (delaySeconds > 0f)
+        {
+            yield return new WaitForSeconds(delaySeconds);
+        }
+
+        if (spriteRenderer != null && revealBeforePlay)
+        {
+            spriteRenderer.enabled = true;
+            isVisible = true;
+        }
+
+        if (inGameDialogue == null) yield break;
+
+        hasTriggered = true;
+        inGameDialogue.PlaySegment(dialogSegmentId, transform, HandleDialogFinished);
     }
 
     private bool IsTouchingSwapZone()
@@ -84,6 +124,11 @@ public class QManager : MonoBehaviour
         if (cachedCollider != null)
         {
             cachedCollider.enabled = false;
+        }
+
+        if (useSequence && nextInSequence != null)
+        {
+            nextInSequence.TriggerSequence();
         }
     }
 }

@@ -1265,6 +1265,8 @@ MonoBehaviour:
   dialogText: {fileID: 2027768097}
   nextButton: {fileID: 1815450930}
   typeSpeed: 0.03
+  cameraTransform: {fileID: 961732467}
+  cameraMoveDuration: 1
 --- !u!4 &1528540655
 Transform:
   m_ObjectHideFlags: 0

@@ -30,6 +30,10 @@ public class InGameDialogue : MonoBehaviour
     [Header("3. 打字机")]
     [SerializeField] private float typeSpeed = 0.03f;
 
+    [Header("4. 镜头聚焦")]
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private float cameraMoveDuration = 0.2f;
+
     private readonly Dictionary<string, Dictionary<int, DialogRow>> dialogRowsBySegment =
         new Dictionary<string, Dictionary<int, DialogRow>>();
 
@@ -40,6 +44,8 @@ public class InGameDialogue : MonoBehaviour
     private int pendingNextId;
     private bool isFinished;
     private Action finishCallback;
+    private Vector3? cameraOriginalPosition;
+    private Coroutine cameraMoveCoroutine;
 
     private const int ColSegment = 0;
     private const int ColId = 1;
@@ -52,6 +58,11 @@ public class InGameDialogue : MonoBehaviour
         ParseCsv();
         HideDialog();
 
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
+
         if (nextButton != null)
         {
             nextButton.onClick.RemoveAllListeners();
@@ -60,6 +71,11 @@ public class InGameDialogue : MonoBehaviour
     }
 
     public void PlaySegment(string segmentId, Action onFinished = null)
+    {
+        PlaySegment(segmentId, null, onFinished);
+    }
+
+    public void PlaySegment(string segmentId, Transform focusTarget, Action onFinished = null)
     {
         if (string.IsNullOrWhiteSpace(segmentId))
         {
@@ -78,6 +94,7 @@ public class InGameDialogue : MonoBehaviour
         currentLineId = startLineId;
         isFinished = false;
         ShowDialogRoot(true);
+        FocusCamera(focusTarget);
         ShowDialogRow();
     }
 
@@ -175,6 +192,7 @@ public class InGameDialogue : MonoBehaviour
     private void EndDialog()
     {
         HideDialog();
+        RestoreCamera();
         var callback = finishCallback;
         finishCallback = null;
         callback?.Invoke();
@@ -240,5 +258,57 @@ public class InGameDialogue : MonoBehaviour
 
             segmentRows[lineId] = row;
         }
+    }
+
+    private void FocusCamera(Transform focusTarget)
+    {
+        if (cameraTransform == null || focusTarget == null) return;
+
+        cameraOriginalPosition ??= cameraTransform.position;
+        Vector3 targetPosition = focusTarget.position;
+        targetPosition.z = cameraTransform.position.z;
+
+        StartCameraMove(targetPosition);
+    }
+
+    private void RestoreCamera()
+    {
+        if (cameraTransform == null || cameraOriginalPosition == null) return;
+
+        StartCameraMove(cameraOriginalPosition.Value);
+        cameraOriginalPosition = null;
+    }
+
+    private void StartCameraMove(Vector3 targetPosition)
+    {
+        if (cameraMoveCoroutine != null)
+        {
+            StopCoroutine(cameraMoveCoroutine);
+        }
+
+        cameraMoveCoroutine = StartCoroutine(MoveCamera(targetPosition));
+    }
+
+    private IEnumerator MoveCamera(Vector3 targetPosition)
+    {
+        if (cameraTransform == null)
+        {
+            yield break;
+        }
+
+        float duration = Mathf.Max(0.01f, cameraMoveDuration);
+        Vector3 start = cameraTransform.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            cameraTransform.position = Vector3.Lerp(start, targetPosition, t);
+            yield return null;
+        }
+
+        cameraTransform.position = targetPosition;
+        cameraMoveCoroutine = null;
     }
 }
