@@ -92,7 +92,6 @@ public class CinematicDialogManager : MonoBehaviour
     {
         None,
         White,
-        Red,
         Black
     }
 
@@ -586,9 +585,6 @@ public class CinematicDialogManager : MonoBehaviour
 
         switch (ParseFlashKind(key))
         {
-            case FlashKind.Red:
-                PlayWhiteFlash(new Color(1f, 0.08f, 0.04f), 0.75f);
-                break;
             case FlashKind.Black:
                 PlayWhiteFlash(Color.black, 0.65f);
                 break;
@@ -660,7 +656,6 @@ public class CinematicDialogManager : MonoBehaviour
 
     private FlashKind ParseFlashKind(string key)
     {
-        if (ContainsAny(key, "redflash", "\u7EA2\u95EA")) return FlashKind.Red;
         if (ContainsAny(key, "blackflash", "\u9ED1\u95EA")) return FlashKind.Black;
         if (ContainsAny(key, "flash", "\u767D\u95EA")) return FlashKind.White;
         return FlashKind.None;
