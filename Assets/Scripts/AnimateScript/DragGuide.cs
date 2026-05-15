@@ -8,7 +8,8 @@ public class DragGuide : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private enum MovementMode
     {
         VerticalLoop,
-        HorizontalPingPong
+        HorizontalPingPong,
+        ClickRotate
     }
 
     [SerializeField] private MovementMode movementMode = MovementMode.VerticalLoop;
@@ -19,6 +20,9 @@ public class DragGuide : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private float horizontalRange = 60f;
     [SerializeField] private float horizontalDuration = 2f;
     [SerializeField] private Ease horizontalEase = Ease.InOutSine;
+    [SerializeField] private float clickRotateAngle = 20f;
+    [SerializeField] private float clickRotateDuration = 0.3f;
+    [SerializeField] private Ease clickRotateEase = Ease.InOutSine;
 
     private RectTransform guideInstance;
     private Tween guideTween;
@@ -92,6 +96,7 @@ public class DragGuide : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         guideTween?.Kill();
         guideInstance.anchoredPosition = Vector2.zero;
+        guideInstance.localRotation = Quaternion.identity;
 
         switch (movementMode)
         {
@@ -102,6 +107,14 @@ public class DragGuide : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 sequence.Append(guideInstance.DOAnchorPosX(horizontalRange, horizontalDuration).SetEase(horizontalEase));
                 sequence.SetLoops(-1, LoopType.Yoyo);
                 guideTween = sequence;
+                break;
+            }
+            case MovementMode.ClickRotate:
+            {
+                guideTween = guideInstance
+                    .DOLocalRotate(new Vector3(0f, 0f, clickRotateAngle), clickRotateDuration)
+                    .SetEase(clickRotateEase)
+                    .SetLoops(-1, LoopType.Yoyo);
                 break;
             }
             default:
