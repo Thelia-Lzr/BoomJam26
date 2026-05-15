@@ -140,7 +140,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 6292, y: 4}
-    spritePosition: {x: 2830, y: 2576}
+    spritePosition: {x: 2898, y: 1715}
   - name: START
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -161,7 +161,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 6702, y: 4}
-    spritePosition: {x: 2360, y: 2576}
+    spritePosition: {x: 2088, y: 1760}
   - name: "\u5185\u5B58\u6761 \u6EE1\u586B\u5145"
     originalName: 
     pivot: {x: 0.5, y: 0.5}

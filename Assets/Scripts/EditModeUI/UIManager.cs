@@ -19,10 +19,10 @@ public class UIManager : MonoBehaviour
     //UI数据
     private const float ITEM_SPACING = 85f;
     private const float ITEM_START_X = 125f;
-    private const float ITEM_Y = 40f;
-    private const float DETAIL_ITEM_START_X = 100f;
-    private const float DETAIL_ITEM_SPACING = 200f;
-    private const float DETAIL_ITEM_Y = 75f;
+    private const float ITEM_Y = 13f;
+    private const float DETAIL_ITEM_START_X = 60f;
+    private const float DETAIL_ITEM_SPACING = 130f;
+    private const float DETAIL_ITEM_Y = 70f;
     //获取单例
     private LevelManager levelManager;
     List<List<ZoneData>> zoneData;
@@ -47,6 +47,19 @@ public class UIManager : MonoBehaviour
     //--设置--
     public float longPressTime = 0.5f;    // 长按判定时间（秒）
     public float spriteZOffset = 0f;      // Sprite在世界坐标中的Z轴位置（2D游戏设为0即可）
+                                          //image
+    [field: SerializeField]
+    public Sprite AntiGravityZoneSprite { get; private set; }
+    [field: SerializeField]
+    public Sprite SpeedingZoneSprite { get; private set; }
+    [field: SerializeField]
+    public Sprite SwapZoneSprite { get; private set; }
+    [field: SerializeField]
+    public Sprite AntiGravityZoneDetailSprite { get; private set; }
+    [field: SerializeField]
+    public Sprite SpeedingZoneDetailSprite { get; private set; }
+    [field: SerializeField]
+    public Sprite SwapZoneDetailSprite { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -94,18 +107,21 @@ public class UIManager : MonoBehaviour
                 {
                     case ZoneClass.Swap:
                         {
+                            rect.GetChild(0).GetComponent<Image>().sprite = SwapZoneSprite;
                             rect.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Swap";
                             newDetails = new GameObject("SwapZoneDetail", typeof(RectTransform));
                             break;
                         }
                     case ZoneClass.AntiGravity:
                         {
+                            rect.GetChild(0).GetComponent<Image>().sprite = AntiGravityZoneSprite;
                             rect.GetChild(1).GetComponent<TextMeshProUGUI>().text = "AntiGravity";
                             newDetails = new GameObject("AntiGravityZoneDetail", typeof(RectTransform));
                             break;
                         }
                     case ZoneClass.Speeding:
                         {
+                            rect.GetChild(0).GetComponent<Image>().sprite = SpeedingZoneSprite;
                             rect.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Speeding";
                             newDetails = new GameObject("SpeedingZoneDetail", typeof(RectTransform));
                             break;
@@ -123,6 +139,24 @@ public class UIManager : MonoBehaviour
                     detailUI.zoneClass = (ZoneClass)i;
                     detailUI.zoneScale = new Vector3(zoneData[i][j].length, zoneData[i][j].height, 1f);
                     detailUI.memoryUsed = zoneData[i][j].cost;
+                    switch ((ZoneClass)i)
+                    {
+                        case ZoneClass.Swap:
+                            {
+                                detail.GetComponent<Image>().sprite = SwapZoneDetailSprite;
+                                break;
+                            }
+                        case ZoneClass.AntiGravity:
+                            {
+                                detail.GetComponent<Image>().sprite = AntiGravityZoneDetailSprite;
+                                break;
+                            }
+                        case ZoneClass.Speeding:
+                            {
+                                detail.GetComponent<Image>().sprite = SpeedingZoneDetailSprite;
+                                break;
+                            }
+                    }
                     RectTransform rectDetail = detail.GetComponent<RectTransform>();
                     rectDetail.anchoredPosition =
                         new Vector2(DETAIL_ITEM_START_X + DETAIL_ITEM_SPACING * j, DETAIL_ITEM_Y);

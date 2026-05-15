@@ -162,7 +162,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: a9c30111000000000000000000000008, type: 3}
   - {fileID: 4900000, guid: a9c30111000000000000000000000009, type: 3}
   - {fileID: 4900000, guid: a9c30111000000000000000000000010, type: 3}
-  testFileIndex: 0
+  testFileIndex: 9
   useSceneControllerProgress: 1
   continueStoryFlowOnFinish: 1
   characterPortraits:
@@ -173,8 +173,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 7b31ea4d525e5c0489f47df2b5176164, type: 3}
     scale: 0.28
   - characterId: 2
-    sprite: {fileID: 21300000, guid: c302cc298c953714e9d915fca49e2c61, type: 3}
-    scale: 0.6
+    sprite: {fileID: 21300000, guid: eb79d602dd7006342b894d644fd9c438, type: 3}
+    scale: 0.4
   - characterId: 3
     sprite: {fileID: 1965819970618450423, guid: 3a150741c5528724492eced63a784107, type: 3}
     scale: 0.4
@@ -1534,7 +1534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 566, y: 20}
+  m_AnchoredPosition: {x: 506, y: 20}
   m_SizeDelta: {x: 650, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1565182074

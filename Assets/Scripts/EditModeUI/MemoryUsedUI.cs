@@ -17,6 +17,7 @@ public class MemoryUsedUI : MonoBehaviour
         Instance = this;
         memoryUsed = 0;
         tmp = GetComponent<TextMeshProUGUI>();
+        tmp.text = (-memoryUsed+ LevelManager.Instance.maxMemory).ToString() + "MB可用，共" + LevelManager.Instance.maxMemory.ToString() + "MB";
         
     }
 
@@ -28,7 +29,7 @@ public class MemoryUsedUI : MonoBehaviour
     public void ChangeMemoryUsed(int i)
     {
         memoryUsed += i;
-        tmp.text = "Current Memory Used: " + memoryUsed.ToString() + "/" + LevelManager.Instance.maxMemory.ToString();
+        tmp.text = (-memoryUsed+ LevelManager.Instance.maxMemory).ToString() + "MB可用，共" + LevelManager.Instance.maxMemory.ToString() + "MB";
 
     }
 }
