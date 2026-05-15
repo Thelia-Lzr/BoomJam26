@@ -199,7 +199,7 @@ MonoBehaviour:
   zoneClass: 0
   zoneScale: {x: 0, y: 0}
   memoryUsed: 0
-  spritePrefab: {fileID: 3959891647536898097, guid: 40309069d8f6da245a2561d95568040f, type: 3}
+  spritePrefab: {fileID: 3959891647536898097, guid: b9dcc62947964b14c83f2cfafa7b535d, type: 3}
   AntiGravityZonePrefab: {fileID: 1645177342435139587, guid: 13820e482b7b812428d81568f1bb76d3, type: 3}
   SpeedingZonePrefab: {fileID: 758090864932999853, guid: 59b9f272ee39616408311bbf0637b172, type: 3}
   SwapZonePrefab: {fileID: 6495345487602009264, guid: f5504d0b2b6a17d44b96c34cdab2f90a, type: 3}
