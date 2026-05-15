@@ -466,10 +466,6 @@ MonoBehaviour:
   Camera1: {fileID: 3277082273071499273}
   moveSpeed: 3
   shiftSpeeding: 3
-  minX: -9999
-  maxX: 9999
-  minY: -9999
-  maxY: 9999
   Camera2: {fileID: 0}
 --- !u!114 &8253170006361193693
 MonoBehaviour:
@@ -1921,6 +1917,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5128723495616869081}
   - {fileID: 6886325354805317818}
   - {fileID: 1455679509010356568}
   - {fileID: 8670089711664913608}

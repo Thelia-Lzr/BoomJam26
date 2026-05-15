@@ -17,8 +17,8 @@ public class GameCamera : MonoBehaviour
 
     [Header("摄像机地图边界")]
     
-    public float minX, maxX;
-    public float minY, maxY;
+    private float minX, maxX;
+    private float minY, maxY;
     //---------
     [Header("绑定在小车的摄像机")]
     public Transform Camera2;

@@ -56,5 +56,5 @@ MonoBehaviour:
   focusCamera: {fileID: 0}
   cameraMoveDuration: 1
   enableCameraZoom: 1
-  zoomScale: 0.4
+  zoomScale: 0.5
   cameraZoomDuration: 1

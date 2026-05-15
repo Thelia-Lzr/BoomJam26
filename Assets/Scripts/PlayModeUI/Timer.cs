@@ -24,6 +24,11 @@ public class Timer : MonoBehaviour
         tmp.text = currentTime.ToString("F2")+"s";
     }
 
+    public float GetTime()
+    {
+        return currentTime;
+    }
+
     public void Reset()
     {
         currentTime = 0f;
