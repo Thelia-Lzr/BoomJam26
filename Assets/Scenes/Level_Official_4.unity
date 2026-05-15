@@ -3160,9 +3160,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3003570467948417856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 255.00003
+      objectReference: {fileID: 0}
     - target: {fileID: 5050310907283426664, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6936865606039136841, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 180.00003
       objectReference: {fileID: 0}
     - target: {fileID: 9085513141530322554, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: orthographic size
