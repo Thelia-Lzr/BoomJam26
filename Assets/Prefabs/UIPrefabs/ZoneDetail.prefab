@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 2746849267346951922}
   - component: {fileID: 4906520083817902544}
   - component: {fileID: 3515024326886425595}
+  - component: {fileID: 6674622047702763931}
   m_Layer: 5
   m_Name: ZoneDetail
   m_TagString: Untagged
@@ -232,6 +233,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6674622047702763931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749461893133512348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b6074a405ca7b4f9d3ef9f2fc2bff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementMode: 0
+  guidePrefab: {fileID: 2375726481893457155, guid: 5bd368a15aac9934a9352c45fc65fd81, type: 3}
+  riseHeight: 60
+  riseDuration: 1.4
+  riseEase: 6
+  horizontalRange: 60
+  horizontalDuration: 2
+  horizontalEase: 4
 --- !u!1 &6696211501135755419
 GameObject:
   m_ObjectHideFlags: 0
