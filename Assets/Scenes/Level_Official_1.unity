@@ -413,6 +413,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 807367394}
     m_Modifications:
+    - target: {fileID: 254888347593690371, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1940
+      objectReference: {fileID: 0}
+    - target: {fileID: 254888347593690371, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1110
+      objectReference: {fileID: 0}
+    - target: {fileID: 254888347593690371, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -10.940002
+      objectReference: {fileID: 0}
+    - target: {fileID: 254888347593690371, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 14.590027
+      objectReference: {fileID: 0}
     - target: {fileID: 332090554399619935, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1325,6 +1341,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 173
       objectReference: {fileID: 0}
+    - target: {fileID: 3217380200497731608, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3217380200497731608, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3277082273071499273, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.73
@@ -1336,6 +1360,14 @@ PrefabInstance:
     - target: {fileID: 3277082273071499273, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.z
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914442716741556778, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914442716741556778, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 6936865606039136841, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1365,6 +1397,14 @@ PrefabInstance:
       propertyPath: <AntiGravityZoneDetailSprite>k__BackingField
       value: 
       objectReference: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+    - target: {fileID: 7922493093784712433, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 364
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922493093784712433, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 207
+      objectReference: {fileID: 0}
     - target: {fileID: 8521523475425882851, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -93.400024
@@ -1378,7 +1418,8 @@ PrefabInstance:
       value: 6.6119294
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4718752790016076438, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4493369267382578493, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       insertIndex: -1
@@ -2500,6 +2541,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Q (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2640869106237128500, guid: 791c068d482f0fe448b81d95b110c73a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 20.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640869106237128500, guid: 791c068d482f0fe448b81d95b110c73a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 20.48
+      objectReference: {fileID: 0}
     - target: {fileID: 4444053749973359756, guid: 791c068d482f0fe448b81d95b110c73a, type: 3}
       propertyPath: hideAtStart
       value: 0
@@ -2872,6 +2921,10 @@ PrefabInstance:
     - target: {fileID: 3231706748288150642, guid: 33563af635692ad4598cc6ad4f3e2ae7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819340345289256480, guid: 33563af635692ad4598cc6ad4f3e2ae7, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5113995405414095668, guid: 33563af635692ad4598cc6ad4f3e2ae7, type: 3}
       propertyPath: m_Name
