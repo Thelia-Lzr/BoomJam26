@@ -2041,9 +2041,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8259330506102296389, guid: 37016d82b6f393b4e916b96815a32896, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 905355761}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37016d82b6f393b4e916b96815a32896, type: 3}
+--- !u!4 &690696556 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8259330506102296389, guid: 37016d82b6f393b4e916b96815a32896, type: 3}
+  m_PrefabInstance: {fileID: 690696555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705675950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,6 +2384,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eeb910548ec5da40a35105a04c4198b, type: 3}
+--- !u!1 &905355760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 905355761}
+  - component: {fileID: 905355762}
+  m_Layer: 0
+  m_Name: Q
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &905355761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905355760}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 690696556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &905355762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905355760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b094b723de7074ba0057afb6eb5823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inGameDialogue: {fileID: 0}
+  dialogSegmentId: Q_01
+  hideAfterDialog: 1
+  hideAtStart: 1
+  playOnStart: 0
+  playDelay: 0
+  revealBeforePlay: 1
+  useSequence: 0
+  nextInSequence: {fileID: 0}
 --- !u!1 &1156882656
 GameObject:
   m_ObjectHideFlags: 0
