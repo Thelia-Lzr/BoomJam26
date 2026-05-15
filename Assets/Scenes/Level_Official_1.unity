@@ -1340,11 +1340,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3003570467948417856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 255
+      value: -471
       objectReference: {fileID: 0}
     - target: {fileID: 3003570467948417856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 173
+      value: 371
       objectReference: {fileID: 0}
     - target: {fileID: 3217380200497731608, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1392,11 +1392,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7126741231161275050, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 486
+      value: -769
       objectReference: {fileID: 0}
     - target: {fileID: 7126741231161275050, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -74
+      value: 373
       objectReference: {fileID: 0}
     - target: {fileID: 7709221447768056856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: <SwapZoneDetailSprite>k__BackingField
@@ -1419,12 +1419,20 @@ PrefabInstance:
       value: 207
       objectReference: {fileID: 0}
     - target: {fileID: 8521523475425882851, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 405
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521523475425882851, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -93.400024
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 8670089711664913608, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -966
       objectReference: {fileID: 0}
     - target: {fileID: 8670089711664913608, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -73.70001
+      value: 369
       objectReference: {fileID: 0}
     - target: {fileID: 9085513141530322554, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: orthographic size
