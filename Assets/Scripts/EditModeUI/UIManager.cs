@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
         }
         zones = new List<RectTransform>();
         zoneDetails = new List<RectTransform>();
-        ZoneContent.sizeDelta = new Vector2(85 * (bordernum + 2), 0);
+        ZoneContent.sizeDelta = new Vector2(85 * (bordernum + 1), 0);
 
         for (int i = 0; i < enumCount; i++)
         {

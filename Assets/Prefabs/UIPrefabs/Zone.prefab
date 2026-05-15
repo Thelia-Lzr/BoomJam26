@@ -218,6 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2027371813770990014}
+  - component: {fileID: -7105541798075752945}
   m_Layer: 5
   m_Name: Zone
   m_TagString: Untagged
@@ -246,3 +247,23 @@ RectTransform:
   m_AnchoredPosition: {x: 40, y: 40}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &-7105541798075752945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421736537553427373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b6074a405ca7b4f9d3ef9f2fc2bff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementMode: 1
+  guidePrefab: {fileID: 2375726481893457155, guid: 5bd368a15aac9934a9352c45fc65fd81, type: 3}
+  riseHeight: 60
+  riseDuration: 1.4
+  riseEase: 6
+  horizontalRange: 60
+  horizontalDuration: 2
+  horizontalEase: 4
