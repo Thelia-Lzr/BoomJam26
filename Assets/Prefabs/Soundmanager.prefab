@@ -81,3 +81,33 @@ MonoBehaviour:
     volume: 0.6
     pitch: 1
     loop: 1
+  - name: Level1_BGM
+    type: 0
+    clip: {fileID: 8300000, guid: e52cee27cbcf68949bd940dfa9c9ad59, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: Level2_BGM
+    type: 0
+    clip: {fileID: 8300000, guid: e52cee27cbcf68949bd940dfa9c9ad59, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: Level3_BGM
+    type: 0
+    clip: {fileID: 8300000, guid: e52cee27cbcf68949bd940dfa9c9ad59, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: Level4_BGM
+    type: 0
+    clip: {fileID: 8300000, guid: e52cee27cbcf68949bd940dfa9c9ad59, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: Level5_BGM
+    type: 0
+    clip: {fileID: 8300000, guid: e52cee27cbcf68949bd940dfa9c9ad59, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
