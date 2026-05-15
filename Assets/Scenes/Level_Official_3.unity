@@ -17239,6 +17239,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 7709221447768056856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: <SwapZoneDetailSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 52262569915839205, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+    - target: {fileID: 7709221447768056856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: <SpeedingZoneDetailSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+    - target: {fileID: 7709221447768056856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: <AntiGravityZoneDetailSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
     - target: {fileID: 8503225138220745423, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: maxX
       value: 40

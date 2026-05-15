@@ -139,6 +139,12 @@ MonoBehaviour:
   <ZoneDetailPrefab>k__BackingField: {fileID: 3749461893133512348, guid: 90e1c4af9c35eb24dbd15c96981051ff, type: 3}
   longPressTime: 0.5
   spriteZOffset: 0
+  <AntiGravityZoneSprite>k__BackingField: {fileID: 21300000, guid: 273989f40033cc94599cb87d8c19e95f, type: 3}
+  <SpeedingZoneSprite>k__BackingField: {fileID: 21300000, guid: 273989f40033cc94599cb87d8c19e95f, type: 3}
+  <SwapZoneSprite>k__BackingField: {fileID: 21300000, guid: 7e74eb21b27a4d647a7995b831039c4a, type: 3}
+  <AntiGravityZoneDetailSprite>k__BackingField: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+  <SpeedingZoneDetailSprite>k__BackingField: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+  <SwapZoneDetailSprite>k__BackingField: {fileID: 52262569915839205, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
 --- !u!1 &882508814901823878
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,7 +785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4478353008163414471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -821,7 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

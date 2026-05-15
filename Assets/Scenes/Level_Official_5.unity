@@ -5990,6 +5990,9 @@ MonoBehaviour:
   <ZoneDetailPrefab>k__BackingField: {fileID: 3749461893133512348, guid: 90e1c4af9c35eb24dbd15c96981051ff, type: 3}
   longPressTime: 0.5
   spriteZOffset: 0
+  <AntiGravityZoneDetailSprite>k__BackingField: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+  <SpeedingZoneDetailSprite>k__BackingField: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+  <SwapZoneDetailSprite>k__BackingField: {fileID: 52262569915839205, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
 --- !u!4 &616574121
 Transform:
   m_ObjectHideFlags: 0
