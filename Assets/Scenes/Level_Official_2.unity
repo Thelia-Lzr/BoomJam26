@@ -1620,7 +1620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3003570467948417856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 366.99997
+      value: 367
       objectReference: {fileID: 0}
     - target: {fileID: 3277082273071499273, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1629,6 +1629,22 @@ PrefabInstance:
     - target: {fileID: 3277082273071499273, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128723495616869081, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128723495616869081, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128723495616869081, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -576.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128723495616869081, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 242
       objectReference: {fileID: 0}
     - target: {fileID: 6936865606039136841, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2162,11 +2178,11 @@ PrefabInstance:
       objectReference: {fileID: 1342654807}
     - target: {fileID: 8259330506102296389, guid: 37016d82b6f393b4e916b96815a32896, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.09
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8259330506102296389, guid: 37016d82b6f393b4e916b96815a32896, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.14
+      value: -4.2
       objectReference: {fileID: 0}
     - target: {fileID: 8259330506102296389, guid: 37016d82b6f393b4e916b96815a32896, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2348,6 +2364,10 @@ PrefabInstance:
     - target: {fileID: 5785955062452064686, guid: e26990cda4861994a93715828673bcbf, type: 3}
       propertyPath: m_Name
       value: AccountCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785955062452064686, guid: e26990cda4861994a93715828673bcbf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6345011094021164176, guid: e26990cda4861994a93715828673bcbf, type: 3}
       propertyPath: m_Pivot.x
