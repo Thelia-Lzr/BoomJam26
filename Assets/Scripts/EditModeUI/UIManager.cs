@@ -17,12 +17,14 @@ public class UIManager : MonoBehaviour
     //输出单例
     public static UIManager Instance;
     //UI数据
-    private const float ITEM_SPACING = 85f;
+    private const float ITEM_SIZE = 120f;
+    private const float ITEM_SPACING = 25f + ITEM_SIZE;
     private const float ITEM_START_X = 125f;
-    private const float ITEM_Y = 13f;
-    private const float DETAIL_ITEM_START_X = 60f;
-    private const float DETAIL_ITEM_SPACING = 130f;
-    private const float DETAIL_ITEM_Y = 70f;
+    private const float ITEM_Y = 10f;
+    private const float DETAIL_ITEM_SIZE = 2f;
+    private const float DETAIL_ITEM_START_X = 10f;
+    private const float DETAIL_ITEM_SPACING = 20 + DETAIL_ITEM_SIZE * 120;
+    private const float DETAIL_ITEM_Y = 20f;
     //获取单例
     private LevelManager levelManager;
     List<List<ZoneData>> zoneData;
@@ -94,7 +96,7 @@ public class UIManager : MonoBehaviour
         }
         zones = new List<RectTransform>();
         zoneDetails = new List<RectTransform>();
-        ZoneContent.sizeDelta = new Vector2(85 * (bordernum + 2), 0);
+        ZoneContent.sizeDelta = new Vector2(ITEM_SPACING * (bordernum + 1.5f), 0);
 
         for (int i = 0; i < enumCount; i++)
         {
@@ -158,6 +160,7 @@ public class UIManager : MonoBehaviour
                             }
                     }
                     RectTransform rectDetail = detail.GetComponent<RectTransform>();
+                    rectDetail.localScale = Vector3.one * DETAIL_ITEM_SIZE;
                     rectDetail.anchoredPosition =
                         new Vector2(DETAIL_ITEM_START_X + DETAIL_ITEM_SPACING * j, DETAIL_ITEM_Y);
                     rectDetail.GetChild(0).GetComponent<TextMeshProUGUI>().text =
@@ -165,6 +168,7 @@ public class UIManager : MonoBehaviour
                     rectDetail.GetChild(1).GetComponent<TextMeshProUGUI>().text =
                         $"{zoneData[i][j].cost}MB";
                 }
+                rect.sizeDelta = new Vector2(ITEM_SIZE, ITEM_SIZE);
                 rect.anchoredPosition = new Vector2(ITEM_START_X + i * ITEM_SPACING, ITEM_Y);
                 zones.Add(rect);
             }
