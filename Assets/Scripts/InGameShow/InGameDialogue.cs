@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class InGameDialogue : MonoBehaviour
 {
+    public static bool IsDialogActive { get; private set; }
     [Serializable]
     private struct DialogRow
     {
@@ -53,6 +54,7 @@ public class InGameDialogue : MonoBehaviour
     private bool waitingForExternalClose;
     private Vector3? cameraOriginalPosition;
     private float? cameraOriginalSize;
+    private int zoomRequestCount;
     private Coroutine cameraMoveCoroutine;
     private Coroutine cameraZoomCoroutine;
 
@@ -273,6 +275,8 @@ public class InGameDialogue : MonoBehaviour
         {
             inputBlocker.SetActive(visible);
         }
+
+        IsDialogActive = visible;
     }
 
     private void ParseCsv()
@@ -339,6 +343,12 @@ public class InGameDialogue : MonoBehaviour
     {
         if (!enableCameraZoom || focusCamera == null) return;
 
+        zoomRequestCount++;
+        if (zoomRequestCount > 1)
+        {
+            return;
+        }
+
         cameraOriginalSize ??= GetCameraSize();
         float targetSize = cameraOriginalSize.Value * Mathf.Clamp(zoomScale, 0.1f, 1f);
         StartCameraZoom(targetSize);
@@ -347,6 +357,16 @@ public class InGameDialogue : MonoBehaviour
     private void RestoreCameraZoom()
     {
         if (!enableCameraZoom || focusCamera == null || cameraOriginalSize == null) return;
+
+        if (zoomRequestCount > 0)
+        {
+            zoomRequestCount--;
+        }
+
+        if (zoomRequestCount > 0)
+        {
+            return;
+        }
 
         StartCameraZoom(cameraOriginalSize.Value);
         cameraOriginalSize = null;

@@ -456,7 +456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 254888347593690371, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15
+      value: 15.000061
       objectReference: {fileID: 0}
     - target: {fileID: 332090554399619935, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.x
@@ -496,15 +496,15 @@ PrefabInstance:
       objectReference: {fileID: 1232118193}
     - target: {fileID: 1149674671346524570, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: cameraMax.x
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1149674671346524570, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: cameraMax.y
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1149674671346524570, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: cameraMin.x
-      value: -7
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 1149674671346524570, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: cameraMin.y
@@ -1440,7 +1440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3217380200497731608, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15
+      value: 15.000061
       objectReference: {fileID: 0}
     - target: {fileID: 3277082273071499273, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1940,6 +1940,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1817030574}
     - target: {fileID: 2156635238758422778, guid: 7bc194075532f2a40ba79397c639fc5e, type: 3}
+      propertyPath: useDialogQueue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156635238758422778, guid: 7bc194075532f2a40ba79397c639fc5e, type: 3}
       propertyPath: disappearDuration
       value: 1
       objectReference: {fileID: 0}
@@ -2336,6 +2340,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 348964342}
     - target: {fileID: 6019884220401007117, guid: 4eeb910548ec5da40a35105a04c4198b, type: 3}
+      propertyPath: useDialogQueue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6019884220401007117, guid: 4eeb910548ec5da40a35105a04c4198b, type: 3}
       propertyPath: disappearDuration
       value: 1
       objectReference: {fileID: 0}
@@ -2343,6 +2351,10 @@ PrefabInstance:
       propertyPath: useDisappearEffect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7653949561723451629, guid: 4eeb910548ec5da40a35105a04c4198b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: de985b249e71c514c857b4259a36c6ad, type: 3}
     - target: {fileID: 7667691807158482558, guid: 4eeb910548ec5da40a35105a04c4198b, type: 3}
       propertyPath: m_Name
       value: Q (1)
@@ -2449,6 +2461,10 @@ PrefabInstance:
       propertyPath: nextInSequence
       value: 
       objectReference: {fileID: 195830652}
+    - target: {fileID: 4444053749973359756, guid: 791c068d482f0fe448b81d95b110c73a, type: 3}
+      propertyPath: useDialogQueue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4444053749973359756, guid: 791c068d482f0fe448b81d95b110c73a, type: 3}
       propertyPath: disappearDuration
       value: 1
@@ -3070,6 +3086,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1312521577}
     - target: {fileID: 7142009585510664189, guid: 0ffc14110e8b9ed4ca0260d9eaa95c8a, type: 3}
+      propertyPath: dialogCsv
+      value: 
+      objectReference: {fileID: 4900000, guid: 8c79ecbed2eb7a84da9d0b9d5c47c288, type: 3}
+    - target: {fileID: 7142009585510664189, guid: 0ffc14110e8b9ed4ca0260d9eaa95c8a, type: 3}
       propertyPath: dialogRoot
       value: 
       objectReference: {fileID: 604048823}
@@ -3264,8 +3284,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalPosition.y

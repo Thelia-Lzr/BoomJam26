@@ -148,6 +148,11 @@ MonoBehaviour:
   revealBeforePlay: 1
   useSequence: 0
   nextInSequence: {fileID: 0}
+  useDialogQueue: 0
+  queueOrder: 0
+  useDisappearEffect: 0
+  disappearDuration: 1
+  disappearDistance: 0.8
 --- !u!1 &3604965517014301267
 GameObject:
   m_ObjectHideFlags: 0

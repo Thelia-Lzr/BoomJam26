@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class QManager : MonoBehaviour
 {
+    private struct QueueEntry
+    {
+        public QManager Manager;
+        public int Order;
+        public int Ticket;
+        public float Delay;
+    }
+
+    private static readonly List<QueueEntry> PendingQueue = new List<QueueEntry>();
+    private static int NextTicket;
+    private static bool dialogPlaying;
+    private static bool autoStartScheduled;
+
     [Header("1. 剧情触发")]
     [SerializeField] private InGameDialogue inGameDialogue;
     [SerializeField] private string dialogSegmentId = "Q_01";
@@ -19,6 +32,10 @@ public class QManager : MonoBehaviour
     [SerializeField] private bool useSequence = false;
     [SerializeField] private QManager nextInSequence;
 
+    [Header("3.1 队列顺序")]
+    [SerializeField] private bool useDialogQueue = true;
+    [SerializeField] private int queueOrder = 0;
+
     [Header("4. 消失效果")]
     [SerializeField] private bool useDisappearEffect = false;
     [SerializeField] private float disappearDuration = 1f;
@@ -29,6 +46,7 @@ public class QManager : MonoBehaviour
     private readonly Collider2D[] zoneResults = new Collider2D[8];
     private bool hasTriggered;
     private bool isVisible;
+    private bool isQueued;
 
     private void Awake()
     {
@@ -52,7 +70,7 @@ public class QManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (hasTriggered) return;
+        if (hasTriggered || isQueued) return;
         if (cachedCollider == null || spriteRenderer == null) return;
         if (!IsTouchingSwapZone())
         {
@@ -71,15 +89,71 @@ public class QManager : MonoBehaviour
         }
 
         if (inGameDialogue == null) return;
-
-        hasTriggered = true;
-        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), ShouldDeferDialogClose(), HandleDialogFinished);
+        RequestPlay(0f);
     }
 
     public void TriggerSequence(float delaySeconds = 0f)
     {
-        if (hasTriggered) return;
-        StartCoroutine(PlaySequenceAfterDelay(delaySeconds));
+        if (hasTriggered || isQueued) return;
+        RequestPlay(delaySeconds);
+    }
+
+    private void RequestPlay(float delaySeconds)
+    {
+        if (hasTriggered || isQueued) return;
+        isQueued = true;
+
+        if (!useDialogQueue)
+        {
+            StartCoroutine(PlaySequenceAfterDelay(delaySeconds));
+            return;
+        }
+
+        PendingQueue.Add(new QueueEntry
+        {
+            Manager = this,
+            Order = queueOrder,
+            Ticket = NextTicket++,
+            Delay = delaySeconds
+        });
+
+        PendingQueue.Sort((a, b) =>
+        {
+            int orderCompare = a.Order.CompareTo(b.Order);
+            return orderCompare != 0 ? orderCompare : a.Ticket.CompareTo(b.Ticket);
+        });
+
+        ScheduleTryPlayNext();
+    }
+
+    private static void TryPlayNext()
+    {
+        if (dialogPlaying || PendingQueue.Count == 0) return;
+
+        QueueEntry entry = PendingQueue[0];
+        PendingQueue.RemoveAt(0);
+        if (entry.Manager == null)
+        {
+            TryPlayNext();
+            return;
+        }
+
+        dialogPlaying = true;
+        entry.Manager.StartCoroutine(entry.Manager.PlaySequenceAfterDelay(entry.Delay));
+    }
+
+    private void ScheduleTryPlayNext()
+    {
+        if (dialogPlaying || autoStartScheduled) return;
+        autoStartScheduled = true;
+        StartCoroutine(DelayedTryPlayNext());
+    }
+
+    private IEnumerator DelayedTryPlayNext()
+    {
+        yield return null;
+        autoStartScheduled = false;
+        TryPlayNext();
     }
 
     private IEnumerator PlaySequenceAfterDelay(float delaySeconds)
@@ -89,13 +163,19 @@ public class QManager : MonoBehaviour
             yield return new WaitForSeconds(delaySeconds);
         }
 
+        isQueued = false;
+
         if (spriteRenderer != null && revealBeforePlay)
         {
             spriteRenderer.enabled = true;
             isVisible = true;
         }
 
-        if (inGameDialogue == null) yield break;
+        if (inGameDialogue == null)
+        {
+            CompleteDialog();
+            yield break;
+        }
 
         hasTriggered = true;
         inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), ShouldDeferDialogClose(), HandleDialogFinished);
@@ -121,6 +201,7 @@ public class QManager : MonoBehaviour
     {
         if (!hideAfterDialog)
         {
+            CompleteDialog();
             if (useSequence && nextInSequence != null)
             {
                 nextInSequence.TriggerSequence();
@@ -193,9 +274,18 @@ public class QManager : MonoBehaviour
             inGameDialogue.CloseDialog();
         }
 
+        CompleteDialog();
+
         if (useSequence && nextInSequence != null)
         {
             nextInSequence.TriggerSequence();
         }
+    }
+
+    private void CompleteDialog()
+    {
+        if (!useDialogQueue) return;
+        dialogPlaying = false;
+        TryPlayNext();
     }
 }

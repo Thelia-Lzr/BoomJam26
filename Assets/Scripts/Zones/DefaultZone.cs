@@ -25,6 +25,16 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         mainCamera = Camera.main;
     }
 
+    private void Update()
+    {
+        if (!InGameDialogue.IsDialogActive) return;
+        if (currentGuideSprite == null) return;
+
+        Destroy(currentGuideSprite);
+        currentGuideSprite = null;
+        dragSoundPlayedThisDrag = false;
+    }
+
     public void ZonePosition(Vector3 position)
     {
         Vector3 curpos = Vector3.zero;
@@ -50,6 +60,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("OnPointerDown");
+        if (InGameDialogue.IsDialogActive) return;
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = transform.localScale;
@@ -59,6 +70,15 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (InGameDialogue.IsDialogActive)
+        {
+            if (currentGuideSprite != null)
+            {
+                Destroy(currentGuideSprite);
+                currentGuideSprite = null;
+            }
+            return;
+        }
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         dragSoundPlayedThisDrag = false;
         if (currentGuideSprite != null)
@@ -76,6 +96,15 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (InGameDialogue.IsDialogActive)
+        {
+            if (currentGuideSprite != null)
+            {
+                Destroy(currentGuideSprite);
+                currentGuideSprite = null;
+            }
+            return;
+        }
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite == null) return;
         if (!dragSoundPlayedThisDrag)
