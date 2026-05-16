@@ -182,8 +182,8 @@ MonoBehaviour:
   <AntiGravityZoneSprite>k__BackingField: {fileID: 21300000, guid: 273989f40033cc94599cb87d8c19e95f, type: 3}
   <SpeedingZoneSprite>k__BackingField: {fileID: 21300000, guid: 273989f40033cc94599cb87d8c19e95f, type: 3}
   <SwapZoneSprite>k__BackingField: {fileID: 21300000, guid: 7e74eb21b27a4d647a7995b831039c4a, type: 3}
-  <AntiGravityZoneDetailSprite>k__BackingField: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
-  <SpeedingZoneDetailSprite>k__BackingField: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+  <AntiGravityZoneDetailSprite>k__BackingField: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+  <SpeedingZoneDetailSprite>k__BackingField: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
   <SwapZoneDetailSprite>k__BackingField: {fileID: 52262569915839205, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
 --- !u!114 &1937096211772701857
 MonoBehaviour:
@@ -2275,6 +2275,7 @@ RectTransform:
   - {fileID: 254888347593690371}
   - {fileID: 4507514279680644400}
   - {fileID: 3899004071754610375}
+  - {fileID: 8139206450084125797}
   m_Father: {fileID: 4493369267382578493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
