@@ -32,8 +32,17 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         mainCamera = Camera.main;
     }
 
+    private void Update()
+    {
+        if (!InGameDialogue.IsDialogActive) return;
+        if (currentGuideSprite == null && currentSprite == null) return;
+
+        CancelDrag();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (InGameDialogue.IsDialogActive) return;
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (spritePreviewPrefab == null) return;
         dragSoundPlayedThisDrag = false;
@@ -64,6 +73,11 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (InGameDialogue.IsDialogActive)
+        {
+            CancelDrag();
+            return;
+        }
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         dragSoundPlayedThisDrag = false;
         if (currentGuideSprite != null)
@@ -83,6 +97,11 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (InGameDialogue.IsDialogActive)
+        {
+            CancelDrag();
+            return;
+        }
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite == null) return;
         if (!dragSoundPlayedThisDrag)
@@ -109,5 +128,24 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (SoundManager.SoundManager.Instance == null) return;
 
         SoundManager.SoundManager.Instance.Play(soundName.Trim());
+    }
+
+    private void CancelDrag()
+    {
+        if (currentGuideSprite != null)
+        {
+            Destroy(currentGuideSprite);
+            currentGuideSprite = null;
+        }
+
+        if (currentSprite != null)
+        {
+            Destroy(currentSprite);
+            currentSprite = null;
+            MemoryUsedUI.Instance.ChangeMemoryUsed(-1 * memoryUsed);
+        }
+
+        spriteScript = null;
+        dragSoundPlayedThisDrag = false;
     }
 }
