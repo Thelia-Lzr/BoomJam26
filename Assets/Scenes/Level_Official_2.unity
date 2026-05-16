@@ -1780,11 +1780,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6936865606039136841, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 179.99991
+      value: 179.99994
       objectReference: {fileID: 0}
     - target: {fileID: 6936865606039136841, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 159.99998
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 7126741231161275050, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1805,11 +1805,11 @@ PrefabInstance:
     - target: {fileID: 7709221447768056856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: <SpeedingZoneDetailSprite>k__BackingField
       value: 
-      objectReference: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+      objectReference: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
     - target: {fileID: 7709221447768056856, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: <AntiGravityZoneDetailSprite>k__BackingField
       value: 
-      objectReference: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
+      objectReference: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
     - target: {fileID: 7922493093784712433, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 874.9
@@ -1820,7 +1820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8139206450084125797, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 828
+      value: 827.99994
       objectReference: {fileID: 0}
     - target: {fileID: 8139206450084125797, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
