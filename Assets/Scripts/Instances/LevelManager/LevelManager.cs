@@ -58,6 +58,7 @@ public class LevelManager : MonoBehaviour
         public int cost;
     }
     [Header("UI相关")]
+    [SerializeField] public GameObject Canvas;
     [SerializeField] private Button StartButton;
     [SerializeField] private Button ResetButton;
     [SerializeField] private GameObject EditModeUI;
@@ -79,10 +80,12 @@ public class LevelManager : MonoBehaviour
     [Header("内存限制星星")] 
     [SerializeField] public bool starEnabled = false;
     [SerializeField] public List<int> memoryLimits;
-    
-    
-    
-    private List<GameObject> Cars = new List<GameObject>(); 
+    /// <summary>
+    /// 模式变化的委托，目前仅gamecamera调用
+    /// </summary>
+    public event Action<CurrentMode> OnModeChanged;
+
+    public List<GameObject> Cars {  get; private set; }
     public bool victoryTriggered = false;
     
 
@@ -143,6 +146,7 @@ public class LevelManager : MonoBehaviour
             // rb.velocity = starts.StartVelocity;
             // rb.mass = starts.Mass;
         }
+        OnModeChanged.Invoke(currentMode);
     }
     private bool rPressedLastFrame = false;
     private bool ePressedLastFrame = false;
