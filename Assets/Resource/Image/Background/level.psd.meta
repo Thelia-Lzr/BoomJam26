@@ -99,27 +99,6 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: "\u5783\u573E\u6876"
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 6292
-      y: 4
-      width: 251
-      height: 327
-    spriteID: 9df0a7b36e0dbd94cac7d61424ec8137
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 6292, y: 4}
-    spritePosition: {x: 4336, y: 481}
   - name: "\u9000\u51FA\u952E"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -127,8 +106,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 6551
-      y: 188
+      x: 7112
+      y: 4
       width: 138
       height: 109
     spriteID: 5efa334f185fad14abfa7433e0f1d721
@@ -139,7 +118,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 6551, y: 188}
+    uvTransform: {x: 7112, y: 4}
     spritePosition: {x: 4518, y: 2906}
   - name: RETRY EV
     originalName: 
@@ -148,7 +127,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 6551
+      x: 6292
       y: 4
       width: 468
       height: 205
@@ -160,7 +139,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 6551, y: 4}
+    uvTransform: {x: 6292, y: 4}
     spritePosition: {x: 2898, y: 1715}
   - name: START
     originalName: 
@@ -169,7 +148,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 6961
+      x: 6702
       y: 4
       width: 468
       height: 205
@@ -181,7 +160,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 6961, y: 4}
+    uvTransform: {x: 6702, y: 4}
     spritePosition: {x: 2088, y: 1760}
   - name: "\u5185\u5B58\u6761 \u6EE1\u586B\u5145"
     originalName: 
@@ -290,15 +269,15 @@ ScriptedImporter:
     layerID: 41
     mosaicPosition: {x: 6292, y: 4}
     flatten: 0
-    isImported: 1
-    isVisible: 1
+    isImported: 0
+    isVisible: 0
   - name: "\u9000\u51FA\u952E"
     spriteName: "\u9000\u51FA\u952E"
     isGroup: 0
     parentIndex: -1
     spriteID: 5efa334f185fad14abfa7433e0f1d721
     layerID: 43
-    mosaicPosition: {x: 6551, y: 188}
+    mosaicPosition: {x: 7112, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -308,7 +287,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: b114c5aba7352fa4aacb9003bee2fcdf
     layerID: 35
-    mosaicPosition: {x: 6551, y: 4}
+    mosaicPosition: {x: 6292, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -318,7 +297,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: 874cd016e47de0640ac050a2cccabcdd
     layerID: 34
-    mosaicPosition: {x: 6961, y: 4}
+    mosaicPosition: {x: 6702, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1

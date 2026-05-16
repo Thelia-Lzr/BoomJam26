@@ -4,8 +4,6 @@ using UnityEngine.UI;
 public class StartDisappear : MonoBehaviour
 {
     [SerializeField] private Image targetImage;
-    [SerializeField] private SpriteRenderer targetSprite;
-    [SerializeField] private Transform startTarget;
     private bool isSubscribed;
 
     private void Awake()
@@ -13,20 +11,6 @@ public class StartDisappear : MonoBehaviour
         if (targetImage == null)
         {
             targetImage = GetComponent<Image>();
-        }
-
-        if (targetSprite == null)
-        {
-            targetSprite = GetComponent<SpriteRenderer>();
-        }
-
-        if (startTarget == null)
-        {
-            GameObject startObject = GameObject.Find("Start");
-            if (startObject != null)
-            {
-                startTarget = startObject.transform;
-            }
         }
     }
 
@@ -38,7 +22,6 @@ public class StartDisappear : MonoBehaviour
     private void Update()
     {
         TrySubscribe();
-        UpdatePosition();
     }
 
     private void OnDisable()
@@ -67,19 +50,6 @@ public class StartDisappear : MonoBehaviour
         if (targetImage != null)
         {
             targetImage.enabled = false;
-        }
-
-        if (targetSprite != null)
-        {
-            targetSprite.enabled = false;
-        }
-    }
-
-    private void UpdatePosition()
-    {
-        if (startTarget != null)
-        {
-            transform.position = startTarget.position;
         }
     }
 }

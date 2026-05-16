@@ -614,7 +614,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 435066987758557094, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: masterVolume
-      value: 0.8
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 435066987758557094, guid: 759281847079c104bbcd1113a061959b, type: 3}
       propertyPath: sounds.Array.data[2].volume

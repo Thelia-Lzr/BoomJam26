@@ -10,7 +10,7 @@ public class FinalJudger : MonoBehaviour
     void OnEnable()
     {
         tmp = this.GetComponent<TextMeshProUGUI>();
-        tmp.text = MemoryUsedUI.Instance.memoryUsed.ToString("000");
+        tmp.text = MemoryUsedUI.Instance.memoryUsed.ToString("0000");
     }
 
     // Update is called once per frame
