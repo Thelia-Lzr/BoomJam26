@@ -25,10 +25,10 @@ public class GameCamera : MonoBehaviour
 
     void Start()
     {
-        minX = LevelManager.Instance.min.x;
-        maxX = LevelManager.Instance.max.x;
-        minY = LevelManager.Instance.min.y;
-        maxY = LevelManager.Instance.max.y;
+        minX = LevelManager.Instance.cameraMin.x;
+        maxX = LevelManager.Instance.cameraMax.x;
+        minY = LevelManager.Instance.cameraMin.y;
+        maxY = LevelManager.Instance.cameraMax.y;
     }
     void Update()
     {
