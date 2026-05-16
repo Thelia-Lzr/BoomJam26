@@ -1,10 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    [SerializeField] private string dragSfxName = "ButtonClick";
+    [SerializeField] private string deleteSfxName = "Delete";
+
     [Header("设置")]
     public GameObject spritePreviewPrefab;
 
@@ -21,33 +24,32 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private GameObject currentSprite;
     private DefaultZone spriteScript;
     private Camera mainCamera;
-    //屏幕有效范围
+    private bool dragSoundPlayedThisDrag;
     private const float BottomBanHeight = 150f;
+
     void Start()
     {
         mainCamera = Camera.main;
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (spritePreviewPrefab == null) return;
+        dragSoundPlayedThisDrag = false;
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = zoneScale;
         currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
-        //分类脚本
         switch (zoneClass)
         {
             case ZoneClass.AntiGravity:
                 spritePrefab = AntiGravityZonePrefab;
-                //spriteScript = AntiGravityZonePrefab.GetComponent<GravityZone>();
                 break;
             case ZoneClass.Speeding:
                 spritePrefab = SpeedingZonePrefab;
-                //spriteScript = SpeedingZonePrefab.GetComponent<SpeedingZone>();
                 break;
             case ZoneClass.Swap:
                 spritePrefab = SwapZonePrefab;
-                //spriteScript = SwapZonePrefab.GetComponent<SwapZone>();
                 break;
         }
         currentSprite = Instantiate(spritePrefab);
@@ -59,15 +61,18 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         spriteScript.scale = zoneScale;
         MemoryUsedUI.Instance.ChangeMemoryUsed(memoryUsed);
     }
+
     public void OnPointerUp(PointerEventData eventData)
     {
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
+        dragSoundPlayedThisDrag = false;
         if (currentGuideSprite != null)
         {
             Destroy(currentGuideSprite);
             currentGuideSprite = null;
             if (eventData.position.y <= BottomBanHeight)
             {
+                PlaySfx(deleteSfxName);
                 Destroy(currentSprite);
                 MemoryUsedUI.Instance.ChangeMemoryUsed(-1 * memoryUsed);
             }
@@ -75,15 +80,21 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             spriteScript = null;
         }
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite == null) return;
+        if (!dragSoundPlayedThisDrag)
+        {
+            PlaySfx(dragSfxName);
+            dragSoundPlayedThisDrag = true;
+        }
         Vector3 worldPos = ScreenToWorldPos(eventData.position);
         currentGuideSprite.transform.position = worldPos;
         spriteScript.ZonePosition(worldPos);
     }
-    //通用方法
+
     private Vector3 ScreenToWorldPos(Vector2 screenPos)
     {
         Vector3 screenPosWithZ = new Vector3(screenPos.x, screenPos.y, mainCamera.nearClipPlane + 1f);
@@ -91,5 +102,12 @@ public class ZoneDetailUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         worldPos.z = 0;
         return worldPos;
     }
-    
+
+    private static void PlaySfx(string soundName)
+    {
+        if (string.IsNullOrWhiteSpace(soundName)) return;
+        if (SoundManager.SoundManager.Instance == null) return;
+
+        SoundManager.SoundManager.Instance.Play(soundName.Trim());
+    }
 }

@@ -815,8 +815,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db531a415f2f7d34395d23235b2bb292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!50 &139577259
 Rigidbody2D:
   serializedVersion: 4
@@ -854,8 +854,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1aea1b4ec0045864a912650b8cc32162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   transparentAlpha: 0.2
   CanBeDestroy: 0
   CanBeInvisible: 1
@@ -4749,6 +4749,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db531a415f2f7d34395d23235b2bb292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &675053356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 675053358}
+  - component: {fileID: 675053357}
+  m_Layer: 0
+  m_Name: BGMplayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &675053357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675053356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a277e2cdf94bb84489b51eaf8b67536, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  bgmName: Level5_BGM
+  playModeBgmName: RUN
+  victorySoundName: Victory
+  playOnStart: 1
+  stopOnDisable: 1
+--- !u!4 &675053358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675053356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.124199, y: 3.2632222, z: 0.056166682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &675581663
 GameObject:
   m_ObjectHideFlags: 0
@@ -11224,3 +11273,4 @@ SceneRoots:
   - {fileID: 1530948962}
   - {fileID: 128700681}
   - {fileID: 874733031}
+  - {fileID: 675053358}

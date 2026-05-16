@@ -5,26 +5,30 @@ using UnityEngine.EventSystems;
 
 public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    [SerializeField] private string dragSfxName = "ButtonClick";
+    [SerializeField] private string deleteSfxName = "Delete";
+
     public Vector2 scale = new Vector2(1, 1);
     public int memoryUsed = 0;
     public bool placed = false;
 
-    //--��ק����
     public GameObject spritePreviewPrefab;
     protected GameObject currentGuideSprite;
 
-    [Header("״̬")]
+    [Header("状态")]
     protected Camera mainCamera;
-    //��Ļ��Ч��Χ
+    private bool dragSoundPlayedThisDrag;
     private const float BottomBanHeight = 150f;
+
     protected void Start()
     {
         mainCamera = Camera.main;
     }
+
     public void ZonePosition(Vector3 position)
     {
         Vector3 curpos = Vector3.zero;
-        if(scale.x % 2 == 0)
+        if (scale.x % 2 == 0)
         {
             curpos.x = Mathf.Round(position.x);
         }
@@ -42,6 +46,7 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         }
         transform.position = curpos;
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("OnPointerDown");
@@ -49,36 +54,52 @@ public class DefaultZone : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         currentGuideSprite = Instantiate(spritePreviewPrefab);
         currentGuideSprite.transform.localScale = transform.localScale;
         currentGuideSprite.transform.position = ScreenToWorldPos(eventData.position);
+        dragSoundPlayedThisDrag = false;
     }
-    // �ɿ�ʱ��������ק
+
     public void OnPointerUp(PointerEventData eventData)
     {
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
+        dragSoundPlayedThisDrag = false;
         if (currentGuideSprite != null)
         {
             Destroy(currentGuideSprite);
             currentGuideSprite = null;
             if (eventData.position.y <= BottomBanHeight)
             {
+                PlaySfx(deleteSfxName);
                 Destroy(gameObject);
                 MemoryUsedUI.Instance.ChangeMemoryUsed(-1 * memoryUsed);
             }
         }
     }
-    // ��ק�У�����λ��
+
     public void OnDrag(PointerEventData eventData)
     {
         if (LevelManager.Instance.currentMode == LevelManager.CurrentMode.PlayMode) return;
         if (currentGuideSprite == null) return;
+        if (!dragSoundPlayedThisDrag)
+        {
+            PlaySfx(dragSfxName);
+            dragSoundPlayedThisDrag = true;
+        }
         Vector3 worldPos = ScreenToWorldPos(eventData.position);
         currentGuideSprite.transform.position = worldPos;
         ZonePosition(worldPos);
     }
-    //ͨ�÷���
+
     private Vector3 ScreenToWorldPos(Vector2 screenPos)
     {
         Vector3 screenPosWithZ = new Vector3(screenPos.x, screenPos.y, mainCamera.nearClipPlane + 1f);
         Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPosWithZ);
         return worldPos;
+    }
+
+    private static void PlaySfx(string soundName)
+    {
+        if (string.IsNullOrWhiteSpace(soundName)) return;
+        if (SoundManager.SoundManager.Instance == null) return;
+
+        SoundManager.SoundManager.Instance.Play(soundName.Trim());
     }
 }
