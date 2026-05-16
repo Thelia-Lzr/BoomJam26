@@ -44,16 +44,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84149ad04d906c042bfddbe192ab1bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
+  musicVolume: 1
+  sfxVolume: 0.25
   sounds:
   - name: L_Attack
     type: 1
     clip: {fileID: 8300000, guid: 40b42f5bddd03e04292c7d9b9d735cfa, type: 3}
-    volume: 0.6
+    volume: 0.36
     pitch: 1
     loop: 0
   - name: H_Attack
     type: 1
     clip: {fileID: 8300000, guid: 0223c53d1e2fa4e4a8d7b4db032499ce, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+  - name: ButtonClick
+    type: 1
+    clip: {fileID: 8300000, guid: bd9006203955a934eb6bf22eb490b659, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+  - name: Delete
+    type: 1
+    clip: {fileID: 8300000, guid: 39d737ea081efcc4abdd9e934e06e123, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
