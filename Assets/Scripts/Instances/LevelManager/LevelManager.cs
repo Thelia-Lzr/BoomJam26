@@ -17,6 +17,7 @@ public enum ZoneClass
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
+    public event Action StartButtonClicked;
     public enum CurrentMode
     {
         TestMode = 0,
@@ -97,9 +98,15 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        StartButton.onClick.AddListener(startStimulate);
+        StartButton.onClick.AddListener(HandleStartButtonClicked);
         ResetButton.onClick.AddListener(Reset);
         victoryTriggered =  false;
+    }
+
+    private void HandleStartButtonClicked()
+    {
+        StartButtonClicked?.Invoke();
+        startStimulate();
     }
 
     void startStimulate()

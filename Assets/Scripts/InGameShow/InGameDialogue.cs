@@ -49,6 +49,8 @@ public class InGameDialogue : MonoBehaviour
     private bool isFinished;
     private Action finishCallback;
     private bool restoreCameraOnFinish = true;
+    private bool deferCloseOnFinish;
+    private bool waitingForExternalClose;
     private Vector3? cameraOriginalPosition;
     private float? cameraOriginalSize;
     private Coroutine cameraMoveCoroutine;
@@ -84,15 +86,20 @@ public class InGameDialogue : MonoBehaviour
 
     public void PlaySegment(string segmentId, Action onFinished = null)
     {
-        PlaySegment(segmentId, null, true, onFinished);
+        PlaySegment(segmentId, null, true, false, onFinished);
     }
 
     public void PlaySegment(string segmentId, Transform focusTarget, Action onFinished = null)
     {
-        PlaySegment(segmentId, focusTarget, true, onFinished);
+        PlaySegment(segmentId, focusTarget, true, false, onFinished);
     }
 
     public void PlaySegment(string segmentId, Transform focusTarget, bool restoreCameraWhenDone, Action onFinished = null)
+    {
+        PlaySegment(segmentId, focusTarget, restoreCameraWhenDone, false, onFinished);
+    }
+
+    public void PlaySegment(string segmentId, Transform focusTarget, bool restoreCameraWhenDone, bool deferClose, Action onFinished = null)
     {
         if (string.IsNullOrWhiteSpace(segmentId))
         {
@@ -108,6 +115,8 @@ public class InGameDialogue : MonoBehaviour
 
         finishCallback = onFinished;
         restoreCameraOnFinish = restoreCameraWhenDone;
+        deferCloseOnFinish = deferClose;
+        waitingForExternalClose = false;
         currentSegmentId = segmentId.Trim();
         currentLineId = startLineId;
         isFinished = false;
@@ -164,6 +173,7 @@ public class InGameDialogue : MonoBehaviour
     private void OnClickNext()
     {
         if (dialogRoot != null && !dialogRoot.activeSelf) return;
+        if (waitingForExternalClose) return;
 
         if (typewriterCoroutine != null)
         {
@@ -209,15 +219,38 @@ public class InGameDialogue : MonoBehaviour
 
     private void EndDialog()
     {
+        if (deferCloseOnFinish)
+        {
+            waitingForExternalClose = true;
+            if (nextButton != null)
+            {
+                nextButton.interactable = false;
+            }
+        }
+        else
+        {
+            CloseDialog();
+        }
+        var callback = finishCallback;
+        finishCallback = null;
+        callback?.Invoke();
+    }
+
+    public void CloseDialog()
+    {
         HideDialog();
         if (restoreCameraOnFinish)
         {
             RestoreCamera();
             RestoreCameraZoom();
         }
-        var callback = finishCallback;
-        finishCallback = null;
-        callback?.Invoke();
+
+        if (nextButton != null)
+        {
+            nextButton.interactable = true;
+        }
+
+        waitingForExternalClose = false;
     }
 
     private void HideDialog()
