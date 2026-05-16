@@ -1868,6 +1868,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmName: Level2_BGM
+  playModeBgmName: RUN
+  victorySoundName: Victory
   playOnStart: 1
   stopOnDisable: 1
 --- !u!4 &578854808
