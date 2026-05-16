@@ -74,6 +74,9 @@ public class LevelManager : MonoBehaviour
     [Header("区域限制")] 
     [SerializeField] public Vector2 min;
     [SerializeField] public Vector2 max;
+    [Header("相机限制")]
+    [SerializeField] public Vector2 cameraMin;
+    [SerializeField] public Vector2 cameraMax;
     [Header("Zone初始配置")]
     [SerializeField] public List<ZoneData> Borders;
 

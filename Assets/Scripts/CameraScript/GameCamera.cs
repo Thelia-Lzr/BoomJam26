@@ -31,10 +31,10 @@ public class GameCamera : MonoBehaviour
     }
     void Start()
     {
-        minX = levelManager.min.x;
-        maxX = levelManager.max.x;
-        minY = levelManager.min.y;
-        maxY = levelManager.max.y;
+        minX = LevelManager.Instance.cameraMin.x;
+        maxX = LevelManager.Instance.cameraMax.x;
+        minY = LevelManager.Instance.cameraMin.y;
+        maxY = LevelManager.Instance.cameraMax.y;
         levelManager.OnModeChanged += OnModeChanged;
         isEditMode = true;
         Camera1.gameObject.SetActive(true);
