@@ -675,10 +675,6 @@ PrefabInstance:
       value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 1149674671346524570, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
-      propertyPath: Canvas
-      value: 
-      objectReference: {fileID: 1315640661}
-    - target: {fileID: 1149674671346524570, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: StartPosi
       value: 
       objectReference: {fileID: 1896934984}
@@ -1772,7 +1768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6886325354805317818, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -14.000061
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 6886325354805317818, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2637,11 +2633,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7686929971536438290, guid: 9f44f45ab8b4402479d22581706e5082, type: 3}
   m_PrefabInstance: {fileID: 276145746}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1315640661 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5050310907283426664, guid: 09da018bea1ed3f498f3d57b82902817, type: 3}
-  m_PrefabInstance: {fileID: 571903217}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1342654806
 PrefabInstance:
