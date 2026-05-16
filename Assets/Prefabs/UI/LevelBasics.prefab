@@ -95,7 +95,9 @@ MonoBehaviour:
     Delay: 0
   maxMemory: 64
   min: {x: -40, y: -30}
-  max: {x: 40, y: 30}
+  max: {x: 100, y: 100}
+  cameraMin: {x: -7, y: -5}
+  cameraMax: {x: 7, y: 5}
   Borders:
   - ability: 
     zoneClass: 0
@@ -195,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96d28782dd6ddc4a8ff3d2e7001f99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deleteSfxName: Delete
 --- !u!1 &882508814901823878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,7 +2040,6 @@ RectTransform:
   - {fileID: 7126741231161275050}
   - {fileID: 7922493093784712433}
   - {fileID: 8521523475425882851}
-  - {fileID: 8139206450084125797}
   m_Father: {fileID: 2992250236905179224}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2457,16 +2459,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6979543510928970753}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4493369267382578493}
+  m_Father: {fileID: 6886325354805317818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 815, y: -392}
+  m_AnchoredPosition: {x: 814.99994, y: -392}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1767043240169172667
