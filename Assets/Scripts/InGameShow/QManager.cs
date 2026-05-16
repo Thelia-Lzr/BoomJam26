@@ -19,6 +19,11 @@ public class QManager : MonoBehaviour
     [SerializeField] private bool useSequence = false;
     [SerializeField] private QManager nextInSequence;
 
+    [Header("4. 消失效果")]
+    [SerializeField] private bool useDisappearEffect = false;
+    [SerializeField] private float disappearDuration = 1f;
+    [SerializeField] private float disappearDistance = 0.8f;
+
     private SpriteRenderer spriteRenderer;
     private Collider2D cachedCollider;
     private readonly Collider2D[] zoneResults = new Collider2D[8];
@@ -68,7 +73,7 @@ public class QManager : MonoBehaviour
         if (inGameDialogue == null) return;
 
         hasTriggered = true;
-        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), HandleDialogFinished);
+        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), ShouldDeferDialogClose(), HandleDialogFinished);
     }
 
     public void TriggerSequence(float delaySeconds = 0f)
@@ -93,7 +98,7 @@ public class QManager : MonoBehaviour
         if (inGameDialogue == null) yield break;
 
         hasTriggered = true;
-        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), HandleDialogFinished);
+        inGameDialogue.PlaySegment(dialogSegmentId, transform, ShouldRestoreCamera(), ShouldDeferDialogClose(), HandleDialogFinished);
     }
 
     private bool IsTouchingSwapZone()
@@ -114,8 +119,65 @@ public class QManager : MonoBehaviour
 
     private void HandleDialogFinished()
     {
-        if (!hideAfterDialog) return;
+        if (!hideAfterDialog)
+        {
+            if (useSequence && nextInSequence != null)
+            {
+                nextInSequence.TriggerSequence();
+            }
+            return;
+        }
 
+        if (useDisappearEffect)
+        {
+            StartCoroutine(PlayDisappearEffect());
+            return;
+        }
+
+        FinalizeDisappear();
+    }
+
+    private bool ShouldRestoreCamera()
+    {
+        if (!useSequence) return true;
+        return nextInSequence == null;
+    }
+
+    private bool ShouldDeferDialogClose()
+    {
+        return hideAfterDialog && useDisappearEffect;
+    }
+
+    private IEnumerator PlayDisappearEffect()
+    {
+        if (spriteRenderer == null)
+        {
+            FinalizeDisappear();
+            yield break;
+        }
+
+        float duration = Mathf.Max(0.01f, disappearDuration);
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + Vector3.left * disappearDistance;
+        Color startColor = spriteRenderer.color;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, Mathf.Lerp(startColor.a, 0f, t));
+            yield return null;
+        }
+
+        spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        transform.position = endPos;
+        FinalizeDisappear();
+    }
+
+    private void FinalizeDisappear()
+    {
         if (spriteRenderer != null)
         {
             spriteRenderer.enabled = false;
@@ -126,15 +188,14 @@ public class QManager : MonoBehaviour
             cachedCollider.enabled = false;
         }
 
+        if (inGameDialogue != null && ShouldDeferDialogClose())
+        {
+            inGameDialogue.CloseDialog();
+        }
+
         if (useSequence && nextInSequence != null)
         {
             nextInSequence.TriggerSequence();
         }
-    }
-
-    private bool ShouldRestoreCamera()
-    {
-        if (!useSequence) return true;
-        return nextInSequence == null;
     }
 }
