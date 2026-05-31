@@ -180,7 +180,7 @@ MonoBehaviour:
   longPressTime: 0.5
   spriteZOffset: 0
   <AntiGravityZoneSprite>k__BackingField: {fileID: 21300000, guid: 273989f40033cc94599cb87d8c19e95f, type: 3}
-  <SpeedingZoneSprite>k__BackingField: {fileID: 21300000, guid: 273989f40033cc94599cb87d8c19e95f, type: 3}
+  <SpeedingZoneSprite>k__BackingField: {fileID: 21300000, guid: f7e6c30304fa3144ca13448b8d3fefc3, type: 3}
   <SwapZoneSprite>k__BackingField: {fileID: 21300000, guid: 7e74eb21b27a4d647a7995b831039c4a, type: 3}
   <AntiGravityZoneDetailSprite>k__BackingField: {fileID: 1050716569159658294, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}
   <SpeedingZoneDetailSprite>k__BackingField: {fileID: 2638539046402805749, guid: 28f67a0440d7cb542bfc673c4be4d314, type: 3}

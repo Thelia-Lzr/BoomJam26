@@ -168,7 +168,7 @@ MonoBehaviour:
   characterPortraits:
   - characterId: 0
     sprite: {fileID: 21300000, guid: 71613ec9ca67abd4b9b7856a748d8c2e, type: 3}
-    scale: 0.35
+    scale: 0.4
   - characterId: 1
     sprite: {fileID: 21300000, guid: 7b31ea4d525e5c0489f47df2b5176164, type: 3}
     scale: 0.28
@@ -176,8 +176,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: eb79d602dd7006342b894d644fd9c438, type: 3}
     scale: 0.4
   - characterId: 3
-    sprite: {fileID: 1965819970618450423, guid: 3a150741c5528724492eced63a784107, type: 3}
-    scale: 0.4
+    sprite: {fileID: 21300000, guid: 4de6a77ea49a0a248a7e689230efbacd, type: 3}
+    scale: 0.2
   shadowSprite: {fileID: 524613596, guid: 485d53b21e93cb84ab2d2d531509c055, type: 3}
   nameText: {fileID: 1565182075}
   dialogText: {fileID: 1242393889}
@@ -349,7 +349,7 @@ Transform:
   m_GameObject: {fileID: 818291521}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 0, z: 10}
+  m_LocalPosition: {x: -4.5, y: -1, z: 10}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -981,7 +981,7 @@ Transform:
   m_GameObject: {fileID: 1353155914}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 5, y: 0, z: 10}
+  m_LocalPosition: {x: 5, y: -1, z: 10}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
