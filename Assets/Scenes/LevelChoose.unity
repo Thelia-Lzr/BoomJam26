@@ -638,6 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectMode: 0
+  revealShader: {fileID: 4800000, guid: 0d5dcacdfacc0954ca4e3bdc9059af5d, type: 3}
   targetCamera: {fileID: 0}
   playOnStart: 1
   duration: 0.35

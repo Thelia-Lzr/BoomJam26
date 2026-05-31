@@ -13,6 +13,9 @@ public class In2Scene : MonoBehaviour
     [Header("Mode")]
     [SerializeField] private EnterEffectMode effectMode = EnterEffectMode.PointReveal;
 
+    [Header("Shader")]
+    [SerializeField] private Shader revealShader;
+
     [Header("Camera")]
     [SerializeField] private Camera targetCamera;
 
@@ -108,7 +111,13 @@ public class In2Scene : MonoBehaviour
         revealMask = maskObject.AddComponent<RawImage>();
         revealMask.texture = Texture2D.whiteTexture;
         revealMask.raycastTarget = false;
-        revealMaterial = new Material(Shader.Find("UI/ScenePointRevealMask"));
+        Shader shader = revealShader != null ? revealShader : Shader.Find("UI/ScenePointRevealMask");
+        if (shader == null)
+        {
+            Debug.LogError("[In2Scene] ScenePointRevealMask shader not found. Assign it in the Inspector or add it to Always Included Shaders.");
+            return;
+        }
+        revealMaterial = new Material(shader);
         revealMask.material = revealMaterial;
         StretchToScreen(revealMask.rectTransform);
 
