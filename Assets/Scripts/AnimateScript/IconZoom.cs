@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class IconZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Vector3 hoverScale = Vector3.one;
+    [SerializeField] private bool scaleOnHover = true;
     [SerializeField] private Color hoverGlowColor = Color.white;
     [SerializeField] private Vector2 hoverGlowDistance = new Vector2(4f, -4f);
 
@@ -31,7 +32,7 @@ public class IconZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localScale = hoverScale;
+        if (scaleOnHover) transform.localScale = hoverScale;
         if (glowOutline != null)
         {
             glowOutline.effectColor = hoverGlowColor;
@@ -42,7 +43,7 @@ public class IconZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.localScale = originalScale;
+        if (scaleOnHover) transform.localScale = originalScale;
         if (glowOutline != null)
         {
             glowOutline.effectColor = originalGlowColor;

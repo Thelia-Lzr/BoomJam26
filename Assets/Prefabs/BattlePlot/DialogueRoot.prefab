@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4253949609033864454, guid: 5bc6f084499cf4c4686afadc274169e1, type: 3}
+  m_Sprite: {fileID: 1204830238064526318, guid: 5bc6f084499cf4c4686afadc274169e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -348,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3231706748288150642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -447,6 +447,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSelectBgmName: LevelSelect
   levelSelectSceneName: LevelChoose
+  levelButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  levelDescriptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rightPanel: {fileID: 0}
+  startButtonObject: {fileID: 0}
+  collapsedOffset: 350
+  slideDuration: 0.35
 --- !u!1 &5678350939840744029
 GameObject:
   m_ObjectHideFlags: 0

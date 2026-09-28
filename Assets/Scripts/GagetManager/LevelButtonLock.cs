@@ -21,6 +21,9 @@ public class LevelButtonLock : MonoBehaviour
 
     private Button button;
 
+    public int LevelIndex => levelIndex;
+    public bool IsUnlocked => IsConditionMet();
+
     private void Awake()
     {
         button = GetComponent<Button>();
