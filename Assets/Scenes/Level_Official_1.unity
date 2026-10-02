@@ -2197,6 +2197,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSelectBgmName: LevelSelect
   levelSelectSceneName: LevelChoose
+  levelButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  levelDescriptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rightPanel: {fileID: 0}
+  startButtonObject: {fileID: 0}
+  collapsedOffset: 350
+  slideDuration: 0.35
+  triggerPivot: {x: 1, y: 0.5}
+  hoverAngle: 3
+  hoverDuration: 0.12
+  pullAngle: 8
+  firedAngle: 22
+  pullDuration: 0.1
+  firedDuration: 0.16
+  flashInDuration: 0.07
+  flashOutDuration: 0.14
 --- !u!1001 &829068904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3285,11 +3310,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.65
+      value: 0.9036652
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.65
+      value: 0.9036652
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3902543
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3297,7 +3326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.22
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalPosition.z

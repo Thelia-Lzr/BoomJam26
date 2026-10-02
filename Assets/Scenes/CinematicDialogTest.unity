@@ -152,17 +152,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allDialogFiles:
-  - {fileID: 4900000, guid: a9c30111000000000000000000000001, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000002, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000003, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000004, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000005, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000006, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000007, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000008, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000009, type: 3}
-  - {fileID: 4900000, guid: a9c30111000000000000000000000010, type: 3}
-  testFileIndex: 9
+  - {fileID: 4900000, guid: cba654f2658eba04b936d092f1284c6c, type: 3}
+  - {fileID: 4900000, guid: c7fa3c017f832ee4d9fce89e996a2da3, type: 3}
+  - {fileID: 4900000, guid: 2798610cceb456342989b00b6ee058db, type: 3}
+  - {fileID: 4900000, guid: 252c4824a874ef941aacd5bb85785718, type: 3}
+  - {fileID: 4900000, guid: 0c721f0a209635b42a7b2174c393ea95, type: 3}
+  - {fileID: 4900000, guid: b67c7044c68f77c4ca7c611dd40ae271, type: 3}
+  - {fileID: 4900000, guid: 5a0f106bf4b686f4ab1b8b35574a2c2a, type: 3}
+  - {fileID: 4900000, guid: cfccbb4b81666ac4c8e04efde0e551b0, type: 3}
+  - {fileID: 4900000, guid: 5def7c528c13c914a96d62259493b22d, type: 3}
+  - {fileID: 4900000, guid: 0ff0886ed5d09284f99bdd701abd8c6c, type: 3}
+  testFileIndex: 0
   useSceneControllerProgress: 1
   continueStoryFlowOnFinish: 1
   characterPortraits:
@@ -174,13 +174,19 @@ MonoBehaviour:
     scale: 0.28
   - characterId: 2
     sprite: {fileID: 21300000, guid: eb79d602dd7006342b894d644fd9c438, type: 3}
-    scale: 0.4
+    scale: 0.55
   - characterId: 3
     sprite: {fileID: 21300000, guid: abda3a0efadb9234696d0d9d78f21685, type: 3}
     scale: 0.2
   - characterId: 4
     sprite: {fileID: 21300000, guid: 8775779a60e4a53429018d64a66d9cf4, type: 3}
-    scale: 1
+    scale: 1.3
+  - characterId: 5
+    sprite: {fileID: 21300000, guid: f51b8904d378b594a806c40791f9963d, type: 3}
+    scale: 1.2
+  - characterId: 6
+    sprite: {fileID: 21300000, guid: 7ccf79ddf351bb147ba0659843dca598, type: 3}
+    scale: 1.3
   shadowSprite: {fileID: 524613596, guid: 485d53b21e93cb84ab2d2d531509c055, type: 3}
   nameText: {fileID: 1565182075}
   dialogText: {fileID: 1242393889}
@@ -192,13 +198,13 @@ MonoBehaviour:
   finishText: "\uFF08\u5267\u60C5\u7ED3\u675F\uFF0C\u70B9\u51FB\u7EE7\u7EED\uFF09"
   backgroundDisplay: {fileID: 1723280819}
   backgroundSprites:
-  - {fileID: 21300000, guid: 8d8e56ed4b2ed7043a00bd310814b876, type: 3}
-  - {fileID: 21300000, guid: 67967b1ffdb3a0a4da96c1116e98ba9b, type: 3}
-  - {fileID: 21300000, guid: 99fecc6e51a75ce43bb72849fc882df1, type: 3}
-  - {fileID: 21300000, guid: fa56a0aa5c8b6244784f476ae6f4111e, type: 3}
   - {fileID: 21300000, guid: 02b646f96026d5942999805789e4a83e, type: 3}
   - {fileID: 21300000, guid: 3cfaf145a17f8cd42a1f6bd00fcd3fbd, type: 3}
+  - {fileID: 21300000, guid: 8157860e9f9ab8243bd22a04a81d5c7b, type: 3}
+  - {fileID: 21300000, guid: 992c37963533d8246a901c85cb0a2cf1, type: 3}
+  - {fileID: 21300000, guid: 02d2cc6b077ea894ca5ff0642f8cbb5f, type: 3}
   - {fileID: 21300000, guid: a0a0b783700e468499054d8b83649478, type: 3}
+  - {fileID: 21300000, guid: 34dfac0dd2a876942a3c6e110306d1b3, type: 3}
   playerScale: 0.4
   shadowScale: 0.8
   flashImage: {fileID: 990831942}
@@ -1428,6 +1434,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSelectBgmName: LevelSelect
   levelSelectSceneName: LevelChoose
+  levelButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  levelDescriptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rightPanel: {fileID: 0}
+  startButtonObject: {fileID: 0}
+  collapsedOffset: 350
+  slideDuration: 0.35
+  triggerPivot: {x: 1, y: 0.5}
+  hoverAngle: 3
+  hoverDuration: 0.12
+  pullAngle: 8
+  firedAngle: 22
+  pullDuration: 0.1
+  firedDuration: 0.16
+  flashInDuration: 0.07
+  flashOutDuration: 0.14
 --- !u!1 &1565182072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -63, y: 95}
+  m_AnchoredPosition: {x: -86, y: 95}
   m_SizeDelta: {x: 650, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1565182074
@@ -1708,6 +1739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 1.3, y: 1.3, z: 1}
+  scaleOnHover: 1
   hoverGlowColor: {r: 1, g: 1, b: 1, a: 1}
   hoverGlowDistance: {x: 4, y: -4}
 --- !u!1 &1723280818

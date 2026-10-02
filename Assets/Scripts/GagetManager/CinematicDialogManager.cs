@@ -147,6 +147,7 @@ public class CinematicDialogManager : MonoBehaviour
     private bool isTransitioning;
     private Vector3 leftPortraitAnchor;
     private Vector3 rightPortraitAnchor;
+    private int currentBackgroundIndex = -1;
 
     private void Awake()
     {
@@ -204,6 +205,8 @@ public class CinematicDialogManager : MonoBehaviour
         isFinished = false;
         isTransitioning = false;
         lineId = 0;
+        currentBackgroundIndex = -1;
+        ClearPortraits();
         BuildDialogCache(allDialogFiles[fileIndex]);
         ShowDialogRow();
     }
@@ -671,14 +674,40 @@ public class CinematicDialogManager : MonoBehaviour
         if (backgroundDisplay == null || string.IsNullOrWhiteSpace(value)) return;
         if (!int.TryParse(value.Trim(), out int index)) return;
         if (index < 0 || index >= backgroundSprites.Count) return;
-        if (backgroundDisplay.sprite == backgroundSprites[index]) return;
+        if (currentBackgroundIndex == index) return;
 
+        currentBackgroundIndex = index;
+        Sprite nextBackground = backgroundSprites[index];
+        ClearPortraits();
         backgroundDisplay.DOKill();
+        if (backgroundDisplay.sprite == nextBackground)
+        {
+            backgroundDisplay.color = Color.white;
+            return;
+        }
+
         backgroundDisplay.DOColor(Color.black, 0.2f).OnComplete(() =>
         {
-            backgroundDisplay.sprite = backgroundSprites[index];
+            backgroundDisplay.sprite = nextBackground;
             backgroundDisplay.DOColor(Color.white, 0.35f);
         });
+    }
+
+    private void ClearPortraits()
+    {
+        ClearPortrait(imageLeft, leftPortraitAnchor);
+        ClearPortrait(imageRight, rightPortraitAnchor);
+    }
+
+    private void ClearPortrait(SpriteRenderer renderer, Vector3 anchor)
+    {
+        if (renderer == null) return;
+
+        renderer.DOKill();
+        renderer.transform.DOKill();
+        renderer.sprite = null;
+        renderer.color = new Color(1f, 1f, 1f, 0f);
+        renderer.transform.localPosition = anchor;
     }
 
     private void UpdateNextLine(string next, string row, int rowNumber)

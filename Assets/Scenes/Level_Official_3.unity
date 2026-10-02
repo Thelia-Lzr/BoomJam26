@@ -8810,11 +8810,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.507018
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.507018
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.507018
       objectReference: {fileID: 0}
     - target: {fileID: 1797424714540685019, guid: a9727ea8b727d0945913146192f93885, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26173,6 +26177,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSelectBgmName: LevelSelect
   levelSelectSceneName: LevelChoose
+  levelButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  levelDescriptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rightPanel: {fileID: 0}
+  startButtonObject: {fileID: 0}
+  collapsedOffset: 350
+  slideDuration: 0.35
+  triggerPivot: {x: 1, y: 0.5}
+  hoverAngle: 3
+  hoverDuration: 0.12
+  pullAngle: 8
+  firedAngle: 22
+  pullDuration: 0.1
+  firedDuration: 0.16
+  flashInDuration: 0.07
+  flashOutDuration: 0.14
 --- !u!1 &886320754
 GameObject:
   m_ObjectHideFlags: 0
